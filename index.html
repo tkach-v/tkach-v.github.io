@@ -37,7 +37,7 @@
     <h2>Server Response</h2>
     <div class="server-response" id="server-response">Waiting for response...</div>
 
-    <a id="nav-link" class="navigate-button" href="#">Link to Google</a>
+    <button id="nav-button" class="navigate-button">Continue with Google</button>
 
     <script>
       Telegram.WebApp.ready();
@@ -80,10 +80,13 @@
           console.error("Error sending user info:", err);
         });
 
-      const navLink = document.getElementById("nav-link");
-      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google"; 
+      const navButton = document.getElementById("nav-button");
+      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google";
       const query = new URLSearchParams(payload).toString();
-      navLink.href = `${baseUrl}?${query}`;
+
+      navButton.addEventListener("click", () => {
+        Telegram.WebApp.openLink(`${baseUrl}?${query}`);
+      });
     </script>
   </body>
 </html>
