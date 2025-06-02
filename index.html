@@ -45,8 +45,9 @@
 
       const user = Telegram.WebApp.initDataUnsafe.user || {};
 
+      const telegram_id = user.id;
       const payload = {
-        id: user.id,
+        id: telegram_id,
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         username: user.username || "",
@@ -82,10 +83,10 @@
 
       const navButton = document.getElementById("nav-button");
       const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google";
-      const query = new URLSearchParams(payload).toString();
+      const oauthUrl = `${baseUrl}?telegram_id=${telegram_id}`;
 
       navButton.addEventListener("click", () => {
-        Telegram.WebApp.openLink(`${baseUrl}?${query}`);
+        Telegram.WebApp.openLink(oauthUrl);
       });
     </script>
   </body>
