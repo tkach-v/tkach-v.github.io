@@ -15,6 +15,19 @@
         border-radius: 8px;
         margin-top: 10px;
       }
+      .navigate-button {
+        margin-top: 20px;
+        display: block;
+        padding: 12px 20px;
+        background-color: #0088cc;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -23,6 +36,8 @@
 
     <h2>Server Response</h2>
     <div class="server-response" id="server-response">Waiting for response...</div>
+
+    <a id="nav-link" class="navigate-button" href="#">Go to next page</a>
 
     <script>
       Telegram.WebApp.ready();
@@ -38,7 +53,6 @@
         language_code: user.language_code || ""
       };
 
-      // Display user info
       const infoBox = document.getElementById("user-info");
       infoBox.innerHTML = `
         <p><strong>ID:</strong> ${payload.id}</p>
@@ -48,7 +62,6 @@
         <p><strong>Language:</strong> ${payload.language_code}</p>
       `;
 
-      // Display server response
       const responseBox = document.getElementById("server-response");
 
       fetch("https://readily-special-grouper.ngrok-free.app/user/telegram-user", {
@@ -66,6 +79,11 @@
           responseBox.textContent = "Error: " + err.message;
           console.error("Error sending user info:", err);
         });
+
+      const navLink = document.getElementById("nav-link");
+      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google"; 
+      const query = new URLSearchParams(payload).toString();
+      navLink.href = `${baseUrl}?${query}`;
     </script>
   </body>
 </html>
