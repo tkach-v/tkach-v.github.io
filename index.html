@@ -4,9 +4,25 @@
     <title>Telegram Mini App</title>
     <meta charset="UTF-8" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      .user-info, .server-response {
+        background: #f3f3f3;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h2>Загрузка...</h2>
+    <h2>Telegram User Info</h2>
+    <div class="user-info" id="user-info">Loading...</div>
+
+    <h2>Server Response</h2>
+    <div class="server-response" id="server-response">Waiting for response...</div>
 
     <script>
       Telegram.WebApp.ready();
@@ -22,7 +38,20 @@
         language_code: user.language_code || ""
       };
 
-      fetch("https://readily-special-grouper.ngrok-free.app/api/telegram-user", {
+      // Display user info
+      const infoBox = document.getElementById("user-info");
+      infoBox.innerHTML = `
+        <p><strong>ID:</strong> ${payload.id}</p>
+        <p><strong>First name:</strong> ${payload.first_name}</p>
+        <p><strong>Last name:</strong> ${payload.last_name}</p>
+        <p><strong>Username:</strong> @${payload.username}</p>
+        <p><strong>Language:</strong> ${payload.language_code}</p>
+      `;
+
+      // Display server response
+      const responseBox = document.getElementById("server-response");
+
+      fetch("https://readily-special-grouper.ngrok-free.app/user/telegram-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -31,9 +60,10 @@
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("Server response:", data);
+          responseBox.textContent = JSON.stringify(data, null, 2);
         })
         .catch((err) => {
+          responseBox.textContent = "Error: " + err.message;
           console.error("Error sending user info:", err);
         });
     </script>
