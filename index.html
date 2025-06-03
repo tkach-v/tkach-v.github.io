@@ -27,6 +27,7 @@
         text-align: center;
         cursor: pointer;
         text-decoration: none;
+        width: 100%;
       }
     </style>
   </head>
@@ -35,7 +36,8 @@
     <div class="user-info" id="user-info">Loading...</div>
     <pre class="server-response" id="server-response"></pre>
 
-    <button id="nav-button" class="navigate-button">Enrich User Info with Google</button>
+    <button id="google-button" class="navigate-button">Enrich User Info with Google</button>
+    <button id="youtube-button" class="navigate-button">Connect YouTube</button>
 
     <script>
       Telegram.WebApp.ready();
@@ -53,6 +55,7 @@
       };
 
       const infoBox = document.getElementById("user-info");
+      const responseBox = document.getElementById("server-response");
 
       fetch("https://readily-special-grouper.ngrok-free.app/user", {
         method: "POST",
@@ -63,7 +66,6 @@
       })
         .then((res) => res.json())
         .then((data) => {
-
           infoBox.innerHTML = `
             <p><strong>Telegram ID:</strong> ${data.telegramId}</p>
             <p><strong>First name:</strong> ${data.telegramFirstName}</p>
@@ -99,12 +101,14 @@
           console.error("Error sending user info:", err);
         });
 
-      const navButton = document.getElementById("nav-button");
-      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google";
-      const oauthUrl = `${baseUrl}?telegram_id=${telegram_id}`;
+      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth";
 
-      navButton.addEventListener("click", () => {
-        Telegram.WebApp.openLink(oauthUrl);
+      document.getElementById("google-button").addEventListener("click", () => {
+        Telegram.WebApp.openLink(`${baseUrl}/google?telegram_id=${telegram_id}`);
+      });
+
+      document.getElementById("youtube-button").addEventListener("click", () => {
+        Telegram.WebApp.openLink(`${baseUrl}/youtube?telegram_id=${telegram_id}`);
       });
     </script>
   </body>
