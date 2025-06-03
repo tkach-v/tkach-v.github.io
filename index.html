@@ -1,113 +1,85 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Telegram Mini App</title>
-    <meta charset="UTF-8" />
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        padding: 20px;
+<script>
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand();
+
+  const user = Telegram.WebApp.initDataUnsafe.user || {};
+  const telegram_id = user.id;
+
+  const payload = {
+    id: telegram_id,
+    first_name: user.first_name || "",
+    last_name: user.last_name || "",
+    username: user.username || "",
+    language_code: user.language_code || ""
+  };
+
+  const infoBox = document.getElementById("user-info");
+  const responseBox = document.getElementById("server-response");
+
+  fetch("https://readily-special-grouper.ngrok-free.app/user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      infoBox.innerHTML = `
+        <p><strong>Telegram ID:</strong> ${data.telegramId}</p>
+        <p><strong>First name:</strong> ${data.telegramFirstName}</p>
+        <p><strong>Last name:</strong> ${data.telegramLastName}</p>
+        <p><strong>Username:</strong> @${data.telegramUsername}</p>
+        <p><strong>Language:</strong> ${data.telegramLanguageCode}</p>
+
+        ${data.googleEmail ? `<p><strong>Google Email:</strong> ${data.googleEmail}</p>` : ""}
+        ${data.googleName ? `<p><strong>Google Name:</strong> ${data.googleName}</p>` : ""}
+        ${data.googlePicture ? `<p><strong>Google Picture:</strong> <img src="${data.googlePicture}" width="40" height="40" alt="Avatar"></p>` : ""}
+
+        ${data.device ? `<p><strong>Device:</strong> ${data.device}</p>` : ""}
+        ${data.os ? `<p><strong>OS:</strong> ${data.os}</p>` : ""}
+        ${data.browser ? `<p><strong>Browser:</strong> ${data.browser}</p>` : ""}
+
+        ${data.geoIp ? `<p><strong>IP:</strong> ${data.geoIp}</p>` : ""}
+        ${data.geoCity ? `<p><strong>City:</strong> ${data.geoCity}</p>` : ""}
+        ${data.geoRegion ? `<p><strong>Region:</strong> ${data.geoRegion}</p>` : ""}
+        ${data.geoCountry ? `<p><strong>Country:</strong> ${data.geoCountry}</p>` : ""}
+        ${data.geoPostalCode ? `<p><strong>Postal Code:</strong> ${data.geoPostalCode}</p>` : ""}
+        ${data.geoLatitude ? `<p><strong>Latitude:</strong> ${data.geoLatitude}</p>` : ""}
+        ${data.geoLongitude ? `<p><strong>Longitude:</strong> ${data.geoLongitude}</p>` : ""}
+        ${data.geoTimezone ? `<p><strong>Timezone:</strong> ${data.geoTimezone}</p>` : ""}
+        ${data.geoCurrency ? `<p><strong>Currency:</strong> ${data.geoCurrency}</p>` : ""}
+
+        <p><strong>Created at:</strong> ${data.createdAt}</p>
+        <p><strong>Updated at:</strong> ${data.updatedAt}</p>
+      `;
+
+      const buttonContainer = document.createElement("div");
+      buttonContainer.style.marginTop = "20px";
+
+      if (data.googleSub) {
+        const enrichedButton = document.createElement("button");
+        enrichedButton.textContent = "Continue to Dashboard";
+        enrichedButton.className = "navigate-button";
+        enrichedButton.onclick = () => {
+          Telegram.WebApp.openLink(`https://readily-special-grouper.ngrok-free.app/dashboard?telegram_id=${telegram_id}`);
+        };
+        buttonContainer.appendChild(enrichedButton);
+      } else {
+        const authButton = document.createElement("button");
+        authButton.textContent = "Enrich User Info with Google";
+        authButton.className = "navigate-button";
+        authButton.onclick = () => {
+          Telegram.WebApp.openLink(`https://readily-special-grouper.ngrok-free.app/auth/google?telegram_id=${telegram_id}`);
+        };
+        buttonContainer.appendChild(authButton);
       }
-      .user-info, .server-response {
-        background: #f3f3f3;
-        padding: 10px;
-        border-radius: 8px;
-        margin-top: 10px;
-      }
-      .navigate-button {
-        margin-top: 20px;
-        display: block;
-        padding: 12px 20px;
-        background-color: #0088cc;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        text-align: center;
-        cursor: pointer;
-        text-decoration: none;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>Telegram User Info</h2>
-    <div class="user-info" id="user-info">Loading...</div>
-    <pre class="server-response" id="server-response"></pre>
 
-    <button id="nav-button" class="navigate-button">Enrich User Info with Google</button>
-
-    <script>
-      Telegram.WebApp.ready();
-      Telegram.WebApp.expand();
-
-      const user = Telegram.WebApp.initDataUnsafe.user || {};
-      const telegram_id = user.id;
-
-      const payload = {
-        id: telegram_id,
-        first_name: user.first_name || "",
-        last_name: user.last_name || "",
-        username: user.username || "",
-        language_code: user.language_code || ""
-      };
-
-      const infoBox = document.getElementById("user-info");
-      const responseBox = document.getElementById("server-response");
-
-      fetch("https://readily-special-grouper.ngrok-free.app/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          responseBox.textContent = JSON.stringify(data, null, 2);
-
-          infoBox.innerHTML = `
-            <p><strong>Telegram ID:</strong> ${data.telegramId}</p>
-            <p><strong>First name:</strong> ${data.telegramFirstName}</p>
-            <p><strong>Last name:</strong> ${data.telegramLastName}</p>
-            <p><strong>Username:</strong> @${data.telegramUsername}</p>
-            <p><strong>Language:</strong> ${data.telegramLanguageCode}</p>
-
-            ${data.googleEmail ? `<p><strong>Google Email:</strong> ${data.googleEmail}</p>` : ""}
-            ${data.googleName ? `<p><strong>Google Name:</strong> ${data.googleName}</p>` : ""}
-            ${data.googlePicture ? `<p><strong>Google Picture:</strong> <img src="${data.googlePicture}" width="40" height="40" alt="Avatar"></p>` : ""}
-
-            ${data.device ? `<p><strong>Device:</strong> ${data.device}</p>` : ""}
-            ${data.os ? `<p><strong>OS:</strong> ${data.os}</p>` : ""}
-            ${data.browser ? `<p><strong>Browser:</strong> ${data.browser}</p>` : ""}
-
-            ${data.geoIp ? `<p><strong>IP:</strong> ${data.geoIp}</p>` : ""}
-            ${data.geoCity ? `<p><strong>City:</strong> ${data.geoCity}</p>` : ""}
-            ${data.geoRegion ? `<p><strong>Region:</strong> ${data.geoRegion}</p>` : ""}
-            ${data.geoCountry ? `<p><strong>Country:</strong> ${data.geoCountry}</p>` : ""}
-            ${data.geoPostalCode ? `<p><strong>Postal Code:</strong> ${data.geoPostalCode}</p>` : ""}
-            ${data.geoLatitude ? `<p><strong>Latitude:</strong> ${data.geoLatitude}</p>` : ""}
-            ${data.geoLongitude ? `<p><strong>Longitude:</strong> ${data.geoLongitude}</p>` : ""}
-            ${data.geoTimezone ? `<p><strong>Timezone:</strong> ${data.geoTimezone}</p>` : ""}
-            ${data.geoCurrency ? `<p><strong>Currency:</strong> ${data.geoCurrency}</p>` : ""}
-
-            <p><strong>Created at:</strong> ${data.createdAt}</p>
-            <p><strong>Updated at:</strong> ${data.updatedAt}</p>
-          `;
-        })
-        .catch((err) => {
-          responseBox.textContent = "Error: " + err.message;
-          infoBox.textContent = "Failed to load user info.";
-          console.error("Error sending user info:", err);
-        });
-
-      const navButton = document.getElementById("nav-button");
-      const baseUrl = "https://readily-special-grouper.ngrok-free.app/auth/google";
-      const oauthUrl = `${baseUrl}?telegram_id=${telegram_id}`;
-
-      navButton.addEventListener("click", () => {
-        Telegram.WebApp.openLink(oauthUrl);
-      });
-    </script>
-  </body>
-</html>
+      infoBox.appendChild(buttonContainer);
+    })
+    .catch((err) => {
+      responseBox.textContent = "Error: " + err.message;
+      infoBox.textContent = "Failed to load user info.";
+      console.error("Error sending user info:", err);
+    });
+</script>
