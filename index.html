@@ -58,7 +58,9 @@
       const infoBox = document.getElementById("user-info");
       const responseBox = document.getElementById("server-response");
 
-      fetch("https://readily-special-grouper.ngrok-free.app/user/me", {
+      const baseUrl = "https://readily-special-grouper.ngrok-free.app";
+
+      fetch(`${baseUrl}/user/me`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -108,8 +110,6 @@
           console.error("Error sending user info:", err);
         });
 
-      const baseUrl = "https://readily-special-grouper.ngrok-free.app";
-
       document.getElementById("google-button").addEventListener("click", () => {
         Telegram.WebApp.openLink(`${baseUrl}/auth/google?telegram_id=${telegram_id}`);
       });
@@ -119,7 +119,21 @@
       });
 
       document.getElementById("fetch-youtube-button").addEventListener("click", () => {
-        Telegram.WebApp.openLink(`${baseUrl}/fetch/youtube?telegram_id=${telegram_id}`);
+        fetch(`${baseUrl}/fetch/youtube`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        })
+          .then(res => res.json())
+          .then(data => {
+            responseBox.textContent = JSON.stringify(data, null, 2);
+          })
+          .catch(err => {
+            responseBox.textContent = "Error: " + err.message;
+            console.error("Fetch YouTube error:", err);
+          });
       });
     </script>
   </body>
