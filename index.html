@@ -108,7 +108,7 @@
           console.error("Error sending user info:", err);
         });
 
-      const baseUrl = "https://readily-special-grouper.ngrok-free.app/";
+      const baseUrl = "https://readily-special-grouper.ngrok-free.app";
 
       document.getElementById("google-button").addEventListener("click", () => {
         Telegram.WebApp.openLink(`${baseUrl}/auth/google?telegram_id=${telegram_id}`);
