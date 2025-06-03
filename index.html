@@ -72,15 +72,15 @@
             <p><strong>Last name:</strong> ${data.telegramLastName}</p>
             <p><strong>Username:</strong> @${data.telegramUsername}</p>
             <p><strong>Language:</strong> ${data.telegramLanguageCode}</p>
-
+        
             ${data.googleEmail ? `<p><strong>Google Email:</strong> ${data.googleEmail}</p>` : ""}
             ${data.googleName ? `<p><strong>Google Name:</strong> ${data.googleName}</p>` : ""}
             ${data.googlePicture ? `<p><strong>Google Picture:</strong> <img src="${data.googlePicture}" width="40" height="40" alt="Avatar"></p>` : ""}
-
+        
             ${data.device ? `<p><strong>Device:</strong> ${data.device}</p>` : ""}
             ${data.os ? `<p><strong>OS:</strong> ${data.os}</p>` : ""}
             ${data.browser ? `<p><strong>Browser:</strong> ${data.browser}</p>` : ""}
-
+        
             ${data.geoIp ? `<p><strong>IP:</strong> ${data.geoIp}</p>` : ""}
             ${data.geoCity ? `<p><strong>City:</strong> ${data.geoCity}</p>` : ""}
             ${data.geoRegion ? `<p><strong>Region:</strong> ${data.geoRegion}</p>` : ""}
@@ -90,13 +90,13 @@
             ${data.geoLongitude ? `<p><strong>Longitude:</strong> ${data.geoLongitude}</p>` : ""}
             ${data.geoTimezone ? `<p><strong>Timezone:</strong> ${data.geoTimezone}</p>` : ""}
             ${data.geoCurrency ? `<p><strong>Currency:</strong> ${data.geoCurrency}</p>` : ""}
-
-            `<p><strong>Youtube connected:</strong> ${data.youtubeConnected}</p>` : ""}
-            `<p><strong>Reddit connected:</strong> ${data.redditConnected}</p>` : ""}
-            `<p><strong>Linkedin connected:</strong> ${data.linkedinConnected}</p>` : ""}
-            `<p><strong>Spotify connected:</strong> ${data.spotifyConnected}</p>` : ""}
-            `<p><strong>X connected:</strong> ${data.xConnected}</p>` : ""}
-
+        
+            ${data.youtubeConnected ? `<p><strong>Youtube connected:</strong> ${data.youtubeConnected}</p>` : ""}
+            ${data.redditConnected ? `<p><strong>Reddit connected:</strong> ${data.redditConnected}</p>` : ""}
+            ${data.linkedinConnected ? `<p><strong>Linkedin connected:</strong> ${data.linkedinConnected}</p>` : ""}
+            ${data.spotifyConnected ? `<p><strong>Spotify connected:</strong> ${data.spotifyConnected}</p>` : ""}
+            ${data.xConnected ? `<p><strong>X connected:</strong> ${data.xConnected}</p>` : ""}
+        
             <p><strong>Created at:</strong> ${data.createdAt}</p>
             <p><strong>Updated at:</strong> ${data.updatedAt}</p>
           `;
