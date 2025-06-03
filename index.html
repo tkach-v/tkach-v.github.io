@@ -38,6 +38,7 @@
 
     <button id="google-button" class="navigate-button">Enrich User Info with Google</button>
     <button id="youtube-button" class="navigate-button">Connect YouTube</button>
+    <button id="fetch-youtube-button" class="navigate-button">Fetch YouTube</button>
 
     <script>
       Telegram.WebApp.ready();
@@ -115,6 +116,10 @@
 
       document.getElementById("youtube-button").addEventListener("click", () => {
         Telegram.WebApp.openLink(`${baseUrl}/youtube?telegram_id=${telegram_id}`);
+      });
+
+      document.getElementById("fetch-youtube-button").addEventListener("click", () => {
+        Telegram.WebApp.openLink(`${baseUrl}/fetch/youtube?telegram_id=${telegram_id}`);
       });
     </script>
   </body>
