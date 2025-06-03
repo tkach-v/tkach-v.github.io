@@ -34,10 +34,7 @@
     <h2>Telegram User Info</h2>
     <div class="user-info" id="user-info">Loading...</div>
 
-    <h2>Server Response</h2>
-    <div class="server-response" id="server-response">Waiting for response...</div>
-
-    <button id="nav-button" class="navigate-button">Continue with Google</button>
+    <button id="nav-button" class="navigate-button">Enrich User Info with Google</button>
 
     <script>
       Telegram.WebApp.ready();
@@ -65,7 +62,7 @@
 
       const responseBox = document.getElementById("server-response");
 
-      fetch("https://readily-special-grouper.ngrok-free.app/user", {
+      fetch("https://readily-special-grouper.ngrok-free.app/user/telegram-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
