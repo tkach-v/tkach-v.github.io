@@ -7,10 +7,10 @@ const UserInfoCard = ({userData}) => {
     const InfoRow = ({label, value, icon}) => {
         if (!value) return null;
         return (
-            <div className="flex items-center gap-3 py-2 border-b border-gray-800 last:border-0">
-                {icon && <i className={`${icon} text-gray-500 w-5`}></i>}
+            <div className="flex items-start gap-3 py-2 border-b border-gray-800 last:border-0">
+                {icon && <i className={`${icon} text-gray-500 w-5 mt-1`}></i>}
                 <span className="text-gray-400 min-w-[100px]">{label}:</span>
-                <span className="text-white">{value}</span>
+                <span className="text-white break-words whitespace-normal overflow-hidden">{value}</span>
             </div>
         );
     };
