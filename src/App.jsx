@@ -68,7 +68,7 @@ const App = () => {
   }
 
   const tabs = [
-    { id: 'user', label: 'Profile', icon: 'fas fa-user', component: UserTab },
+    { id: 'user', label: 'Profile1', icon: 'fas fa-user', component: UserTab },
     { id: 'sources', label: 'Connections', icon: 'fas fa-link', component: SourcesTab },
     { id: 'platform', label: 'Data', icon: 'fas fa-database', component: PlatformTab }
   ];
