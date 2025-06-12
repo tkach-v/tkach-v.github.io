@@ -1,31 +1,54 @@
 // components/tabs/SourcesTab.jsx
-import React, { useEffect, useRef } from 'react';
-import { useUser } from '../../contexts/UserContext';
+import React, { useEffect, useState } from 'react';
 import { useTelegram } from '../../contexts/TelegramContext';
 import { API_CONFIG, SOURCES_DATA } from '../../config/api';
 import SourceCard from '../cards/SourceCard';
 
 const SourcesTab = () => {
-  const { userData, fetchUserData, loading } = useUser();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { telegramUser, userPayload } = useTelegram();
-  const hasInitialized = useRef(false);
+
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setUserData(data);
+
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (!hasInitialized.current) {
-      fetchUserData();
-      hasInitialized.current = true;
-    }
+    console.log('SourcesTab mounted, fetching data...');
+    fetchUserData();
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
+        console.log('Page became visible, refreshing data...');
         fetchUserData();
       }
     };
 
     const handleMessage = (event) => {
       if (event.data.type === 'AUTH_SUCCESS') {
+        console.log('Auth success message received, refreshing data...');
         fetchUserData();
-        console.log('Authentication successful, refreshing data...');
       }
     };
 
@@ -33,6 +56,7 @@ const SourcesTab = () => {
     window.addEventListener('message', handleMessage);
 
     return () => {
+      console.log('SourcesTab unmounting, cleaning up...');
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('message', handleMessage);
     };
