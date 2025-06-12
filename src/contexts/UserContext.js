@@ -21,8 +21,7 @@ export const UserProvider = ({ children }) => {
 
       const telegramUser = tg.initDataUnsafe.user;
 
-      // Запрос к вашему API
-      const response = await fetch(`${API_CONFIG.BASE_URL}/user`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
