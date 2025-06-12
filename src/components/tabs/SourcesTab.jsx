@@ -1,5 +1,5 @@
 // components/tabs/SourcesTab.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useUser } from '../../contexts/UserContext';
 import { useTelegram } from '../../contexts/TelegramContext';
 import { API_CONFIG, SOURCES_DATA } from '../../config/api';
@@ -8,9 +8,13 @@ import SourceCard from '../cards/SourceCard';
 const SourcesTab = () => {
   const { userData, fetchUserData, loading } = useUser();
   const { telegramUser, userPayload } = useTelegram();
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
-    fetchUserData();
+    if (!hasInitialized.current) {
+      fetchUserData();
+      hasInitialized.current = true;
+    }
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
@@ -32,7 +36,7 @@ const SourcesTab = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('message', handleMessage);
     };
-  }, [fetchUserData]);
+  }, []);
 
   if (loading && !userData) {
     return (

@@ -45,9 +45,7 @@ const UserInfoCard = ({userData}) => {
             {userData.googleSub && (
                 <div className="bg-gray-800/50 rounded-xl p-4 overflow-hidden">
                     <h4 className="text-sm font-semibold text-gray-400 uppercase mb-3">Google Account</h4>
-                    <div className="break-words overflow-wrap-anywhere">
-                        <InfoRow icon="fas fa-envelope" label="Email" value={userData.googleEmail}/>
-                    </div>
+                    <InfoRow icon="fas fa-envelope" label="Email" value={userData.googleEmail}/>
                     <InfoRow icon="fas fa-user-circle" label="Name" value={userData.googleName}/>
                 </div>
             )}
