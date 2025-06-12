@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          telegram_id: telegramUser.id,
+          id: telegramUser.id,
           username: telegramUser.username,
           first_name: telegramUser.first_name,
           last_name: telegramUser.last_name,
