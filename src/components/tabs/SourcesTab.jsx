@@ -6,7 +6,7 @@ import { API_CONFIG, SOURCES_DATA } from '../../config/api';
 import SourceCard from '../cards/SourceCard';
 
 const SourcesTab = () => {
-  const { userData, fetchUserData } = useUser();
+  const { userData, fetchUserData, loading } = useUser();
   const { telegramUser, userPayload } = useTelegram();
 
   useEffect(() => {
@@ -32,7 +32,15 @@ const SourcesTab = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('message', handleMessage);
     };
-  }, []); // Убираем fetchUserData из зависимостей!
+  }, [fetchUserData]);
+
+  if (loading && !userData) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
 
   const handleSourceToggle = async (source) => {
     const connected = userData?.[source.key];
