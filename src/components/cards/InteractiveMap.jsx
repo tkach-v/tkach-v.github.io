@@ -83,7 +83,7 @@ const InteractiveMap = ({ data }) => {
   };
 
   return (
-    <div className="w-full h-screen bg-gray-900 text-white">
+    <div className="w-full h-full bg-gray-900 text-white relative">
       <style jsx>{`
         .custom-marker {
           background: transparent;
@@ -131,139 +131,97 @@ const InteractiveMap = ({ data }) => {
           border-radius: 8px;
           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        .leaflet-container {
+          background: #374151;
+        }
       `}</style>
 
-      <div className="flex h-full">
-        <div className="flex-1 relative">
-          <div ref={mapRef} className="w-full h-full" />
+      <div ref={mapRef} className="w-full h-full" />
 
-          <div className="absolute top-4 left-4 bg-gray-800/90 backdrop-blur-sm rounded-xl p-4 min-w-64">
-            <h2 className="text-lg font-semibold mb-3">Location Analytics</h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Total Locations:</span>
-                <span className="font-semibold">{data.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Countries:</span>
-                <span className="font-semibold">
-                  {new Set(data.map(d => d.geoCountry)).size}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Cities:</span>
-                <span className="font-semibold">
-                  {new Set(data.map(d => d.geoCity)).size}
-                </span>
-              </div>
+      <div className="absolute top-4 left-4 bg-gray-800/95 backdrop-blur-sm rounded-xl p-4 z-[1000] shadow-lg">
+        <h2 className="text-lg font-semibold mb-3 text-white">Location Analytics</h2>
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-gray-300">Total Locations:</span>
+            <span className="font-semibold text-white">{data.length}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-300">Countries:</span>
+            <span className="font-semibold text-white">
+              {new Set(data.map(d => d.geoCountry)).size}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-300">Cities:</span>
+            <span className="font-semibold text-white">
+              {new Set(data.map(d => d.geoCity)).size}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {selectedMarker && (
+        <div className="absolute top-4 right-4 bg-gray-800/95 backdrop-blur-sm rounded-xl p-4 z-[1000] shadow-lg max-w-sm">
+          <div className="flex items-center gap-2 mb-3">
+            <img
+              src={getCountryFlag(selectedMarker.geoCountry)}
+              alt={selectedMarker.geoCountry}
+              className="rounded"
+            />
+            <h3 className="text-lg font-semibold text-white">
+              {selectedMarker.geoCity}
+            </h3>
+          </div>
+
+          <div className="space-y-2 text-sm">
+            <div>
+              <span className="text-gray-300">Region:</span>
+              <span className="ml-2 text-white">{selectedMarker.geoRegion}</span>
+            </div>
+            <div>
+              <span className="text-gray-300">IP:</span>
+              <span className="ml-2 font-mono text-white">{selectedMarker.geoIp}</span>
+            </div>
+            <div>
+              <span className="text-gray-300">Device:</span>
+              <span className="ml-2 text-white">{selectedMarker.device}</span>
+            </div>
+            <div>
+              <span className="text-gray-300">Time:</span>
+              <span className="ml-2 text-white">{formatDate(selectedMarker.createdAt)}</span>
             </div>
           </div>
         </div>
+      )}
 
-        <div className="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto">
-          <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">Location Details</h2>
-
-            {selectedMarker ? (
-              <div className="space-y-4">
-                <div className="bg-gray-700 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <img
-                      src={getCountryFlag(selectedMarker.geoCountry)}
-                      alt={selectedMarker.geoCountry}
-                      className="rounded"
-                    />
-                    <h3 className="text-lg font-semibold">
-                      {selectedMarker.geoCity}
-                    </h3>
-                  </div>
-
-                  <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="text-gray-400">Region:</span>
-                      <span className="ml-2">{selectedMarker.geoRegion}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">IP Address:</span>
-                      <span className="ml-2 font-mono">{selectedMarker.geoIp}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Coordinates:</span>
-                      <span className="ml-2 font-mono">
-                        {selectedMarker.geoLatitude}, {selectedMarker.geoLongitude}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Timezone:</span>
-                      <span className="ml-2">{selectedMarker.geoTimezone}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Currency:</span>
-                      <span className="ml-2">{selectedMarker.geoCurrency}</span>
-                    </div>
+      <div className="absolute bottom-4 right-4 bg-gray-800/95 backdrop-blur-sm rounded-xl p-4 z-[1000] shadow-lg max-w-xs max-h-60 overflow-y-auto">
+        <h3 className="font-semibold mb-3 text-white">All Locations ({data.length})</h3>
+        <div className="space-y-2">
+          {data.map((location, index) => (
+            <div
+              key={index}
+              className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                selectedMarker === location 
+                  ? 'bg-blue-600' 
+                  : 'bg-gray-700 hover:bg-gray-600'
+              }`}
+              onClick={() => setSelectedMarker(location)}
+            >
+              <div className="flex items-center gap-2">
+                <img
+                  src={getCountryFlag(location.geoCountry)}
+                  alt={location.geoCountry}
+                  className="rounded w-4 h-3"
+                />
+                <div>
+                  <div className="font-medium text-white text-sm">{location.geoCity}</div>
+                  <div className="text-xs text-gray-300">
+                    {formatDate(location.createdAt)}
                   </div>
                 </div>
-
-                <div className="bg-gray-700 rounded-lg p-4">
-                  <h4 className="font-semibold mb-2">Device Info</h4>
-                  <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="text-gray-400">Device:</span>
-                      <span className="ml-2">{selectedMarker.device}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">OS:</span>
-                      <span className="ml-2">{selectedMarker.os}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Browser:</span>
-                      <span className="ml-2">{selectedMarker.browser}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Visited:</span>
-                      <span className="ml-2">{formatDate(selectedMarker.createdAt)}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="text-center text-gray-400 mt-8">
-                <div className="text-4xl mb-2">📍</div>
-                <p>Click on a marker to see details</p>
-              </div>
-            )}
-
-            <div className="mt-6">
-              <h3 className="font-semibold mb-3">All Locations ({data.length})</h3>
-              <div className="space-y-2">
-                {data.map((location, index) => (
-                  <div
-                    key={index}
-                    className={`p-3 rounded-lg cursor-pointer transition-colors ${
-                      selectedMarker === location 
-                        ? 'bg-blue-600' 
-                        : 'bg-gray-700 hover:bg-gray-600'
-                    }`}
-                    onClick={() => setSelectedMarker(location)}
-                  >
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={getCountryFlag(location.geoCountry)}
-                        alt={location.geoCountry}
-                        className="rounded"
-                      />
-                      <div>
-                        <div className="font-medium">{location.geoCity}</div>
-                        <div className="text-xs text-gray-400">
-                          {formatDate(location.createdAt)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

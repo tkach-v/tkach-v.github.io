@@ -45,7 +45,6 @@ const PlatformTab = () => {
         }
     };
 
-    // Функция для преобразования geo данных в формат карты
     const transformGeoDataForMap = (geoData) => {
         return geoData.map(item => ({
             device: item.device,
@@ -62,7 +61,6 @@ const PlatformTab = () => {
             geoCurrency: item.geoCurrency,
             createdAt: item.createdAt
         })).filter(item =>
-            // Фильтруем только валидные координаты
             !isNaN(item.geoLatitude) && !isNaN(item.geoLongitude)
         );
     };
@@ -84,7 +82,6 @@ const PlatformTab = () => {
             );
         }
 
-        // Если выбран тип user_geo_data, показываем карту
         if (selectedDataType === 'user_geo_data') {
             const mapData = transformGeoDataForMap(data);
 
@@ -101,14 +98,13 @@ const PlatformTab = () => {
                     <h3 className="text-lg font-semibold text-white">
                         Location Map - {data.length} entries found
                     </h3>
-                    <div className="bg-gray-800 rounded-xl overflow-hidden" style={{height: '70vh'}}>
+                    <div className="rounded-xl" style={{height: '500px'}}>
                         <InteractiveMap data={mapData}/>
                     </div>
                 </div>
             );
         }
 
-        // Для остальных типов данных показываем обычные карточки
         return (
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-white">
