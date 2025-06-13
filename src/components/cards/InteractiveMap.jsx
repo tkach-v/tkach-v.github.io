@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
+
 const InteractiveMap = ({data}) => {
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
@@ -104,21 +105,52 @@ const InteractiveMap = ({data}) => {
     useEffect(() => {
         if (mapInstanceRef.current && window.L) {
             mapInstanceRef.current.eachLayer((layer) => {
-                if (layer instanceof window.L.Marker) {
+                if (layer instanceof window.L.Marker || layer instanceof window.L.Polyline) {
                     mapInstanceRef.current.removeLayer(layer);
                 }
             });
 
+            const sortedData = [...data].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
             const markers = [];
-            data.forEach((location) => {
+            const coordinates = [];
+
+            sortedData.forEach((location, index) => {
                 if (location.geoLatitude && location.geoLongitude) {
-                    const marker = window.L.marker([location.geoLatitude, location.geoLongitude])
+                    const latlng = [location.geoLatitude, location.geoLongitude];
+                    coordinates.push(latlng);
+
+                    const customIcon = window.L.divIcon({
+                        className: 'custom-numbered-marker',
+                        html: `
+              <div style="
+                background: #3b82f6;
+                color: white;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 12px;
+                border: 2px solid white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+              ">
+                ${index + 1}
+              </div>
+            `,
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 15]
+                    });
+
+                    const marker = window.L.marker(latlng, {icon: customIcon})
                         .addTo(mapInstanceRef.current);
 
                     const popupContent = `
             <div style="font-family: system-ui, sans-serif;">
               <h3 style="margin: 0 0 10px 0; color: #1f2937; font-size: 16px;">
-                ${location.geoCity}, ${location.geoRegion}
+                Visit #${index + 1}: ${location.geoCity}, ${location.geoRegion}
               </h3>
               <p style="margin: 5px 0; font-size: 13px; color: #4b5563;">
                 <strong>IP:</strong> ${location.geoIp}
@@ -127,7 +159,7 @@ const InteractiveMap = ({data}) => {
                 <strong>Device:</strong> ${location.device}
               </p>
               <p style="margin: 5px 0; font-size: 13px; color: #4b5563;">
-                <strong>Date:</strong> ${new Date(location.createdAt).toLocaleDateString()}
+                <strong>Date:</strong> ${new Date(location.createdAt).toLocaleString()}
               </p>
             </div>
           `;
@@ -137,6 +169,46 @@ const InteractiveMap = ({data}) => {
                     markers.push(marker);
                 }
             });
+
+            if (coordinates.length > 1) {
+                const polyline = window.L.polyline(coordinates, {
+                    color: '#3b82f6',
+                    weight: 3,
+                    opacity: 0.8,
+                    smoothFactor: 1,
+                    dashArray: '5, 10'
+                }).addTo(mapInstanceRef.current);
+
+                coordinates.forEach((coord, index) => {
+                    if (index < coordinates.length - 1) {
+                        const nextCoord = coordinates[index + 1];
+                        const midpoint = [
+                            (coord[0] + nextCoord[0]) / 2,
+                            (coord[1] + nextCoord[1]) / 2
+                        ];
+
+                        const angle = Math.atan2(nextCoord[1] - coord[1], nextCoord[0] - coord[0]) * 180 / Math.PI;
+
+                        const arrowIcon = window.L.divIcon({
+                            className: 'direction-arrow',
+                            html: `
+                <div style="
+                  transform: rotate(${angle}deg);
+                  font-size: 16px;
+                  color: #3b82f6;
+                  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+                ">
+                  ➤
+                </div>
+              `,
+                            iconSize: [20, 20],
+                            iconAnchor: [10, 10]
+                        });
+
+                        window.L.marker(midpoint, {icon: arrowIcon}).addTo(mapInstanceRef.current);
+                    }
+                });
+            }
 
             if (markers.length > 0) {
                 const group = new window.L.featureGroup(markers);
