@@ -36,5 +36,14 @@ export const PLATFORM_OPTIONS = [
         types: [
             {label: "Recently Played", value: "spotify_recently_played_tracks", icon: "fas fa-history"}
         ]
+    },
+    {
+        platform: "IP Geo Data",
+        value: "geo",
+        icon: "fab fa-globe",
+        color: "#3554e3",
+        types: [
+            {label: "My Geo Data", value: "user_geo_data", icon: "fas fa-history"}
+        ]
     }
 ];

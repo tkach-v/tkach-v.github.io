@@ -1,0 +1,273 @@
+// components/cards/InteractiveMap.jsx
+import React, { useEffect, useRef, useState } from 'react';
+import * as L from 'leaflet';
+
+const InteractiveMap = ({ data }) => {
+  const mapRef = useRef(null);
+  const mapInstanceRef = useRef(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+  useEffect(() => {
+    if (mapRef.current && !mapInstanceRef.current) {
+      mapInstanceRef.current = L.map(mapRef.current).setView([49.982, 36.2566], 6);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(mapInstanceRef.current);
+    }
+
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          mapInstanceRef.current.removeLayer(layer);
+        }
+      });
+
+      const markers = [];
+      data.forEach((location, index) => {
+        if (location.geoLatitude && location.geoLongitude) {
+          const icon = L.divIcon({
+            className: 'custom-marker',
+            html: `<div class="marker-pin">
+                     <div class="marker-content">${location.geoCountry}</div>
+                   </div>`,
+            iconSize: [30, 40],
+            iconAnchor: [15, 40]
+          });
+
+          const marker = L.marker([location.geoLatitude, location.geoLongitude], { icon })
+            .addTo(mapInstanceRef.current);
+
+          const popupContent = `
+            <div class="marker-popup">
+              <h3>${location.geoCity}, ${location.geoRegion}</h3>
+              <p><strong>IP:</strong> ${location.geoIp}</p>
+              <p><strong>Device:</strong> ${location.device}</p>
+              <p><strong>OS:</strong> ${location.os}</p>
+              <p><strong>Browser:</strong> ${location.browser}</p>
+              <p><strong>Timezone:</strong> ${location.geoTimezone}</p>
+              <p><strong>Date:</strong> ${new Date(location.createdAt).toLocaleDateString()}</p>
+            </div>
+          `;
+
+          marker.bindPopup(popupContent);
+
+          marker.on('click', () => {
+            setSelectedMarker(location);
+          });
+
+          markers.push(marker);
+        }
+      });
+
+      if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        mapInstanceRef.current.fitBounds(group.getBounds().pad(0.1));
+      }
+    }
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, [data]);
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString();
+  };
+
+  const getCountryFlag = (countryCode) => {
+    return `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`;
+  };
+
+  return (
+    <div className="w-full h-screen bg-gray-900 text-white">
+      <style jsx>{`
+        .custom-marker {
+          background: transparent;
+          border: none;
+        }
+        .marker-pin {
+          width: 30px;
+          height: 40px;
+          position: relative;
+          background: #3b82f6;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 2px solid #1e40af;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .marker-pin:hover {
+          background: #2563eb;
+          transform: rotate(-45deg) scale(1.1);
+        }
+        .marker-content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(45deg);
+          font-size: 10px;
+          font-weight: bold;
+          color: white;
+          text-align: center;
+        }
+        .marker-popup {
+          font-family: system-ui, -apple-system, sans-serif;
+        }
+        .marker-popup h3 {
+          margin: 0 0 10px 0;
+          color: #1f2937;
+          font-size: 16px;
+        }
+        .marker-popup p {
+          margin: 5px 0;
+          font-size: 13px;
+          color: #4b5563;
+        }
+        .leaflet-popup-content-wrapper {
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+      `}</style>
+
+      <div className="flex h-full">
+        <div className="flex-1 relative">
+          <div ref={mapRef} className="w-full h-full" />
+
+          <div className="absolute top-4 left-4 bg-gray-800/90 backdrop-blur-sm rounded-xl p-4 min-w-64">
+            <h2 className="text-lg font-semibold mb-3">Location Analytics</h2>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Total Locations:</span>
+                <span className="font-semibold">{data.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Countries:</span>
+                <span className="font-semibold">
+                  {new Set(data.map(d => d.geoCountry)).size}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Cities:</span>
+                <span className="font-semibold">
+                  {new Set(data.map(d => d.geoCity)).size}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto">
+          <div className="p-4">
+            <h2 className="text-xl font-semibold mb-4">Location Details</h2>
+
+            {selectedMarker ? (
+              <div className="space-y-4">
+                <div className="bg-gray-700 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <img
+                      src={getCountryFlag(selectedMarker.geoCountry)}
+                      alt={selectedMarker.geoCountry}
+                      className="rounded"
+                    />
+                    <h3 className="text-lg font-semibold">
+                      {selectedMarker.geoCity}
+                    </h3>
+                  </div>
+
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="text-gray-400">Region:</span>
+                      <span className="ml-2">{selectedMarker.geoRegion}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">IP Address:</span>
+                      <span className="ml-2 font-mono">{selectedMarker.geoIp}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Coordinates:</span>
+                      <span className="ml-2 font-mono">
+                        {selectedMarker.geoLatitude}, {selectedMarker.geoLongitude}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Timezone:</span>
+                      <span className="ml-2">{selectedMarker.geoTimezone}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Currency:</span>
+                      <span className="ml-2">{selectedMarker.geoCurrency}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-700 rounded-lg p-4">
+                  <h4 className="font-semibold mb-2">Device Info</h4>
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="text-gray-400">Device:</span>
+                      <span className="ml-2">{selectedMarker.device}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">OS:</span>
+                      <span className="ml-2">{selectedMarker.os}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Browser:</span>
+                      <span className="ml-2">{selectedMarker.browser}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Visited:</span>
+                      <span className="ml-2">{formatDate(selectedMarker.createdAt)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 mt-8">
+                <div className="text-4xl mb-2">📍</div>
+                <p>Click on a marker to see details</p>
+              </div>
+            )}
+
+            <div className="mt-6">
+              <h3 className="font-semibold mb-3">All Locations ({data.length})</h3>
+              <div className="space-y-2">
+                {data.map((location, index) => (
+                  <div
+                    key={index}
+                    className={`p-3 rounded-lg cursor-pointer transition-colors ${
+                      selectedMarker === location 
+                        ? 'bg-blue-600' 
+                        : 'bg-gray-700 hover:bg-gray-600'
+                    }`}
+                    onClick={() => setSelectedMarker(location)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={getCountryFlag(location.geoCountry)}
+                        alt={location.geoCountry}
+                        className="rounded"
+                      />
+                      <div>
+                        <div className="font-medium">{location.geoCity}</div>
+                        <div className="text-xs text-gray-400">
+                          {formatDate(location.createdAt)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InteractiveMap;
