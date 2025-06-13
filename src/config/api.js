@@ -34,7 +34,7 @@ export const PLATFORM_OPTIONS = [
         icon: "fab fa-spotify",
         color: "#1DB954",
         types: [
-            {label: "Recently Played", value: "recently_played", icon: "fas fa-history"}
+            {label: "Recently Played", value: "spotify_recently_played_tracks", icon: "fas fa-history"}
         ]
     }
 ];
