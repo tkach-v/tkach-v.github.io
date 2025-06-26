@@ -45,5 +45,17 @@ export const PLATFORM_OPTIONS = [
         types: [
             {label: "My Geo Data", value: "user_geo_data", icon: "fas fa-history"}
         ]
-    }
+    },
+    {
+        platform: "Reddit",
+        value: "reddit",
+        icon: "fab fa-reddit",
+        color: "#FF4500",
+        types: [
+            { label: "Upvoted posts", value: "upvoted", icon: "fas fa-thumbs-up" },
+            { label: "Downvoted posts", value: "downvoted", icon: "fas fa-thumbs-down" },
+            { label: "Saved posts", value: "saved", icon: "fas fa-bookmark" },
+            { label: "Submitted posts", value: "submitted", icon: "fas fa-upload" },
+        ]
+    },
 ];
