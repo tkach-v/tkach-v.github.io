@@ -14,7 +14,7 @@ export const SOURCES_DATA = [
     {key: "spotifyConnected", name: "Spotify", icon: "fab fa-spotify", color: "#1DB954", disabled: false},
     {key: "redditConnected", name: "Reddit", icon: "fab fa-reddit", color: "#FF4500", disabled: false},
     {key: "linkedinConnected", name: "LinkedIn", icon: "fab fa-linkedin", color: "#0077B5", disabled: true},
-    {key: "xConnected", name: "X", icon: "fab fa-x-twitter", color: "#000000", disabled: true}
+    {key: "xConnected", name: "X", icon: "fab fa-x-twitter", color: "#000000", disabled: false}
 ];
 
 export const PLATFORM_OPTIONS = [
@@ -56,6 +56,16 @@ export const PLATFORM_OPTIONS = [
             { label: "Downvoted posts", value: "downvoted", icon: "fas fa-thumbs-down" },
             { label: "Saved posts", value: "saved", icon: "fas fa-bookmark" },
             { label: "Submitted posts", value: "submitted", icon: "fas fa-upload" },
+        ]
+    },
+    {
+        platform: "X",
+        value: "x",
+        icon: "fab fa-x-twitter",
+        color: "#FF4500",
+        types: [
+            { label: "Liked posts", value: "x_liked_posts", icon: "fas fa-thumbs-up" },
+            { label: "Published posts", value: "x_published_posts", icon: "fas fa-upload" },
         ]
     },
 ];
