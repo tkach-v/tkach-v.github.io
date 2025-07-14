@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  telegram-mini-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    container_name: telegram-mini-app
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+      - robocorp
+    ports:
+      - "3050:3000"
+    restart: always
+
+networks:
+  robocorp:
+    external: true

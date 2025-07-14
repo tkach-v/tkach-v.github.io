@@ -1,12 +1,12 @@
 // config/api.js
 export const API_CONFIG = {
-    BASE_URL: "https://maximum-allowing-wildcat.ngrok-free.app",
+    BASE_URL: "https://robocorp-telegram-be.datafabdevelopment.com",
     SKIP_BROWSER_WARNING: "69420"
 };
 
 export const BOT_CONFIG = {
-    BOT_USERNAME: "helix_tg_develop_bot",
-    APP_NAME: "helix-test-bot",
+    BOT_USERNAME: "RoboCorpCoBot",
+    APP_NAME: "RoboCorp",
 };
 
 export const SOURCES_DATA = [
