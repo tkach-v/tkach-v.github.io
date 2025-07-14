@@ -1,6 +1,6 @@
 // config/api.js
 export const API_CONFIG = {
-    BASE_URL: "https://robocorp-telegram-be.datafabdevelopment.com",
+    BASE_URL: "https://maximum-allowing-wildcat.ngrok-free.app",
     SKIP_BROWSER_WARNING: "69420"
 };
 
