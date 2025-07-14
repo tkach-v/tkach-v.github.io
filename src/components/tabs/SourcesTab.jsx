@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTelegram } from '../../contexts/TelegramContext';
 import { API_CONFIG, SOURCES_DATA } from '../../config/api';
 import SourceCard from '../cards/SourceCard';
+import TestWeb3 from "../../TestWeb3";
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState(null);
@@ -109,6 +110,7 @@ const SourcesTab = () => {
           onToggle={() => handleSourceToggle(source)}
         />
       ))}
+      <TestWeb3 />
     </div>
   );
 };
