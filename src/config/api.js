@@ -5,8 +5,8 @@ export const API_CONFIG = {
 };
 
 export const BOT_CONFIG = {
-    BOT_USERNAME: "helix_tg_develop_bot",
-    APP_NAME: "helix-test-bot",
+    BOT_USERNAME: "RoboCorpCoBot",
+    APP_NAME: "RoboCorp",
 };
 
 export const SOURCES_DATA = [
