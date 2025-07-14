@@ -13,8 +13,8 @@ export const SOURCES_DATA = [
     {key: "youtubeConnected", name: "YouTube", icon: "fab fa-youtube", color: "#FF0000", disabled: false},
     {key: "spotifyConnected", name: "Spotify", icon: "fab fa-spotify", color: "#1DB954", disabled: false},
     {key: "redditConnected", name: "Reddit", icon: "fab fa-reddit", color: "#FF4500", disabled: false},
-    {key: "linkedinConnected", name: "LinkedIn", icon: "fab fa-linkedin", color: "#0077B5", disabled: true},
-    {key: "xConnected", name: "X", icon: "fab fa-x-twitter", color: "#000000", disabled: false}
+    {key: "xConnected", name: "X", icon: "fab fa-x-twitter", color: "#000000", disabled: false},
+    {key: "linkedinConnected", name: "LinkedIn", icon: "fab fa-linkedin", color: "#0077B5", disabled: true}
 ];
 
 export const PLATFORM_OPTIONS = [
