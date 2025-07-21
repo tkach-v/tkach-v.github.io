@@ -4,8 +4,11 @@
   "private": false,
   "homepage": ".",
   "dependencies": {
+    "@solana/wallet-adapter-base": "^0.9.27",
+    "@solana/web3.js": "^1.98.2",
     "@walletconnect/ethereum-provider": "^2.21.4",
     "@walletconnect/modal": "^2.7.0",
+    "@walletconnect/solana-adapter": "^0.0.8",
     "ethers": "^6.15.0",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",

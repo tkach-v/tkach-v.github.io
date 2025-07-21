@@ -1,5 +1,5 @@
-import { initWalletConnect } from './wallet'
-import { ethers } from 'ethers'
+import {initWalletConnect} from './wallet'
+import {ethers} from 'ethers'
 import Button from "./components/ui/Button";
 import {API_CONFIG} from "./config/api";
 
