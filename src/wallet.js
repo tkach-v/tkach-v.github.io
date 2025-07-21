@@ -11,6 +11,6 @@ export const initWalletConnect = async () => {
     showQrModal: true
   })
 
-  await provider.connect({ chains: [10, 137] })
+  await provider.connect()
   return provider
 }
