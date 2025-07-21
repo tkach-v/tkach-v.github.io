@@ -2,8 +2,11 @@ import {initWalletConnect} from './wallet'
 import {ethers} from 'ethers'
 import Button from "./components/ui/Button";
 import {API_CONFIG} from "./config/api";
+import {useTelegram} from "./contexts/TelegramContext";
 
 const TestWeb3 = () => {
+  const { telegramUser, userPayload } = useTelegram();
+
   const handleConnect = async () => {
     console.log("Connecting to Wallet...");
 
@@ -17,7 +20,7 @@ const TestWeb3 = () => {
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
       method: 'POST',
-      body: JSON.stringify({ address }),
+      body: JSON.stringify({ address, ...userPayload }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,6 +41,7 @@ const TestWeb3 = () => {
       body: JSON.stringify({
         address: address,
         signature: signature,
+        ...userPayload,
       }),
       headers: {
         'Content-Type': 'application/json',
