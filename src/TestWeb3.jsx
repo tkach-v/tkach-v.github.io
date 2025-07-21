@@ -25,7 +25,7 @@ const TestWeb3 = () => {
         'Content-Type': 'application/json',
       },
     })
-    const { nonce } = await res.json()
+    const nonce = await res.json()
 
     // 2. Sign nonce
     const signature = await signer.signMessage(`Sign to verify: ${nonce}`)
