@@ -5,7 +5,7 @@ import {API_CONFIG} from "./config/api";
 import {useTelegram} from "./contexts/TelegramContext";
 
 const TestWeb3 = () => {
-  const { telegramUser, userPayload } = useTelegram();
+  const {telegramUser, userPayload} = useTelegram();
 
   const handleConnect = async () => {
     console.log("Connecting to Wallet...");
@@ -20,11 +20,15 @@ const TestWeb3 = () => {
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
       method: 'POST',
-      body: JSON.stringify({ address, ...userPayload }),
+      body: JSON.stringify({address, ...userPayload}),
       headers: {
         'Content-Type': 'application/json',
       },
     })
+
+    console.log('Nonce response:', res)
+    console.log('Nonce response json:', await res.json())
+
     const nonce = await res.json()
 
     // 2. Sign nonce
