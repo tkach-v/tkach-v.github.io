@@ -22,9 +22,9 @@ const App = () => {
 
   const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user || {};
 
-  // if (!telegramUser.id) {
-  //   return <ErrorScreen />;
-  // }
+  if (!telegramUser.id) {
+    return <ErrorScreen />;
+  }
 
   const tabs = [
     { id: 'user', label: 'Profile', icon: 'fas fa-user', component: UserTab },
