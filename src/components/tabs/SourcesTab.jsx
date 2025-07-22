@@ -37,19 +37,19 @@ const SourcesTab = () => {
 
   useEffect(() => {
     console.log('SourcesTab mounted, fetching data...');
-    // fetchUserData();
+    fetchUserData();
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         console.log('Page became visible, refreshing data...');
-        // fetchUserData();
+        fetchUserData();
       }
     };
 
     const handleMessage = (event) => {
       if (event.data.type === 'AUTH_SUCCESS') {
         console.log('Auth success message received, refreshing data...');
-        // fetchUserData();
+        fetchUserData();
       }
     };
 
@@ -129,7 +129,7 @@ const SourcesTab = () => {
         });
 
         if (res.status === 204) {
-          // await fetchUserData();
+          await fetchUserData();
         }
       } catch (err) {
         alert(`Error: ${err.message}`);
