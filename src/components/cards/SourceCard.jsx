@@ -25,7 +25,7 @@ const SourceCard = ({ source, connected, onToggle }) => {
           onClick={onToggle}
           variant={connected ? 'secondary' : 'primary'}
           size="small"
-          disabled={source.disabled}
+          disabled={source.disabled || (connected && source.key === 'walletConnected')}
         >
           {connected ? 'Disconnect' : 'Connect'}
         </Button>
