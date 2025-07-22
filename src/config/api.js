@@ -14,7 +14,7 @@ export const SOURCES_DATA = [
     {key: "spotifyConnected", name: "Spotify", icon: "fab fa-spotify", color: "#1DB954", disabled: false},
     {key: "redditConnected", name: "Reddit", icon: "fab fa-reddit", color: "#FF4500", disabled: false},
     {key: "xConnected", name: "X", icon: "fab fa-x-twitter", color: "#000000", disabled: false},
-    // {key: "walletConnected", name: "Wallet", icon: "fa-solid fa-wallet", color: "#5e30ba", disabled: false},
+    {key: "walletConnected", name: "Wallet", icon: "fa-solid fa-wallet", color: "#4e44ce", disabled: false},
     {key: "linkedinConnected", name: "LinkedIn", icon: "fab fa-linkedin", color: "#0077B5", disabled: true}
 ];
 
