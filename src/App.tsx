@@ -19,14 +19,12 @@ const App = () => {
       window.Telegram.WebApp.setBackgroundColor("#0a0a0a");
     }
   }, []);
-/*
+
   const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
 
   if (!telegramUser || !telegramUser.id) {
     return <ErrorScreen />;
   }
-
- */
 
   const tabs: Tab[] = [
     { id: "user", label: "Profile", icon: "fas fa-user", component: UserTab },
@@ -35,7 +33,7 @@ const App = () => {
       label: "Connections",
       icon: "fas fa-link",
       component: SourcesTab,
-    }
+    },
   ];
 
   const ActiveComponent =
