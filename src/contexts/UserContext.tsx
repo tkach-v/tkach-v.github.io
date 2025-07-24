@@ -1,6 +1,6 @@
 // contexts/UserContext.js
-import { createContext, useContext, useState, useCallback } from 'react';
-import { API_CONFIG } from '../config/api';
+import { createContext, useContext, useState, useCallback } from "react";
+import { API_CONFIG } from "../config/api";
 
 const UserContext = createContext();
 
@@ -26,13 +26,13 @@ export const UserProvider = ({ children }) => {
         first_name: telegramUser.first_name || "",
         last_name: telegramUser.last_name || "",
         username: telegramUser.username || "",
-        language_code: telegramUser.language_code || ""
+        language_code: telegramUser.language_code || "",
       };
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userPayload),
       });
@@ -43,9 +43,8 @@ export const UserProvider = ({ children }) => {
 
       const data = await response.json();
       setUserData(data);
-
     } catch (err) {
-      console.error('Error fetching user data:', err);
+      console.error("Error fetching user data:", err);
       setError(err.message);
       setUserData(null);
     } finally {
@@ -61,17 +60,13 @@ export const UserProvider = ({ children }) => {
     error,
   };
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within UserProvider');
+    throw new Error("useUser must be used within UserProvider");
   }
   return context;
 };

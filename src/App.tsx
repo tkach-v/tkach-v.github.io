@@ -37,7 +37,7 @@ const App = () => {
   return (
     <TelegramProvider>
       <UserProvider>
-        <Layout 
+        <Layout
           tabs={tabs}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
