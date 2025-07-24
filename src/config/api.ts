@@ -1,13 +1,13 @@
 import {Source} from "@/src/types";
 
 export const API_CONFIG = {
-  BASE_URL: "https://robocorp-telegram-be.datafabdevelopment.com",
+  BASE_URL: "https://maximum-allowing-wildcat.ngrok-free.app",
   SKIP_BROWSER_WARNING: "69420"
 };
 
 export const BOT_CONFIG = {
-  BOT_USERNAME: "RoboCorpCoBot",
-  APP_NAME: "RoboCorp",
+  BOT_USERNAME: "helix_tg_develop_bot",
+  APP_NAME: "helix-test-bot",
 };
 
 export const SOURCES_DATA: Source[] = [

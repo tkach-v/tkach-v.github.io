@@ -28,7 +28,12 @@ const App = () => {
   }
 
   const tabs: Tab[] = [
-    { id: "user", label: "Profile", icon: "fas fa-user", component: UserTab },
+    {
+      id: "user",
+      label: "Profile",
+      icon: "fas fa-user",
+      component: UserTab
+    },
     {
       id: "sources",
       label: "Connections",
