@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as L from "leaflet";
 
 type Location = {
@@ -17,10 +17,10 @@ type InteractiveMapProps = {
   data: Location[];
 };
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ data }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState<Location | null>(null);
 
   useEffect(() => {
     const loadLeaflet = async () => {
@@ -45,12 +45,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
           center: [49.982, 36.2566],
           zoom: 6,
           zoomControl: true,
-          attributionControl: false
+          attributionControl: false,
         });
 
         window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution: "© OpenStreetMap contributors",
-          maxZoom: 18
+          maxZoom: 18,
         }).addTo(mapInstanceRef.current);
 
         setTimeout(() => {
@@ -69,8 +69,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
 
       data.forEach((location, index) => {
         if (location.geoLatitude && location.geoLongitude) {
-          const marker = window.L.marker([location.geoLatitude, location.geoLongitude])
-            .addTo(mapInstanceRef.current);
+          const marker = (window as any).L.marker([location.geoLatitude, location.geoLongitude]).addTo(mapInstanceRef.current!);
 
           const popupContent = `
             <div style="font-family: system-ui, sans-serif;">
@@ -103,7 +102,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
       });
 
       if (markers.length > 0) {
-        const group = new window.L.featureGroup(markers);
+        const group = new (window as any).L.featureGroup(markers);
         mapInstanceRef.current.fitBounds(group.getBounds().pad(0.1));
       }
     };
@@ -119,21 +118,26 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
   }, []);
 
   useEffect(() => {
-    if (mapInstanceRef.current && window.L) {
-      mapInstanceRef.current.eachLayer((layer) => {
-        if (layer instanceof window.L.Marker || layer instanceof window.L.Polyline) {
-          mapInstanceRef.current.removeLayer(layer);
+    if (mapInstanceRef.current && (window as any).L) {
+      mapInstanceRef.current.eachLayer((layer: any) => {
+        if (
+          layer instanceof (window as any).L.Marker ||
+          layer instanceof (window as any).L.Polyline
+        ) {
+          mapInstanceRef.current!.removeLayer(layer);
         }
       });
 
-      const sortedData = [...data].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      const sortedData = [...data].sort(
+        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      );
 
-      const markers = [];
-      const coordinates = [];
+      const markers: L.Marker[] = [];
+      const coordinates: [number, number][] = [];
 
       sortedData.forEach((location, index) => {
         if (location.geoLatitude && location.geoLongitude) {
-          const latlng = [location.geoLatitude, location.geoLongitude];
+          const latlng: [number, number] = [location.geoLatitude, location.geoLongitude];
           coordinates.push(latlng);
 
           const customIcon = window.L.divIcon({
@@ -157,11 +161,10 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
               </div>
             `,
             iconSize: [30, 30],
-            iconAnchor: [15, 15]
+            iconAnchor: [15, 15],
           });
 
-          const marker = window.L.marker(latlng, {icon: customIcon})
-            .addTo(mapInstanceRef.current);
+          const marker = (window as any).L.marker(latlng, { icon: customIcon }).addTo(mapInstanceRef.current!);
 
           const popupContent = `
             <div style="font-family: system-ui, sans-serif;">
@@ -192,7 +195,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
           weight: 3,
           opacity: 0.8,
           smoothFactor: 1,
-          dashArray: "5, 10"
+          dashArray: "5, 10",
         }).addTo(mapInstanceRef.current);
 
         coordinates.forEach((coord, index) => {
@@ -200,7 +203,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
             const nextCoord = coordinates[index + 1];
             const midpoint = [
               (coord[0] + nextCoord[0]) / 2,
-              (coord[1] + nextCoord[1]) / 2
+              (coord[1] + nextCoord[1]) / 2,
             ];
 
             const angle = Math.atan2(nextCoord[1] - coord[1], nextCoord[0] - coord[0]) * 180 / Math.PI;
@@ -218,26 +221,26 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
                 </div>
               `,
               iconSize: [20, 20],
-              iconAnchor: [10, 10]
+              iconAnchor: [10, 10],
             });
 
-            window.L.marker(midpoint, {icon: arrowIcon}).addTo(mapInstanceRef.current);
+            (window as any).L.marker(midpoint, { icon: arrowIcon }).addTo(mapInstanceRef.current);
           }
         });
       }
 
       if (markers.length > 0) {
-        const group = new window.L.featureGroup(markers);
+        const group = new (window as any).L.featureGroup(markers);
         mapInstanceRef.current.fitBounds(group.getBounds().pad(0.1));
       }
     }
   }, [data]);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleString();
   };
 
-  const getCountryFlag = (countryCode) => {
+  const getCountryFlag = (countryCode: string): string => {
     return `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`;
   };
 
@@ -246,7 +249,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ data })  => {
       <div
         ref={mapRef}
         className="w-full h-full"
-        style={{minHeight: "400px"}}
+        style={{ minHeight: "400px" }}
       />
 
       <div

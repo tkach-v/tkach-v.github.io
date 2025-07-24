@@ -35,3 +35,54 @@ export type Source = {
   disabled?: boolean;
   key: string;
 };
+
+export type UserData = {
+  googlePicture?: string;
+  telegramFirstName?: string;
+  telegramLastName?: string;
+  telegramUsername?: string;
+  telegramId?: string | number;
+  telegramLanguageCode?: string;
+  googleSub?: string;
+  googleEmail?: string;
+  googleName?: string;
+  geoCity?: string;
+  geoCountry?: string;
+  device?: string;
+  os?: string;
+  browser?: string;
+};
+
+export type GeoDataItem = {
+  device: string;
+  os?: string;
+  browser?: string;
+  geoIp: string;
+  geoCity: string;
+  geoRegion: string;
+  geoCountry: string;
+  geoPostal?: string;
+  geoLatitude: number;
+  geoLongitude: number;
+  geoTimezone?: string;
+  geoCurrency?: string;
+  createdAt: string;
+  [key: string]: any;
+};
+
+export type RawGeoDataItem = {
+  device: string;
+  os?: string;
+  browser?: string;
+  geoIp: string;
+  geoCity: string;
+  geoRegion: string;
+  geoCountry: string;
+  geoPostal?: string;
+  geoLatitude: string;
+  geoLongitude: string;
+  geoTimezone?: string;
+  geoCurrency?: string;
+  createdAt: string;
+  [key: string]: any;
+};

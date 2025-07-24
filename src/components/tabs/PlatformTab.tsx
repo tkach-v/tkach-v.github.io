@@ -1,4 +1,3 @@
-// components/tabs/PlatformTab.jsx
 import React, {useState} from "react";
 import {useTelegram} from "../../contexts/TelegramContext";
 import {API_CONFIG, PLATFORM_OPTIONS} from "../../config/api";
@@ -6,13 +5,14 @@ import PlatformSelector from "../PlatformSelector";
 import DataCard from "../cards/DataCard";
 import Button from "../ui/Button";
 import InteractiveMap from "../cards/InteractiveMap";
+import {GeoDataItem, RawGeoDataItem} from "@/src/types";
 
-const PlatformTab = () => {
+const PlatformTab: React.FC = () => {
   const {userPayload} = useTelegram();
-  const [selectedPlatform, setSelectedPlatform] = useState("youtube");
-  const [selectedDataType, setSelectedDataType] = useState("yt_liked_videos");
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("youtube");
+  const [selectedDataType, setSelectedDataType] = useState<string>("yt_liked_videos");
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchPlatformData = async () => {
     setLoading(true);
@@ -21,8 +21,8 @@ const PlatformTab = () => {
     try {
       const queryParams = new URLSearchParams({
         ...userPayload,
-        data_type: selectedDataType
-      }).toString();
+        data_type: selectedDataType,
+      } as unknown as Record<string, string>).toString();
 
       const res = await fetch(`${API_CONFIG.BASE_URL}/data/${selectedPlatform}?${queryParams}`, {
         method: "GET",
@@ -38,14 +38,14 @@ const PlatformTab = () => {
       } else {
         throw new Error("Invalid response format");
       }
-    } catch (err) {
-      alert(`Error: ${err.message}`);
+    } catch (err: unknown) {
+      console.error(err instanceof Error ? `Error: ${err.message}` : "Unknown error");
     } finally {
       setLoading(false);
     }
   };
 
-  const transformGeoDataForMap = (geoData) => {
+  const transformGeoDataForMap = (geoData: RawGeoDataItem[]): GeoDataItem[] => {
     return geoData.map(item => ({
       device: item.device,
       os: item.os,
@@ -65,7 +65,7 @@ const PlatformTab = () => {
     );
   };
 
-  const renderContent = () => {
+  const renderContent = (): React.ReactNode => {
     if (loading) {
       return (
         <div className="flex justify-center items-center h-64">

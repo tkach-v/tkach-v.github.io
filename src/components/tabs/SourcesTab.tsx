@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {useTelegram} from "../../contexts/TelegramContext";
-import {API_CONFIG, SOURCES_DATA} from "../../config/api";
+import React, { useEffect, useState } from "react";
+import { useTelegram } from "../../contexts/TelegramContext";
+import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import SourceCard from "../cards/SourceCard";
-import {initWalletConnect} from "../../wallet";
-import {ethers} from "ethers"
+import { initWalletConnect } from "../../wallet";
+import { ethers } from "ethers";
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const {telegramUser, userPayload} = useTelegram();
+  const { telegramUser, userPayload } = useTelegram();
 
   const fetchUserData = async () => {
     try {
@@ -74,26 +74,26 @@ const SourcesTab = () => {
   const handleWalletConnect = async () => {
     console.log("Connecting to Wallet...");
 
-    const provider = await initWalletConnect()
-    const ethersProvider = new ethers.BrowserProvider(provider)
-    const signer = await ethersProvider.getSigner()
-    const address = await signer.getAddress()
+    const provider = await initWalletConnect();
+    const ethersProvider = new ethers.BrowserProvider(provider);
+    const signer = await ethersProvider.getSigner();
+    const address = await signer.getAddress();
 
-    console.log("Connected address:", address)
+    console.log("Connected address:", address);
 
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
       method: "POST",
-      body: JSON.stringify({address, ...userPayload}),
+      body: JSON.stringify({ address, ...userPayload }),
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
 
-    const nonce = await res.json()
+    const nonce = await res.json();
 
     // 2. Sign nonce
-    const signature = await signer.signMessage(`Sign to verify: ${nonce}`)
+    const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
 
     // 3. Send signature to backend
     await fetch(`${API_CONFIG.BASE_URL}/wallets/verify-signature`, {
@@ -106,10 +106,10 @@ const SourcesTab = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
 
     await fetchUserData();
-  }
+  };
 
   const handleSourceToggle = async (source) => {
     if (source.key === "walletConnected") {
@@ -124,8 +124,8 @@ const SourcesTab = () => {
       try {
         const res = await fetch(`${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`, {
           method: "DELETE",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(userPayload)
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userPayload),
         });
 
         if (res.status === 204) {

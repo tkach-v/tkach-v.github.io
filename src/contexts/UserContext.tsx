@@ -1,13 +1,26 @@
-// contexts/UserContext.js
-import { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  PropsWithChildren,
+} from "react";
 import { API_CONFIG } from "../config/api";
 
-const UserContext = createContext();
+type UserState = {
+  userData: WebAppUser | null;
+  setUserData: React.Dispatch<React.SetStateAction<WebAppUser | null>>;
+  fetchUserData: () => Promise<void>;
+  loading: boolean;
+  error: null | string;
+};
 
-export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const UserContext = createContext({} as UserState);
+
+export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const [userData, setUserData] = useState<WebAppUser | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchUserData = useCallback(async () => {
     try {
@@ -16,7 +29,7 @@ export const UserProvider = ({ children }) => {
 
       const tg = window.Telegram?.WebApp;
       if (!tg?.initDataUnsafe?.user) {
-        throw new Error('Telegram user data not available');
+        throw new Error("Telegram user data not available");
       }
 
       const telegramUser = tg.initDataUnsafe.user;
@@ -45,6 +58,7 @@ export const UserProvider = ({ children }) => {
       setUserData(data);
     } catch (err) {
       console.error("Error fetching user data:", err);
+      //@ts-expect-error Type 'Error' includes message.
       setError(err.message);
       setUserData(null);
     } finally {

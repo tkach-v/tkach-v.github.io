@@ -1,5 +1,5 @@
 import React from "react";
-import {DataType, RecentlyPlayedItem, YtLikedVideoItem, YtSubscriptionItem} from "@/src/types";
+import { DataType, RecentlyPlayedItem, YtLikedVideoItem, YtSubscriptionItem } from "@/src/types";
 import YtLikedVideoCard from "@/src/components/cards/YtLikedVideoCard";
 import YtSubscriptionCard from "@/src/components/cards/YtSubscriptionCard";
 import RecentlyPlayedCard from "@/src/components/cards/RecentlyPlayedCard";
@@ -15,15 +15,15 @@ type Props<T extends DataType> = {
   dataType: T;
 };
 
-const DataCard: React.FC<Props<any>> = ({item, dataType}) => {
+const DataCard: React.FC<Props<any>> = ({ item, dataType }) => {
   const renderContent = () => {
     switch (dataType) {
       case "yt_liked_videos":
-        return <YtLikedVideoCard item={item}/>;
+        return <YtLikedVideoCard item={item} />;
       case "yt_subscriptions":
-        return <YtSubscriptionCard item={item}/>;
+        return <YtSubscriptionCard item={item} />;
       case "recently_played":
-        return <RecentlyPlayedCard item={item}/>;
+        return <RecentlyPlayedCard item={item} />;
       default:
         return <pre className="text-xs text-gray-400">{JSON.stringify(item, null, 2)}</pre>;
     }

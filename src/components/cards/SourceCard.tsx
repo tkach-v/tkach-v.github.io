@@ -8,14 +8,14 @@ type Props = {
   onToggle: () => void;
 };
 
-const SourceCard: React.FC<Props> = ({source, connected, onToggle}) => {
+const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
   return (
     <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-xl hover:bg-gray-800/70 transition-colors">
       <div
         className="w-12 h-12 rounded-full flex items-center justify-center"
-        style={{backgroundColor: `${source.color}20`}}
+        style={{ backgroundColor: `${source.color}20` }}
       >
-        <i className={`${source.icon} text-2xl`} style={{color: source.color}}></i>
+        <i className={`${source.icon} text-2xl`} style={{ color: source.color }}></i>
       </div>
 
       <div className="flex-1">

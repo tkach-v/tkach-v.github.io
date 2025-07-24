@@ -1,10 +1,21 @@
-// components/Layout.jsx
-import React from 'react';
-import TabBar from './TabBar';
-import LoadingSpinner from './LoadingSpinner';
-import { useUser } from '../contexts/UserContext';
+import React from "react";
+import TabBar from "./TabBar";
+import LoadingSpinner from "./LoadingSpinner";
+import { useUser } from "../contexts/UserContext";
 
-const Layout = ({ children, tabs, activeTab, setActiveTab }) => {
+type Props = {
+  children: React.ReactNode;
+  tabs: string[];
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const Layout: React.FC<Props> = ({
+  children,
+  tabs,
+  activeTab,
+  setActiveTab,
+}) => {
   const { loading, error } = useUser();
 
   return (
@@ -17,11 +28,7 @@ const Layout = ({ children, tabs, activeTab, setActiveTab }) => {
           <p className="text-gray-400 mt-1">Manage your connected accounts</p>
         </header>
 
-        <TabBar
-          tabs={tabs}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
+        <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 shadow-xl">
           {loading ? (

@@ -1,18 +1,15 @@
-// contexts/TelegramContext.js
-import { createContext, useContext } from "react";
+import React, { createContext, PropsWithChildren, useContext } from "react";
 
-const TelegramContext = createContext();
+type TelegramState = {
+  telegramUser: WebAppUser | null;
+  userPayload?: WebAppUser | null;
+};
 
-export const TelegramProvider = ({ children }) => {
-  const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user || {};
+const TelegramContext = createContext({} as TelegramState);
 
-  const userPayload = {
-    id: telegramUser.id,
-    first_name: telegramUser.first_name || "",
-    last_name: telegramUser.last_name || "",
-    username: telegramUser.username || "",
-    language_code: telegramUser.language_code || "",
-  };
+export const TelegramProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user || null;
+  const userPayload = telegramUser;
 
   const value = {
     telegramUser,
