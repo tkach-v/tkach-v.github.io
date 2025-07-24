@@ -4,11 +4,12 @@ import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import SourceCard from "../cards/SourceCard";
 import { initWalletConnect } from "../../wallet";
 import { ethers } from "ethers";
+import { UserData } from "../../types";
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { telegramUser, userPayload } = useTelegram();
+  const { telegramUser } = useTelegram();
 
   const fetchUserData = async () => {
     try {
@@ -18,7 +19,7 @@ const SourcesTab = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userPayload),
+        body: JSON.stringify(telegramUser),
       });
 
       if (!response.ok) {
@@ -27,7 +28,6 @@ const SourcesTab = () => {
 
       const data = await response.json();
       setUserData(data);
-
     } catch (err) {
       console.error("Error fetching user data:", err);
     } finally {
@@ -84,7 +84,7 @@ const SourcesTab = () => {
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
       method: "POST",
-      body: JSON.stringify({ address, ...userPayload }),
+      body: JSON.stringify({ address, ...telegramUser }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -101,7 +101,7 @@ const SourcesTab = () => {
       body: JSON.stringify({
         address: address,
         signature: signature,
-        ...userPayload,
+        ...telegramUser,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -122,31 +122,43 @@ const SourcesTab = () => {
       if (!window.confirm(`Disconnect ${source.name}?`)) return;
 
       try {
-        const res = await fetch(`${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userPayload),
-        });
+        const res = await fetch(
+          `${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`,
+          {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(telegramUser),
+          }
+        );
 
         if (res.status === 204) {
           await fetchUserData();
         }
       } catch (err) {
+        //@ts-expect-error Type 'Error' includes message.
         alert(`Error: ${err.message}`);
       }
     } else {
-      window.Telegram.WebApp.openLink(`${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${telegramUser.id}`);
+      window.Telegram.WebApp.openLink(
+        `${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${
+          telegramUser?.id
+        }`
+      );
     }
   };
 
   return (
     <div className="space-y-4">
       <div className="text-center mb-6">
-        <h3 className="text-xl font-semibold text-white mb-2">Connect Your Accounts</h3>
-        <p className="text-gray-400">Link your social media accounts to access your data</p>
+        <h3 className="text-xl font-semibold text-white mb-2">
+          Connect Your Accounts
+        </h3>
+        <p className="text-gray-400">
+          Link your social media accounts to access your data
+        </p>
       </div>
 
-      {SOURCES_DATA.map(source => (
+      {SOURCES_DATA.map((source) => (
         <SourceCard
           key={source.key}
           source={source}

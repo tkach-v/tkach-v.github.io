@@ -1,5 +1,6 @@
 import React from "react";
-import { RecentlyPlayedItem } from "@/src/types";
+import { RecentlyPlayedItem } from "../../types";
+
 
 const RecentlyPlayedCard: React.FC<{ item: RecentlyPlayedItem }> = ({ item }) => (
   <div className="flex gap-4">

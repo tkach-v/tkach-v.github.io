@@ -6,11 +6,11 @@ import React, {
   PropsWithChildren,
 } from "react";
 import { API_CONFIG } from "../config/api";
-import { User } from "../types";
+import { UserData } from "../types";
 
 type UserState = {
-  userData: User | null;
-  setUserData: React.Dispatch<React.SetStateAction<User | null>>;
+  userData: UserData | null;
+  setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
   fetchUserData: () => Promise<void>;
   loading: boolean;
   error: null | string;
@@ -19,7 +19,7 @@ type UserState = {
 const UserContext = createContext({} as UserState);
 
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [userData, setUserData] = useState<WebAppUser | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,20 +35,20 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
       const telegramUser = tg.initDataUnsafe.user;
 
-      const userPayload = {
-        id: telegramUser.id,
-        first_name: telegramUser.first_name || "",
-        last_name: telegramUser.last_name || "",
-        username: telegramUser.username || "",
-        language_code: telegramUser.language_code || "",
-      };
+      // const userPayload = {
+      //   id: telegramUser.id,
+      //   first_name: telegramUser.first_name || "",
+      //   last_name: telegramUser.last_name || "",
+      //   username: telegramUser.username || "",
+      //   language_code: telegramUser.language_code || "",
+      // };
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userPayload),
+        body: JSON.stringify(telegramUser),
       });
 
       if (!response.ok) {

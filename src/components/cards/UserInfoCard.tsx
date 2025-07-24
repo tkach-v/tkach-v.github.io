@@ -1,5 +1,6 @@
 import React from "react";
-import { UserData } from "@/src/types";
+import { UserData } from "../../types";
+
 
 type InfoRowProps = {
   label: string;

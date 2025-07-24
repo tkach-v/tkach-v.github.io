@@ -1,8 +1,13 @@
 import React from "react";
-import { DataType, RecentlyPlayedItem, YtLikedVideoItem, YtSubscriptionItem } from "@/src/types";
-import YtLikedVideoCard from "@/src/components/cards/YtLikedVideoCard";
-import YtSubscriptionCard from "@/src/components/cards/YtSubscriptionCard";
-import RecentlyPlayedCard from "@/src/components/cards/RecentlyPlayedCard";
+import YtLikedVideoCard from "./YtLikedVideoCard";
+import YtSubscriptionCard from "./YtSubscriptionCard";
+import RecentlyPlayedCard from "./RecentlyPlayedCard";
+import {
+  DataType,
+  RecentlyPlayedItem,
+  YtLikedVideoItem,
+  YtSubscriptionItem,
+} from "../../types";
 
 type DataTypeMap = {
   yt_liked_videos: YtLikedVideoItem;
@@ -25,7 +30,11 @@ const DataCard: React.FC<Props<any>> = ({ item, dataType }) => {
       case "recently_played":
         return <RecentlyPlayedCard item={item} />;
       default:
-        return <pre className="text-xs text-gray-400">{JSON.stringify(item, null, 2)}</pre>;
+        return (
+          <pre className="text-xs text-gray-400">
+            {JSON.stringify(item, null, 2)}
+          </pre>
+        );
     }
   };
 

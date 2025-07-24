@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { useTelegram } from "../../contexts/TelegramContext";
 import { API_CONFIG, PLATFORM_OPTIONS } from "../../config/api";
 import PlatformSelector from "../PlatformSelector";
 import DataCard from "../cards/DataCard";
 import Button from "../ui/Button";
 import InteractiveMap from "../cards/InteractiveMap";
-import { GeoDataItem, RawGeoDataItem } from "@/src/types";
+import { GeoDataItem, RawGeoDataItem } from "../../types";
+import { useUser } from "../../contexts/UserContext";
+import { useTelegram } from "../../contexts/TelegramContext";
 
 const PlatformTab: React.FC = () => {
-  const { userPayload } = useTelegram();
+  const { userData } = useUser();
+  const { telegramUser } = useTelegram();
   const [selectedPlatform, setSelectedPlatform] = useState<string>("youtube");
-  const [selectedDataType, setSelectedDataType] = useState<string>("yt_liked_videos");
+  const [selectedDataType, setSelectedDataType] =
+    useState<string>("yt_liked_videos");
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -20,16 +23,21 @@ const PlatformTab: React.FC = () => {
 
     try {
       const queryParams = new URLSearchParams({
-        ...userPayload,
+        ...userData,
+        // ...telegramUser,
+         // telegram user?
         data_type: selectedDataType,
       } as unknown as Record<string, string>).toString();
 
-      const res = await fetch(`${API_CONFIG.BASE_URL}/data/${selectedPlatform}?${queryParams}`, {
-        method: "GET",
-        headers: {
-          "ngrok-skip-browser-warning": API_CONFIG.SKIP_BROWSER_WARNING,
-        },
-      });
+      const res = await fetch(
+        `${API_CONFIG.BASE_URL}/data/${selectedPlatform}?${queryParams}`,
+        {
+          method: "GET",
+          headers: {
+            "ngrok-skip-browser-warning": API_CONFIG.SKIP_BROWSER_WARNING,
+          },
+        }
+      );
 
       const result = await res.json();
 
@@ -39,7 +47,9 @@ const PlatformTab: React.FC = () => {
         throw new Error("Invalid response format");
       }
     } catch (err: unknown) {
-      console.error(err instanceof Error ? `Error: ${err.message}` : "Unknown error");
+      console.error(
+        err instanceof Error ? `Error: ${err.message}` : "Unknown error"
+      );
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import { YtSubscriptionItem } from "@/src/types";
+import { YtSubscriptionItem } from "../../types";
 
 const YtSubscriptionCard: React.FC<{ item: YtSubscriptionItem }> = ({ item }) => (
   <>
