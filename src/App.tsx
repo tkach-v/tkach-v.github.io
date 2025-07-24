@@ -4,7 +4,6 @@ import { TelegramProvider } from "./contexts/TelegramContext";
 import Layout from "./components/Layout";
 import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
-import PlatformTab from "./components/tabs/PlatformTab";
 import ErrorScreen from "./components/ErrorScreen";
 import "./styles/globals.css";
 import { Tab } from "./types";
@@ -20,12 +19,14 @@ const App = () => {
       window.Telegram.WebApp.setBackgroundColor("#0a0a0a");
     }
   }, []);
-
+/*
   const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
 
   if (!telegramUser || !telegramUser.id) {
     return <ErrorScreen />;
   }
+
+ */
 
   const tabs: Tab[] = [
     { id: "user", label: "Profile", icon: "fas fa-user", component: UserTab },
@@ -34,13 +35,7 @@ const App = () => {
       label: "Connections",
       icon: "fas fa-link",
       component: SourcesTab,
-    },
-    {
-      id: "platform",
-      label: "Data",
-      icon: "fas fa-database",
-      component: PlatformTab,
-    },
+    }
   ];
 
   const ActiveComponent =

@@ -4,7 +4,7 @@ import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import SourceCard from "../cards/SourceCard";
 import { initWalletConnect } from "../../wallet";
 import { ethers } from "ethers";
-import { UserData } from "../../types";
+import { Source } from "../../types";
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState(null);
@@ -37,19 +37,19 @@ const SourcesTab = () => {
 
   useEffect(() => {
     console.log("SourcesTab mounted, fetching data...");
-    fetchUserData();
+    void fetchUserData();
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         console.log("Page became visible, refreshing data...");
-        fetchUserData();
+        void fetchUserData();
       }
     };
 
-    const handleMessage = (event) => {
+    const handleMessage = (event: MessageEvent) => {
       if (event.data.type === "AUTH_SUCCESS") {
         console.log("Auth success message received, refreshing data...");
-        fetchUserData();
+        void fetchUserData();
       }
     };
 
@@ -111,7 +111,7 @@ const SourcesTab = () => {
     await fetchUserData();
   };
 
-  const handleSourceToggle = async (source) => {
+  const handleSourceToggle = async (source: Source) => {
     if (source.key === "walletConnected") {
       return await handleWalletConnect();
     }
@@ -128,7 +128,7 @@ const SourcesTab = () => {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(telegramUser),
-          }
+          },
         );
 
         if (res.status === 204) {
@@ -142,7 +142,7 @@ const SourcesTab = () => {
       window.Telegram.WebApp.openLink(
         `${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${
           telegramUser?.id
-        }`
+        }`,
       );
     }
   };

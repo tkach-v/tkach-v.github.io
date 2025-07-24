@@ -27,9 +27,9 @@ const UserInfoCard: React.FC<Props> = ({ userData }) => {
   if (!userData) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {userData.googlePicture && (
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-2 mb-4">
           <img
             src={userData.googlePicture}
             alt="Profile"

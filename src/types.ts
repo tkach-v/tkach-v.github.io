@@ -21,8 +21,6 @@ export type Platform = {
   types: PlatformType[];
 };
 
-export type User = WebAppUser & { [key: string]: any };
-
 type BaseItem = {
   thumbnailUrl: string;
   title: string;
@@ -76,38 +74,4 @@ export type UserData = {
   device?: string;
   os?: string;
   browser?: string;
-};
-
-export type GeoDataItem = {
-  device: string;
-  os?: string;
-  browser?: string;
-  geoIp: string;
-  geoCity: string;
-  geoRegion: string;
-  geoCountry: string;
-  geoPostal?: string;
-  geoLatitude: number;
-  geoLongitude: number;
-  geoTimezone?: string;
-  geoCurrency?: string;
-  createdAt: string;
-  [key: string]: any;
-};
-
-export type RawGeoDataItem = {
-  device: string;
-  os?: string;
-  browser?: string;
-  geoIp: string;
-  geoCity: string;
-  geoRegion: string;
-  geoCountry: string;
-  geoPostal?: string;
-  geoLatitude: string;
-  geoLongitude: string;
-  geoTimezone?: string;
-  geoCurrency?: string;
-  createdAt: string;
-  [key: string]: any;
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { RecentlyPlayedItem } from "../../types";
 
-
 const RecentlyPlayedCard: React.FC<{ item: RecentlyPlayedItem }> = ({ item }) => (
   <div className="flex gap-4">
     <img src={item.thumbnailUrl} alt={item.name} className="w-24 h-24 rounded-lg object-cover" />

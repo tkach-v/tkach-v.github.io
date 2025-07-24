@@ -1,4 +1,3 @@
-// components/tabs/UserTab.jsx
 import React, { useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
 import { useTelegram } from "../../contexts/TelegramContext";
@@ -12,7 +11,7 @@ const UserTab = () => {
 
   useEffect(() => {
     if (telegramUser?.id && !userData) {
-      fetchUserData();
+      void fetchUserData();
     }
   }, [telegramUser?.id]);
 
@@ -21,7 +20,7 @@ const UserTab = () => {
       alert("Disconnect functionality coming soon!");
     } else {
       window.Telegram.WebApp.openLink(
-        `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${telegramUser?.id}`
+        `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${telegramUser?.id}`,
       );
     }
   };
@@ -29,7 +28,7 @@ const UserTab = () => {
   const deleteUser = async () => {
     if (
       !window.confirm(
-        "Are you sure you want to delete all your data? This action cannot be undone."
+        "Are you sure you want to delete all your data? This action cannot be undone.",
       )
     )
       return;
@@ -47,6 +46,7 @@ const UserTab = () => {
         throw new Error("Failed to delete user");
       }
     } catch (err) {
+      //@ts-expect-error Type 'Error' includes message.
       alert(err.message);
     }
   };

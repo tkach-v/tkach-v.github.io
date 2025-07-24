@@ -16,7 +16,7 @@ const TabBar: React.FC<Props> = ({ tabs, activeTab, setActiveTab }) => {
           onClick={() => setActiveTab(tab.id)}
           className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-200 ${
             activeTab === tab.id
-              ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105"
+              ? "bg-indigo-500 text-white shadow-lg scale-105"
               : "hover:bg-gray-800/50 text-gray-400"
           }`}
         >

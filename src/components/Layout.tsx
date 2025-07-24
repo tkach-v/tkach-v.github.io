@@ -31,7 +31,7 @@ const Layout: React.FC<Props> = ({
 
         <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 shadow-xl">
+        <div className="bg-gray-900/50 backdrop-blur-sm rounded-3xl p-4 border border-gray-800 shadow-xl">
           {loading ? (
             <LoadingSpinner />
           ) : error ? (
