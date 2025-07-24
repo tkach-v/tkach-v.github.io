@@ -6,10 +6,11 @@ import React, {
   PropsWithChildren,
 } from "react";
 import { API_CONFIG } from "../config/api";
+import { User } from "../types";
 
 type UserState = {
-  userData: WebAppUser | null;
-  setUserData: React.Dispatch<React.SetStateAction<WebAppUser | null>>;
+  userData: User | null;
+  setUserData: React.Dispatch<React.SetStateAction<User | null>>;
   fetchUserData: () => Promise<void>;
   loading: boolean;
   error: null | string;

@@ -1,6 +1,15 @@
 import React from "react";
+import { Platform } from "../types";
 
-const PlatformSelector = ({
+type Props = {
+  platforms: Platform[];
+  selectedPlatform: string;
+  selectedDataType: string;
+  onPlatformChange: React.Dispatch<React.SetStateAction<string>>;
+  onDataTypeChange: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const PlatformSelector: React.FC<Props> = ({
   platforms,
   selectedPlatform,
   selectedDataType,
@@ -22,7 +31,7 @@ const PlatformSelector = ({
               const newPlatform = e.target.value;
               const platform = platforms.find((p) => p.value === newPlatform);
               onPlatformChange(newPlatform);
-              onDataTypeChange(platform.types[0].value);
+              platform && onDataTypeChange(platform.types[0].value);
             }}
             className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
           >
