@@ -4,11 +4,11 @@ import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import SourceCard from "../cards/SourceCard";
 import { initWalletConnect } from "../../wallet";
 import { ethers } from "ethers";
-import { Source } from "../../types";
+import { Source, UserData } from "../../types";
 
 const SourcesTab = () => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const { telegramUser } = useTelegram();
 
   const fetchUserData = async () => {
@@ -116,7 +116,7 @@ const SourcesTab = () => {
       return await handleWalletConnect();
     }
 
-    const connected = userData?.[source.key];
+    const connected = userData?.[source.key as keyof UserData];
 
     if (connected) {
       if (!window.confirm(`Disconnect ${source.name}?`)) return;
@@ -128,7 +128,7 @@ const SourcesTab = () => {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(telegramUser),
-          },
+          }
         );
 
         if (res.status === 204) {
@@ -142,7 +142,7 @@ const SourcesTab = () => {
       window.Telegram.WebApp.openLink(
         `${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${
           telegramUser?.id
-        }`,
+        }`
       );
     }
   };
@@ -162,7 +162,7 @@ const SourcesTab = () => {
         <SourceCard
           key={source.key}
           source={source}
-          connected={userData?.[source.key] ?? false}
+          connected={!!userData?.[source.key as keyof UserData]}
           onToggle={() => handleSourceToggle(source)}
         />
       ))}
