@@ -18,3 +18,5 @@ export type Platform = {
   color: string;
   types: PlatformType[];
 };
+
+export type User = WebAppUser & { [key: string]: any };
