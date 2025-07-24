@@ -2,10 +2,11 @@ import React from "react";
 import TabBar from "./TabBar";
 import LoadingSpinner from "./LoadingSpinner";
 import { useUser } from "../contexts/UserContext";
+import { Tab } from "../types";
 
 type Props = {
   children: React.ReactNode;
-  tabs: string[];
+  tabs: Tab[];
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
 };

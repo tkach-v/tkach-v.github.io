@@ -1,6 +1,13 @@
 import React from "react";
+import { Tab } from "../types";
 
-const TabBar = ({ tabs, activeTab, setActiveTab }) => {
+type Props = {
+  tabs: Tab[];
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const TabBar: React.FC<Props> = ({ tabs, activeTab, setActiveTab }) => {
   return (
     <div className="flex gap-2 mb-6 bg-gray-900/30 p-1 rounded-xl backdrop-blur-sm">
       {tabs.map((tab) => (
