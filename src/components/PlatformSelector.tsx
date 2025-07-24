@@ -1,14 +1,13 @@
-// components/PlatformSelector.jsx
-import React from 'react';
+import React from "react";
 
 const PlatformSelector = ({
   platforms,
   selectedPlatform,
   selectedDataType,
   onPlatformChange,
-  onDataTypeChange
+  onDataTypeChange,
 }) => {
-  const currentPlatform = platforms.find(p => p.value === selectedPlatform);
+  const currentPlatform = platforms.find((p) => p.value === selectedPlatform);
 
   return (
     <div className="space-y-4">
@@ -21,13 +20,13 @@ const PlatformSelector = ({
             value={selectedPlatform}
             onChange={(e) => {
               const newPlatform = e.target.value;
-              const platform = platforms.find(p => p.value === newPlatform);
+              const platform = platforms.find((p) => p.value === newPlatform);
               onPlatformChange(newPlatform);
               onDataTypeChange(platform.types[0].value);
             }}
             className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
           >
-            {platforms.map(p => (
+            {platforms.map((p) => (
               <option key={p.value} value={p.value}>
                 {p.platform}
               </option>
@@ -47,7 +46,7 @@ const PlatformSelector = ({
             onChange={(e) => onDataTypeChange(e.target.value)}
             className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
           >
-            {currentPlatform?.types.map(t => (
+            {currentPlatform?.types.map((t) => (
               <option key={t.value} value={t.value}>
                 {t.label}
               </option>
