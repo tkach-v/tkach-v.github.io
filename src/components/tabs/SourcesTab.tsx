@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useTelegram } from '../../contexts/TelegramContext';
-import { API_CONFIG, SOURCES_DATA } from '../../config/api';
-import SourceCard from '../cards/SourceCard';
+import React, {useEffect, useState} from "react";
+import {useTelegram} from "../../contexts/TelegramContext";
+import {API_CONFIG, SOURCES_DATA} from "../../config/api";
+import SourceCard from "../cards/SourceCard";
 import {initWalletConnect} from "../../wallet";
-import {ethers} from 'ethers'
+import {ethers} from "ethers"
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { telegramUser, userPayload } = useTelegram();
+  const {telegramUser, userPayload} = useTelegram();
 
   const fetchUserData = async () => {
     try {
       setLoading(true);
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userPayload),
       });
@@ -29,37 +29,37 @@ const SourcesTab = () => {
       setUserData(data);
 
     } catch (err) {
-      console.error('Error fetching user data:', err);
+      console.error("Error fetching user data:", err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    console.log('SourcesTab mounted, fetching data...');
+    console.log("SourcesTab mounted, fetching data...");
     fetchUserData();
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        console.log('Page became visible, refreshing data...');
+        console.log("Page became visible, refreshing data...");
         fetchUserData();
       }
     };
 
     const handleMessage = (event) => {
-      if (event.data.type === 'AUTH_SUCCESS') {
-        console.log('Auth success message received, refreshing data...');
+      if (event.data.type === "AUTH_SUCCESS") {
+        console.log("Auth success message received, refreshing data...");
         fetchUserData();
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('message', handleMessage);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("message", handleMessage);
 
     return () => {
-      console.log('SourcesTab unmounting, cleaning up...');
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('message', handleMessage);
+      console.log("SourcesTab unmounting, cleaning up...");
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("message", handleMessage);
     };
   }, []);
 
@@ -79,14 +79,14 @@ const SourcesTab = () => {
     const signer = await ethersProvider.getSigner()
     const address = await signer.getAddress()
 
-    console.log('Connected address:', address)
+    console.log("Connected address:", address)
 
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({address, ...userPayload}),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
 
@@ -97,14 +97,14 @@ const SourcesTab = () => {
 
     // 3. Send signature to backend
     await fetch(`${API_CONFIG.BASE_URL}/wallets/verify-signature`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         address: address,
         signature: signature,
         ...userPayload,
       }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
 
@@ -112,7 +112,7 @@ const SourcesTab = () => {
   }
 
   const handleSourceToggle = async (source) => {
-    if (source.key === 'walletConnected') {
+    if (source.key === "walletConnected") {
       return await handleWalletConnect();
     }
 
@@ -124,7 +124,7 @@ const SourcesTab = () => {
       try {
         const res = await fetch(`${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`, {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {"Content-Type": "application/json"},
           body: JSON.stringify(userPayload)
         });
 
@@ -150,7 +150,7 @@ const SourcesTab = () => {
         <SourceCard
           key={source.key}
           source={source}
-          connected={userData?.[source.key]}
+          connected={userData?.[source.key] ?? false}
           onToggle={() => handleSourceToggle(source)}
         />
       ))}
