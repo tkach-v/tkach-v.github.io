@@ -1,9 +1,17 @@
 import React from "react";
 import { RecentlyPlayedItem } from "../../types";
 
-const RecentlyPlayedCard: React.FC<{ item: RecentlyPlayedItem }> = ({ item }) => (
+type Props = {
+  item: RecentlyPlayedItem;
+};
+
+const RecentlyPlayedCard: React.FC<Props> = ({ item }) => (
   <div className="flex gap-4">
-    <img src={item.thumbnailUrl} alt={item.name} className="w-24 h-24 rounded-lg object-cover" />
+    <img
+      src={item.thumbnailUrl}
+      alt={item.name}
+      className="w-24 h-24 rounded-lg object-cover"
+    />
     <div className="flex-1">
       <h4 className="font-semibold text-white mb-1">
         <a
@@ -36,7 +44,9 @@ const RecentlyPlayedCard: React.FC<{ item: RecentlyPlayedItem }> = ({ item }) =>
         </a>
       </p>
       <div className="flex items-center gap-4 mt-2">
-        <span className="text-xs text-gray-500">Popularity: {item.popularity}</span>
+        <span className="text-xs text-gray-500">
+          Popularity: {item.popularity}
+        </span>
         <span className="text-xs text-gray-500">
           {new Date(item.playedAt).toLocaleString()}
         </span>
