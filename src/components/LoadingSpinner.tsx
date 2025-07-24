@@ -1,5 +1,4 @@
-// components/LoadingSpinner.jsx
-import React from 'react';
+import React from "react";
 
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center py-12">
