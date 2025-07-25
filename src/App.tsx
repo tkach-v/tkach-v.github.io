@@ -38,13 +38,13 @@ const App = () => {
       id: "assets",
       label: "Assets",
       icon: "fas fa-database",
-      component: SourcesTab,
+      component: () => <></>,
     },
     {
       id: "wallet",
       label: "Wallet",
       icon: "fas fa-wallet",
-      component: SourcesTab,
+      component: () => <></>,
     },
   ];
 
