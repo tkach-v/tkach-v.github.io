@@ -42,7 +42,7 @@ const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
             source.disabled || (connected && source.key === "walletConnected")
           }
         >
-          {connected ? "Disconnect" : "Connect"}
+          {connected ? "Remove" : "Connect"}
         </Button>
       </div>
     </div>

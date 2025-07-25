@@ -4,11 +4,11 @@ import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import SourceCard from "../cards/SourceCard";
 import { initWalletConnect } from "../../wallet";
 import { ethers } from "ethers";
-import { UserData } from "../../types";
+import { Source, UserData } from "../../types";
 
 const SourcesTab = () => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const { telegramUser } = useTelegram();
 
   const fetchUserData = async () => {
@@ -37,19 +37,19 @@ const SourcesTab = () => {
 
   useEffect(() => {
     console.log("SourcesTab mounted, fetching data...");
-    fetchUserData();
+    void fetchUserData();
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         console.log("Page became visible, refreshing data...");
-        fetchUserData();
+        void fetchUserData();
       }
     };
 
-    const handleMessage = (event) => {
+    const handleMessage = (event: MessageEvent) => {
       if (event.data.type === "AUTH_SUCCESS") {
         console.log("Auth success message received, refreshing data...");
-        fetchUserData();
+        void fetchUserData();
       }
     };
 
@@ -111,12 +111,12 @@ const SourcesTab = () => {
     await fetchUserData();
   };
 
-  const handleSourceToggle = async (source) => {
+  const handleSourceToggle = async (source: Source) => {
     if (source.key === "walletConnected") {
       return await handleWalletConnect();
     }
 
-    const connected = userData?.[source.key];
+    const connected = userData?.[source.key as keyof UserData];
 
     if (connected) {
       if (!window.confirm(`Disconnect ${source.name}?`)) return;
@@ -162,7 +162,7 @@ const SourcesTab = () => {
         <SourceCard
           key={source.key}
           source={source}
-          connected={userData?.[source.key] ?? false}
+          connected={!!userData?.[source.key as keyof UserData]}
           onToggle={() => handleSourceToggle(source)}
         />
       ))}

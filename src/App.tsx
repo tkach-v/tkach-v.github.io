@@ -4,7 +4,6 @@ import { TelegramProvider } from "./contexts/TelegramContext";
 import Layout from "./components/Layout";
 import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
-import PlatformTab from "./components/tabs/PlatformTab";
 import ErrorScreen from "./components/ErrorScreen";
 import "./styles/globals.css";
 import { Tab } from "./types";
@@ -39,12 +38,6 @@ const App = () => {
       label: "Connections",
       icon: "fas fa-link",
       component: SourcesTab,
-    },
-    {
-      id: "platform",
-      label: "Data",
-      icon: "fas fa-database",
-      component: PlatformTab,
     },
   ];
 

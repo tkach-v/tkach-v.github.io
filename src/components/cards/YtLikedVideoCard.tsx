@@ -1,7 +1,11 @@
 import React from "react";
 import { YtLikedVideoItem } from "../../types";
 
-const YtLikedVideoCard: React.FC<{ item: YtLikedVideoItem }> = ({ item }) => (
+type Props = {
+  item: YtLikedVideoItem;
+};
+
+const YtLikedVideoCard: React.FC<Props> = ({ item }) => (
   <>
     <img
       src={item.thumbnailUrl}

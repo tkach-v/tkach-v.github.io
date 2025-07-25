@@ -35,14 +35,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
       const telegramUser = tg.initDataUnsafe.user;
 
-      // const userPayload = {
-      //   id: telegramUser.id,
-      //   first_name: telegramUser.first_name || "",
-      //   last_name: telegramUser.last_name || "",
-      //   username: telegramUser.username || "",
-      //   language_code: telegramUser.language_code || "",
-      // };
-
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
         method: "POST",
         headers: {
