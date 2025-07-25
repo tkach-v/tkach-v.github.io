@@ -34,6 +34,18 @@ const App = () => {
       icon: "fas fa-link",
       component: SourcesTab,
     },
+    {
+      id: "assets",
+      label: "Assets",
+      icon: "fas fa-database",
+      component: SourcesTab,
+    },
+    {
+      id: "wallet",
+      label: "Wallet",
+      icon: "fas fa-wallet",
+      component: SourcesTab,
+    },
   ];
 
   const ActiveComponent =
