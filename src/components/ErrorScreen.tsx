@@ -14,7 +14,7 @@ const ErrorScreen = () => {
           </div>
         </div>
         <h2 className="text-2xl font-semibold text-white mb-4">
-          Telegram User Not Found
+          Telegram User Not Found Test
         </h2>
         <a
           href={telegramWebAppUrl}
