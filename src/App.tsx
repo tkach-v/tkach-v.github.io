@@ -7,9 +7,11 @@ import SourcesTab from "./components/tabs/SourcesTab";
 import ErrorScreen from "./components/ErrorScreen";
 import "./styles/globals.css";
 import { Tab } from "./types";
+import { SplashScreen } from "./components/SplashScreen";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("user");
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
@@ -54,9 +56,13 @@ const App = () => {
   return (
     <TelegramProvider>
       <UserProvider>
-        <Layout tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
-          <ActiveComponent />
-        </Layout>
+        {isReady ? (
+          <Layout tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
+            <ActiveComponent />
+          </Layout>
+        ) : (
+          <SplashScreen setIsReady={setIsReady} />
+        )}
       </UserProvider>
     </TelegramProvider>
   );
