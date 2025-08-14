@@ -4,7 +4,7 @@ type Props = {
   setIsReady: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const SplashScreen: FC<Props> = ({ setIsReady }) => {
+const SplashScreen: FC<Props> = ({ setIsReady }) => {
   return (
     <video
       src="/splash.webm"
@@ -16,3 +16,5 @@ export const SplashScreen: FC<Props> = ({ setIsReady }) => {
     />
   );
 };
+
+export default SplashScreen;

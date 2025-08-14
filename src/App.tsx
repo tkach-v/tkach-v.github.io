@@ -5,9 +5,9 @@ import Layout from "./components/Layout";
 import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
 import ErrorScreen from "./components/ErrorScreen";
+import SplashScreen from "./components/SplashScreen";
 import "./styles/globals.css";
 import { Tab } from "./types";
-import { SplashScreen } from "./components/SplashScreen";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("user");
