@@ -7,7 +7,7 @@ type Props = {
 const SplashScreen: FC<Props> = ({ setIsReady }) => {
   return (
     <video
-      src="/splash.webm"
+      src="/splash.mp4"
       autoPlay
       muted
       playsInline
