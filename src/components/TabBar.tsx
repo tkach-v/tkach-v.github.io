@@ -28,15 +28,15 @@ const tabs: Tab[] = [
 
 const TabBar: React.FC = () => {
   return (
-    <div className="grid grid-cols-2 gap-1 mb-6 bg-gray-900/30 p-1 rounded-xl backdrop-blur-sm">
+    <div className="flex gap-[3px] p-1">
       {tabs.map((tab) => (
         <NavLink
           to={tab.path}
           key={tab.id}
           className={({ isActive }) =>
             cn(
-              'w-full flex items-center justify-center gap-2 py-3 px-2 rounded-lg transition-all duration-200 scale-95 "hover:bg-gray-800/50 text-gray-400',
-              { "bg-indigo-500 text-white shadow-lg scale-100": isActive }
+              'w-[88px] py-1 px-2 border-b rounded font-medium text-sm transition-all duration-200 scale-95 whitespace-nowrap text-center text-coral-3 bg-coral-32 shadow-inset-combo border-transparent',
+              { "text-marine border-marine bg-linear-custom scale-100": isActive }
             )
           }
         >

@@ -5,9 +5,9 @@ import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
 import ErrorScreen from "./components/ErrorScreen";
 import SplashScreen from "./components/SplashScreen";
-import "./styles/globals.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { RootPathes, TabPathes } from "./types";
+import "./index.css";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
