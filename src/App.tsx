@@ -6,7 +6,7 @@ import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
 import ErrorScreen from "./components/ErrorScreen";
 import SplashScreen from "./components/SplashScreen";
-import "./styles/globals.css";
+import "./index.css";
 import { Tab } from "./types";
 
 const App = () => {
@@ -29,23 +29,20 @@ const App = () => {
   }
 
   const tabs: Tab[] = [
-    { id: "user", label: "Profile", icon: "fas fa-user", component: UserTab },
+    { id: "user", label: "Dashboard",  component: UserTab },
     {
       id: "sources",
-      label: "Connections",
-      icon: "fas fa-link",
+      label: "Your Data",
       component: SourcesTab,
     },
     {
       id: "assets",
-      label: "Assets",
-      icon: "fas fa-database",
+      label: "Your Assets",
       component: () => <></>,
     },
     {
       id: "wallet",
       label: "Wallet",
-      icon: "fas fa-wallet",
       component: () => <></>,
     },
   ];

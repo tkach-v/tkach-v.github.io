@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../ui/Button";
 import { Source } from "../../types";
+import SquareClip  from "../../assets/icons/SquareClip";
 
 type Props = {
   source: Source;
@@ -29,15 +30,16 @@ const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
       </div>
 
       <div className="flex items-center gap-3">
-        <div
-          className={`w-3 h-3 rounded-full ${
-            connected ? "bg-green-500" : "bg-gray-600"
-          }`}
-        ></div>
         <Button
           onClick={onToggle}
-          variant={connected ? "secondary" : "primary"}
-          size="small"
+          variant={connected ? "remove" : "connected"}
+          iconBack={connected
+            ? <SquareClip/>
+            : (
+              <span className="flex items-center justify-center w-[22px] h-[22px]">
+             <i className="fas fa-plus-square text-[22px] text-current" />
+          </span>
+            )}
           disabled={
             source.disabled || (connected && source.key === "walletConnected")
           }

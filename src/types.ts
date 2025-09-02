@@ -3,7 +3,6 @@ import React from "react";
 export type Tab = {
   id: string;
   label: string;
-  icon: string;
   component: () => React.JSX.Element;
 };
 
