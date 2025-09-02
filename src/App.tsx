@@ -6,10 +6,10 @@ import SourcesTab from "./components/tabs/SourcesTab";
 import ErrorScreen from "./components/ErrorScreen";
 import SplashScreen from "./components/SplashScreen";
 import "./styles/globals.css";
-import { Tab } from "./types";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { RootPathes, TabPathes } from "./types";
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState("user");
   const [isReady, setIsReady] = useState(false);
 
   const { tgApp, tgUser } = useTelegram();
@@ -27,41 +27,23 @@ const App = () => {
     return <ErrorScreen />;
   }
 
-  const tabs: Tab[] = [
-    { id: "user", label: "Profile", icon: "fas fa-user", component: UserTab },
-    {
-      id: "sources",
-      label: "Connections",
-      icon: "fas fa-link",
-      component: SourcesTab,
-    },
-    {
-      id: "assets",
-      label: "Assets",
-      icon: "fas fa-database",
-      component: () => <></>,
-    },
-    {
-      id: "wallet",
-      label: "Wallet",
-      icon: "fas fa-wallet",
-      component: () => <></>,
-    },
-  ];
-
-  const ActiveComponent =
-    tabs.find((t) => t.id === activeTab)?.component || UserTab;
-
   return (
-    <>
+    <BrowserRouter>
       {isReady ? (
-        <Layout tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
-          <ActiveComponent />
-        </Layout>
+        <Routes>
+          <Route path={RootPathes.ROOT} element={<Layout />}>
+            <Route path={TabPathes.DASHBOARD} element={<UserTab />} />
+            <Route path={TabPathes.DATA} element={<SourcesTab />} />
+            <Route path={TabPathes.ASSETS} element={<></>} />
+            <Route path={TabPathes.WALLET} element={<></>} />
+          </Route>
+          <Route path={RootPathes.CONFIG} element={<></>} />
+          <Route path={RootPathes.NEW_ASSET} element={<></>} />
+        </Routes>
       ) : (
         <SplashScreen setIsReady={setIsReady} />
       )}
-    </>
+    </BrowserRouter>
   );
 };
 

@@ -11,7 +11,7 @@ root.render(
   <React.StrictMode>
     <TelegramProvider>
       <UserProvider>
-        <App />
+          <App />
       </UserProvider>
     </TelegramProvider>
   </React.StrictMode>

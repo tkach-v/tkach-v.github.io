@@ -1,10 +1,20 @@
-import React from "react";
+export enum RootPathes {
+  ROOT = "/",
+  CONFIG = "/config",
+  NEW_ASSET = "/new-asset",
+}
+
+export enum TabPathes {
+  DASHBOARD = "dashboard",
+  DATA = "data",
+  ASSETS = "assets",
+  WALLET = "wallet",
+}
 
 export type Tab = {
-  id: string;
+  id: number;
   label: string;
-  icon: string;
-  component: () => React.JSX.Element;
+  path: string;
 };
 
 export type PlatformType = {
@@ -49,7 +59,10 @@ export type RecentlyPlayedItem = BaseItem & {
   playedAt: string;
 };
 
-export type DataType = "yt_liked_videos" | "yt_subscriptions" | "recently_played";
+export type DataType =
+  | "yt_liked_videos"
+  | "yt_subscriptions"
+  | "recently_played";
 
 export type Source = {
   color: string;

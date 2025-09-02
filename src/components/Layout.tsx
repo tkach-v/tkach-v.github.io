@@ -2,24 +2,10 @@ import React from "react";
 import TabBar from "./TabBar";
 import LoadingSpinner from "./LoadingSpinner";
 import { useUser } from "../contexts/UserContext";
-import { Tab } from "../types";
+import { Outlet } from "react-router";
 
-type Props = {
-  children: React.ReactNode;
-  tabs: Tab[];
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const Layout: React.FC<Props> = ({
-  children,
-  tabs,
-  activeTab,
-  setActiveTab,
-}) => {
+const Layout: React.FC = () => {
   const { loading, error } = useUser();
-
-  const isHiddenTab = ["wallet", "assets"].includes(activeTab); //TODO: remove when tabs are ready
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
@@ -31,24 +17,18 @@ const Layout: React.FC<Props> = ({
           <p className="text-gray-400 mt-1">Manage your connected accounts</p>
         </header>
 
-        <TabBar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        <TabBar />
 
-        <div
-          className={`bg-gray-900/50 backdrop-blur-sm rounded-3xl p-4 border border-gray-800 shadow-xl ${
-            isHiddenTab && "hidden"
-          }`}
-        >
-          {loading ? (
-            <LoadingSpinner />
-          ) : error ? (
-            <div className="text-center py-8">
-              <i className="fas fa-exclamation-circle text-4xl text-red-500 mb-4"></i>
-              <p className="text-red-400">{error}</p>
-            </div>
-          ) : (
-            children
-          )}
-        </div>
+        {loading ? (
+          <LoadingSpinner />
+        ) : error ? (
+          <div className="text-center py-8">
+            <i className="fas fa-exclamation-circle text-4xl text-red-500 mb-4"></i>
+            <p className="text-red-400">{error}</p>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </div>
     </div>
   );
