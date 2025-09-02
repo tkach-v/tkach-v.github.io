@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { UserProvider } from "./contexts/UserContext";
-import { TelegramProvider } from "./contexts/TelegramContext";
+import { useTelegram } from "./contexts/TelegramContext";
 import Layout from "./components/Layout";
 import UserTab from "./components/tabs/UserTab";
 import SourcesTab from "./components/tabs/SourcesTab";
@@ -13,18 +12,18 @@ const App = () => {
   const [activeTab, setActiveTab] = useState("user");
   const [isReady, setIsReady] = useState(false);
 
+  const { tgApp, tgUser } = useTelegram();
+
   useEffect(() => {
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-      window.Telegram.WebApp.setHeaderColor("#1a1a1a");
-      window.Telegram.WebApp.setBackgroundColor("#0a0a0a");
+    if (tgApp) {
+      tgApp.ready();
+      tgApp.expand();
+      tgApp.setHeaderColor("#1a1a1a");
+      tgApp.setBackgroundColor("#0a0a0a"); // TODO: take from vars
     }
   }, []);
 
-  const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
-
-  if (!telegramUser || !telegramUser.id) {
+  if (!tgUser || !tgUser.id) {
     return <ErrorScreen />;
   }
 
@@ -54,17 +53,15 @@ const App = () => {
     tabs.find((t) => t.id === activeTab)?.component || UserTab;
 
   return (
-    <TelegramProvider>
-      <UserProvider>
-        {isReady ? (
-          <Layout tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
-            <ActiveComponent />
-          </Layout>
-        ) : (
-          <SplashScreen setIsReady={setIsReady} />
-        )}
-      </UserProvider>
-    </TelegramProvider>
+    <>
+      {isReady ? (
+        <Layout tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
+          <ActiveComponent />
+        </Layout>
+      ) : (
+        <SplashScreen setIsReady={setIsReady} />
+      )}
+    </>
   );
 };
 

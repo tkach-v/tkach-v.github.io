@@ -9,7 +9,7 @@ import { Source, UserData } from "../../types";
 const SourcesTab = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { tgUser } = useTelegram();
+  const { tgUser, tgApp } = useTelegram();
 
   const fetchUserData = async () => {
     try {
@@ -139,7 +139,7 @@ const SourcesTab = () => {
         alert(`Error: ${err.message}`);
       }
     } else {
-      window.Telegram.WebApp.openLink(
+      tgApp?.openLink(
         `${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${
           tgUser?.id
         }`

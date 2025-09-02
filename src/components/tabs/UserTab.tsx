@@ -7,7 +7,7 @@ import Button from "../ui/Button";
 
 const UserTab = () => {
   const { userData, fetchUserData } = useUser();
-  const { tgUser } = useTelegram();
+  const { tgUser, tgApp } = useTelegram();
 
   useEffect(() => {
     if (tgUser?.id && !userData) {
@@ -19,7 +19,7 @@ const UserTab = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");
     } else {
-      window.Telegram.WebApp.openLink(
+     tgApp?.openLink(
         `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${tgUser?.id}`,
       );
     }
@@ -41,7 +41,7 @@ const UserTab = () => {
       });
 
       if (res.status === 204) {
-        window.Telegram.WebApp.close();
+       tgApp?.close();
       } else {
         throw new Error("Failed to delete user");
       }

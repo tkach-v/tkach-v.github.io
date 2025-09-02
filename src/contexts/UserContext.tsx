@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { API_CONFIG } from "../config/api";
 import { UserData } from "../types";
+import { useTelegram } from "./TelegramContext";
 
 type UserState = {
   userData: UserData | null;
@@ -23,24 +24,23 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { tgUser } = useTelegram();
+
   const fetchUserData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const tg = window.Telegram?.WebApp;
-      if (!tg?.initDataUnsafe?.user) {
+      if (!tgUser) {
         throw new Error("Telegram user data not available");
       }
-
-      const telegramUser = tg.initDataUnsafe.user;
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(telegramUser),
+        body: JSON.stringify(tgUser),
       });
 
       if (!response.ok) {
@@ -57,7 +57,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [tgUser]);
 
   const value = {
     userData,
