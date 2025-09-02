@@ -1,0 +1,30 @@
+:root {
+  --swiper-pagination-right: auto;
+  --swiper-pagination-left: 16px;
+}
+
+.swiper {
+  width: 100%;
+  height: 114px;
+}
+
+.swiper-slide {
+  height: 97px;
+  border-radius: 18px;
+  background-color: #875DCB;
+  padding: 16px;
+  padding-left: 40px;
+}
+
+.swiper-slide-visible {
+  background: linear-gradient(100.64deg, #8AEBB3 0%, #7FC8F3 35.83%, #E6AAF0 100%);
+}
+
+.swiper-pagination-bullet {
+  background-color: #FFFFFF;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #262A31;
+}

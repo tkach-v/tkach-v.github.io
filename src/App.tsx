@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {isReady ? (
+      {/* {isReady ? ( */}
         <Routes>
           <Route path={RootPathes.ROOT} element={<Layout />}>
             <Route path={TabPathes.DASHBOARD} element={<UserTab />} />
@@ -40,9 +40,9 @@ const App = () => {
           <Route path={RootPathes.CONFIG} element={<></>} />
           <Route path={RootPathes.NEW_ASSET} element={<></>} />
         </Routes>
-      ) : (
+      {/* ) : (
         <SplashScreen setIsReady={setIsReady} />
-      )}
+      )} */}
     </BrowserRouter>
   );
 };
