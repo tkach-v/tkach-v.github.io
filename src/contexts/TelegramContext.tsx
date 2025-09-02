@@ -1,16 +1,16 @@
 import React, { createContext, PropsWithChildren, useContext } from "react";
 
 type TelegramState = {
-  telegramUser: WebAppUser | null;
+  tgApp: WebApp | null;
+  tgUser: WebAppUser | null;
 };
 
 const TelegramContext = createContext({} as TelegramState);
 
 export const TelegramProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const telegramUser = window.Telegram?.WebApp?.initDataUnsafe?.user || null;
-
   const value = {
-    telegramUser,
+    tgApp: window.Telegram?.WebApp || null,
+    tgUser: window.Telegram?.WebApp?.initDataUnsafe?.user || null,
   };
 
   return (

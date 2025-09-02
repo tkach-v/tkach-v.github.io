@@ -9,7 +9,7 @@ import { Source, UserData } from "../../types";
 const SourcesTab = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { telegramUser } = useTelegram();
+  const { tgUser } = useTelegram();
 
   const fetchUserData = async () => {
     try {
@@ -19,7 +19,7 @@ const SourcesTab = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(telegramUser),
+        body: JSON.stringify(tgUser),
       });
 
       if (!response.ok) {
@@ -84,7 +84,7 @@ const SourcesTab = () => {
     // 1. Fetch nonce from backend
     const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
       method: "POST",
-      body: JSON.stringify({ address, ...telegramUser }),
+      body: JSON.stringify({ address, ...tgUser }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -101,7 +101,7 @@ const SourcesTab = () => {
       body: JSON.stringify({
         address: address,
         signature: signature,
-        ...telegramUser,
+        ...tgUser,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +127,7 @@ const SourcesTab = () => {
           {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(telegramUser),
+            body: JSON.stringify(tgUser),
           }
         );
 
@@ -141,7 +141,7 @@ const SourcesTab = () => {
     } else {
       window.Telegram.WebApp.openLink(
         `${API_CONFIG.BASE_URL}/auth/${source.name.toLowerCase()}?telegram_id=${
-          telegramUser?.id
+          tgUser?.id
         }`
       );
     }

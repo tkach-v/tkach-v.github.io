@@ -7,20 +7,20 @@ import Button from "../ui/Button";
 
 const UserTab = () => {
   const { userData, fetchUserData } = useUser();
-  const { telegramUser } = useTelegram();
+  const { tgUser } = useTelegram();
 
   useEffect(() => {
-    if (telegramUser?.id && !userData) {
+    if (tgUser?.id && !userData) {
       void fetchUserData();
     }
-  }, [telegramUser?.id]);
+  }, [tgUser?.id]);
 
   const handleGoogleAuth = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");
     } else {
       window.Telegram.WebApp.openLink(
-        `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${telegramUser?.id}`,
+        `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${tgUser?.id}`,
       );
     }
   };
@@ -37,7 +37,7 @@ const UserTab = () => {
       const res = await fetch(`${API_CONFIG.BASE_URL}/user`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(telegramUser),
+        body: JSON.stringify(tgUser),
       });
 
       if (res.status === 204) {
