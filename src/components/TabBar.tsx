@@ -5,10 +5,7 @@ import { cn } from "../utils";
 import { TabPathes } from "../types";
 
 const tabs: Tab[] = [
-  { id: 1,
-    label: "Dashboard",
-    path: TabPathes.DASHBOARD,
-  },
+  { id: 1, label: "Dashboard", path: TabPathes.DASHBOARD },
   {
     id: 2,
     label: "Your Data",
@@ -35,8 +32,11 @@ const TabBar: React.FC = () => {
           key={tab.id}
           className={({ isActive }) =>
             cn(
-              'w-[88px] py-1 px-2 border-b rounded font-medium text-sm transition-all duration-200 scale-95 whitespace-nowrap text-center text-coral-3 bg-coral-32 shadow-inset-combo border-transparent',
-              { "text-marine border-marine bg-linear-custom scale-100": isActive }
+              "flex-1 py-1 px-2 border-b rounded font-medium text-sm transition-all duration-200 scale-95 whitespace-nowrap text-center text-coral-3 bg-coral-32 shadow-inset-combo border-transparent",
+              {
+                "text-marine border-marine bg-linear-custom scale-100":
+                  isActive,
+              }
             )
           }
         >
