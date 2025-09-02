@@ -12,6 +12,7 @@ import Window from "../../../assets/icons/Window";
 import Asset from "../../../assets/icons/Asset";
 import { OnboardingSlide } from "../../../types";
 import Flag from "../../../assets/icons/Flag";
+import Progress from "../Progress";
 
 const onboardingSlides: OnboardingSlide[] = [
   {
@@ -67,13 +68,13 @@ const Swipper = () => {
     >
       <SwiperSlide>
         <Slide slide={mainSlide}>
-          <div className="flex flex-col w-full">
-            <div className="flex gap-1 text-xs text-black">
+          <div className="flex gap-1 flex-col w-full">
+            <div className="flex gap-0.5 text-xs text-black">
               <span className="font-medium">Complete all steps to receive</span>
               <span className="font-bold">10 DAAC</span>
             </div>
 
-            <div></div>
+            <Progress progress={25} text="1/4 " />
           </div>
         </Slide>
       </SwiperSlide>
