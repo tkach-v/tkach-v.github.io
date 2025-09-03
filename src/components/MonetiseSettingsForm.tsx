@@ -41,7 +41,7 @@ const MonetiseSettingsForm = () => {
   };
 
   return (
-    <div className='mx-auto flex h-full max-w-2xl flex-col justify-between p-4'>
+    <div className='mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4'>
       <div className='flex flex-col gap-6'>
         <div className='flex flex-row gap-2'>
           <BackButton />
@@ -163,14 +163,16 @@ const MonetiseSettingsForm = () => {
         </Form>
       </div>
 
-      <Button
-        disabled={!form.formState.isValid}
-        type='submit'
-        onClick={form.handleSubmit(onSubmitHandler)}
-        variant='solid'
-      >
-        Confirm
-      </Button>
+      <div className='mt-auto'>
+        <Button
+          disabled={!form.formState.isValid}
+          type='submit'
+          onClick={form.handleSubmit(onSubmitHandler)}
+          variant='solid'
+        >
+          Confirm
+        </Button>
+      </div>
     </div>
   );
 };

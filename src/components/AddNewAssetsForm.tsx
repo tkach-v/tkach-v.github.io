@@ -43,7 +43,7 @@ const AddNewAssetsForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   return (
-    <div className='mx-auto flex h-full max-w-2xl flex-col justify-between p-4'>
+    <div className='mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4'>
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row gap-2'>
           <BackButton />
@@ -226,14 +226,16 @@ const AddNewAssetsForm: React.FC<Props> = ({ onSubmit }) => {
         </Form>
       </div>
 
-      <Button
-        disabled={!form.formState.isValid}
-        type='submit'
-        onClick={form.handleSubmit(onSubmitHandler)}
-        variant='solid'
-      >
+      <div className='mt-auto'>
+        <Button
+          disabled={!form.formState.isValid}
+          type='submit'
+          onClick={form.handleSubmit(onSubmitHandler)}
+          variant='solid'
+        >
         Next
-      </Button>
+        </Button>
+      </div>
     </div>
   );
 };
