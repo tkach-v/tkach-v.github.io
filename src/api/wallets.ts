@@ -1,29 +1,24 @@
-import { UserData } from '../types';
 import { axiosInstance } from './client/instance';
 
 const path = 'wallets';
 
-type ConnectWalletRequestData = {
-  address: string;
-  tgUser: UserData;
-};
-
-type VerifySignatureRequestData = {
-  address: string;
-  signature: string;
-  tgUser: UserData;
-};
-
-export const connectWallet = async (data: ConnectWalletRequestData) => {
+export const connectWallet = async (id: number, address: string) => {
   const response = await axiosInstance.post(`${path}/connect-external`, {
-    body: data,
+    id,
+    address,
   });
   return response.data;
 };
 
-export const verifySignature = async (data: VerifySignatureRequestData) => {
+export const verifySignature = async (
+  id: number,
+  address: string,
+  signature: string,
+) => {
   const response = await axiosInstance.post(`${path}/verify-signature`, {
-    body: data,
+    id,
+    address,
+    signature,
   });
   return response.data;
 };

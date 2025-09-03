@@ -15,8 +15,6 @@ const UserTab = () => {
 
   const goToData = (path: string) => navigate('/' + path);
 
-  console.log('---userData---', userData);
-
   /*const handleGoogleAuth = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");

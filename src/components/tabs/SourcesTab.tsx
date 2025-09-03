@@ -7,6 +7,8 @@ import { Source, UserData } from '../../types';
 import { initWalletConnect } from '../../wallet';
 import SourceCard from '../cards/SourceCard';
 import Swipper from '../onbording/Swipper';
+import { disconnect } from '../../api/disconnect';
+import { connectWallet, verifySignature } from '../../api/wallets';
 
 const SourcesTab = () => {
   const { userData, loading, fetchUserData } = useUser();
@@ -55,34 +57,21 @@ const SourcesTab = () => {
 
     console.log('Connected address:', address);
 
-    // 1. Fetch nonce from backend
-    const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
-      method: 'POST',
-      body: JSON.stringify({ address, ...tgUser }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    try {
+      // 1. Fetch nonce from backend
+      const nonce = await connectWallet(tgUser?.id!, address);
 
-    const nonce = await res.json();
+      // 2. Sign nonce
+      const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
 
-    // 2. Sign nonce
-    const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
+      // 3. Send signature to backend
+      await verifySignature(tgUser?.id!, address, signature);
 
-    // 3. Send signature to backend
-    await fetch(`${API_CONFIG.BASE_URL}/wallets/verify-signature`, {
-      method: 'POST',
-      body: JSON.stringify({
-        address: address,
-        signature: signature,
-        ...tgUser,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    await fetchUserData();
+      await fetchUserData();
+    } catch (error) {
+      //@ts-expect-error Type 'Error' includes message.
+      setError(err.message);
+    }
   };
 
   const handleSourceToggle = async (source: Source) => {
@@ -96,18 +85,8 @@ const SourcesTab = () => {
       if (!window.confirm(`Disconnect ${source.name}?`)) return;
 
       try {
-        const res = await fetch(
-          `${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`,
-          {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(tgUser),
-          },
-        );
-
-        if (res.status === 204) {
-          await fetchUserData();
-        }
+        await disconnect(source.name, tgUser?.id!);
+        await fetchUserData();
       } catch (err) {
         //@ts-expect-error Type 'Error' includes message.
         alert(`Error: ${err.message}`);

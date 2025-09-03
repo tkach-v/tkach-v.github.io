@@ -1,16 +1,10 @@
-import { UserData } from '../types';
 import { axiosInstance } from './client/instance';
 
-type ConnectWalletRequestData = {
-  sourceName: string;
-  userData: UserData;
-};
-
-export const disconnect = async (data: ConnectWalletRequestData) => {
-  const response = await axiosInstance.post(
-    `/${data.sourceName.toLowerCase()}/disconnect`,
+export const disconnect = async (sourceName: string, id: number) => {
+  const response = await axiosInstance.delete(
+    `/${sourceName.toLowerCase()}/disconnect`,
     {
-      body: data.userData,
+      data: { id },
     },
   );
   return response.data;
