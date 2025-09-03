@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
 type Props = {
   progress: number;
@@ -7,14 +7,17 @@ type Props = {
 
 const Progress: FC<Props> = ({ progress, text }) => {
   return (
-    <div className="flex flex-1 gap-2 items-center">
-      <div className="w-full h-2 bg-white relative rounded-md">
+    <div className='flex flex-1 items-center gap-2'>
+      <div className='relative h-2 w-full rounded-md bg-white'>
         <div
-          className={`absolute left-0 top-0 bottom-0 bg-[#262A31] rounded-md w-[${progress}%]`}
+          className={`
+            absolute bottom-0 left-0 top-0 rounded-md bg-[#262A31]
+            w-[${progress}%]
+          `}
         ></div>
       </div>
 
-      {text && <span className="text-xs text-black font-bold">{text}</span>}
+      {text && <span className='text-xs font-bold text-black'>{text}</span>}
     </div>
   );
 };

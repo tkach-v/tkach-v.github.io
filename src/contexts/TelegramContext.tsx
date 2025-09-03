@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext } from "react";
+import React, { createContext, PropsWithChildren, useContext } from 'react';
 
 type TelegramState = {
   tgApp: WebApp | null;
@@ -23,7 +23,7 @@ export const TelegramProvider: React.FC<PropsWithChildren> = ({ children }) => {
 export const useTelegram = () => {
   const context = useContext(TelegramContext);
   if (!context) {
-    throw new Error("useTelegram must be used within TelegramProvider");
+    throw new Error('useTelegram must be used within TelegramProvider');
   }
   return context;
 };

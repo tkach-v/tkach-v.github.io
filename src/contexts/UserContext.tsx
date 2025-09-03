@@ -4,10 +4,10 @@ import React, {
   useState,
   useCallback,
   PropsWithChildren,
-} from "react";
-import { API_CONFIG } from "../config/api";
-import { UserData } from "../types";
-import { useTelegram } from "./TelegramContext";
+} from 'react';
+import { API_CONFIG } from '../config/api';
+import { UserData } from '../types';
+import { useTelegram } from './TelegramContext';
 
 type UserState = {
   userData: UserData | null;
@@ -32,13 +32,13 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       setError(null);
 
       if (!tgUser) {
-        throw new Error("Telegram user data not available");
+        throw new Error('Telegram user data not available');
       }
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(tgUser),
       });
@@ -50,7 +50,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       const data = await response.json();
       setUserData(data);
     } catch (err) {
-      console.error("Error fetching user data:", err);
+      console.error('Error fetching user data:', err);
       //@ts-expect-error Type 'Error' includes message.
       setError(err.message);
       setUserData(null);
@@ -73,7 +73,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error("useUser must be used within UserProvider");
+    throw new Error('useUser must be used within UserProvider');
   }
   return context;
 };

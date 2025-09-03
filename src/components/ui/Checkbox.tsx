@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { cn } from '../../utils';
 
 type Props = {
   label: string;
@@ -8,18 +9,24 @@ type Props = {
 
 const Checkbox = ({ label, checked, onChange }: Props) => {
   return (
-    <div className="flex items-center">
+    <div className='flex items-center'>
       <input
-        id="controlled-checkbox"
-        type="checkbox"
+        id='controlled-checkbox'
+        type='checkbox'
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className={`w-5 h-5 rounded-sm border border-green-blue-1 focus:ring-green-blue-1 accent-green-blue-1
-          ${checked ? 'bg-green-blue-1' : 'appearance-none'}`}
+        className={cn(
+          `
+            h-5 w-5 rounded-sm border border-green-blue-1 accent-green-blue-1
+            focus:ring-green-blue-1
+          `,
+          checked ? 'bg-green-blue-1' : 'appearance-none',
+        )}
       />
+
       <label
-        htmlFor="controlled-checkbox"
-        className="ms-3 text-sm font-medium text-green-blue-2"
+        htmlFor='controlled-checkbox'
+        className='ms-3 text-sm font-medium text-green-blue-2'
       >
         {label}
       </label>

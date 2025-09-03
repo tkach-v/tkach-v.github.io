@@ -1,5 +1,5 @@
-import React from "react";
-import { Platform } from "../types";
+import React from 'react';
+import { Platform } from '../types';
 
 type Props = {
   platforms: Platform[];
@@ -19,12 +19,13 @@ const PlatformSelector: React.FC<Props> = ({
   const currentPlatform = platforms.find((p) => p.value === selectedPlatform);
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       <div>
-        <label className="block text-sm font-medium text-gray-400 mb-2">
+        <label className='mb-2 block text-sm font-medium text-gray-400'>
           Select Platform
         </label>
-        <div className="relative">
+
+        <div className='relative'>
           <select
             value={selectedPlatform}
             onChange={(e) => {
@@ -33,7 +34,11 @@ const PlatformSelector: React.FC<Props> = ({
               onPlatformChange(newPlatform);
               platform && onDataTypeChange(platform.types[0].value);
             }}
-            className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
+            className={`
+              w-full cursor-pointer appearance-none rounded-lg border border-gray-700 bg-gray-800
+              px-4 py-3 text-white
+              focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+            `}
           >
             {platforms.map((p) => (
               <option key={p.value} value={p.value}>
@@ -41,19 +46,28 @@ const PlatformSelector: React.FC<Props> = ({
               </option>
             ))}
           </select>
-          <i className="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+
+          <i className={`
+            fas fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2
+            transform text-gray-400
+          `}></i>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-400 mb-2">
+        <label className='mb-2 block text-sm font-medium text-gray-400'>
           Data Type
         </label>
-        <div className="relative">
+
+        <div className='relative'>
           <select
             value={selectedDataType}
             onChange={(e) => onDataTypeChange(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
+            className={`
+              w-full cursor-pointer appearance-none rounded-lg border border-gray-700 bg-gray-800
+              px-4 py-3 text-white
+              focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+            `}
           >
             {currentPlatform?.types.map((t) => (
               <option key={t.value} value={t.value}>
@@ -61,7 +75,11 @@ const PlatformSelector: React.FC<Props> = ({
               </option>
             ))}
           </select>
-          <i className="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+
+          <i className={`
+            fas fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2
+            transform text-gray-400
+          `}></i>
         </div>
       </div>
     </div>

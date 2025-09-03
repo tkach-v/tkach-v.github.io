@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Props = {
   value: number;
@@ -8,51 +8,52 @@ type Props = {
 
 const Range = ({ value, setValue, label }: Props) => {
   return (
-    <div className="w-full">
+    <div className='w-full'>
       {label && (
         <label
-          htmlFor="controlled-range"
-          className="block mb-2 text-sm font-medium text-green-blue-2"
+          htmlFor='controlled-range'
+          className='mb-2 block text-sm font-medium text-green-blue-2'
         >
           {label}
         </label>
       )}
 
-      <div className="flex items-center flex-row gap-2">
-        <div className="relative w-full">
+      <div className='flex flex-row items-center gap-2'>
+        <div className='relative w-full'>
           <div
-            className="absolute -top-7 font-medium text-sm text-coral"
+            className='absolute -top-7 text-sm font-medium text-coral'
             style={{ left: `calc(${value}% - 12px)` }}
           >
             {value}%
           </div>
 
-          <div className="h-2 bg-white rounded-full">
+          <div className='h-2 rounded-full bg-white'>
             <div
-              className="h-2 bg-pink-bright rounded-full"
+              className='h-2 rounded-full bg-pink-bright'
               style={{ width: `${value}%` }}
             />
           </div>
 
           <input
-            id="controlled-range"
-            type="range"
+            id='controlled-range'
+            type='range'
             min={0}
             max={100}
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
             className={`
-              absolute inset-0 w-full h-2 appearance-none bg-transparent cursor-grab
+              absolute inset-0 h-2 w-full cursor-grab appearance-none bg-transparent
               focus:outline-none
-              [&::-webkit-slider-thumb]:w-0 [&::-webkit-slider-thumb]:h-0 [&::-webkit-slider-thumb]:appearance-none
-              [&::-moz-range-thumb]:w-0 [&::-moz-range-thumb]:h-0 [&::-moz-range-thumb]:appearance-none
-              [&::-ms-thumb]:w-0 [&::-ms-thumb]:h-0 [&::-ms-thumb]:appearance-none
+              [&::-moz-range-thumb]:h-0 [&::-moz-range-thumb]:w-0
+              [&::-moz-range-thumb]:appearance-none [&::-ms-thumb]:h-0 [&::-ms-thumb]:w-0
+              [&::-ms-thumb]:appearance-none [&::-webkit-slider-thumb]:h-0
+              [&::-webkit-slider-thumb]:w-0 [&::-webkit-slider-thumb]:appearance-none
             `}
-            aria-label={label || "range"}
+            aria-label={label || 'range'}
           />
         </div>
 
-        <span className="text-sm font-medium text-coral">100%</span>
+        <span className='text-sm font-medium text-coral'>100%</span>
       </div>
     </div>
   );

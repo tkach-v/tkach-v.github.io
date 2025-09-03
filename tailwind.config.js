@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "marine-4":"#226085",
+        "teal-2": "#76A9AB",
+        "dark-blue": "#202A54",
+        "teal-7": "#113132",
+        "teal-6": "#164143",
+        "marine-4": "#226085",
         "pink-bright": "#FA00FF",
         "green-blue-6": "#244E5A",
         "green-blue-3":"#929EA3",
@@ -17,7 +21,7 @@ module.exports = {
         "green-blue-5": "#313C410D",
         "green-blue": "#4F7D8A",
         "coral-32": "#313C4152",
-        "coral-9":"#101416",
+        "coral-9": "#101416",
         "coral-8": "#21282B",
         "coral-6": "#425056",
         "coral-3": "#929EA3",

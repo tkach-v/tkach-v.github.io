@@ -1,7 +1,7 @@
-import { EthereumProvider } from "@walletconnect/ethereum-provider";
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 // TODO: add environment variables move function to the component
-const projectId = "7456a1fac497de33a62f217784d1ec70"; // Get from https://cloud.walletconnect.com/
+const projectId = '7456a1fac497de33a62f217784d1ec70'; // Get from https://cloud.walletconnect.com/
 
 export const initWalletConnect = async () => {
   const provider = await EthereumProvider.init({
