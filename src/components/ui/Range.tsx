@@ -12,7 +12,7 @@ const Range = ({ value, setValue, label }: Props) => {
       {label && (
         <label
           htmlFor='controlled-range'
-          className='mb-2 block text-sm font-medium text-green-blue-2'
+          className='mb-7 block text-sm font-medium text-coral'
         >
           {label}
         </label>
@@ -22,7 +22,7 @@ const Range = ({ value, setValue, label }: Props) => {
         <div className='relative w-full'>
           <div
             className='absolute -top-7 text-sm font-medium text-coral'
-            style={{ left: `calc(${value}% - 12px)` }}
+            style={{ left: `${value}%` }}
           >
             {value}%
           </div>

@@ -10,25 +10,25 @@ const Csv = () => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_753_4339)'>
+      <g clipPath='url(#clip0_753_4339)'>
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M3.41702 0.00244141C2.36627 0.00244141 1.51465 0.854816 1.51465 1.90519V22.0956C1.51465 23.1467 2.36627 23.9983 3.41702 23.9983H20.5823C21.6327 23.9983 22.485 23.1467 22.485 22.0956V7.61869L15.3968 0.00244141H3.41702Z'
           fill='#45B058'
         />
 
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M22.4823 7.63182V8.00682H17.6819C17.6819 8.00682 15.3149 7.53432 15.3843 5.4917C15.3843 5.4917 15.4619 7.63182 17.6351 7.63182H22.4823Z'
           fill='#349C42'
         />
 
         <path
           opacity='0.5'
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M15.3936 0V5.46037C15.3936 6.08138 15.8076 7.632 17.6826 7.632H22.4829L15.3936 0Z'
           fill='white'
         />

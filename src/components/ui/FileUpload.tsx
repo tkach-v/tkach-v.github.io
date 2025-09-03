@@ -4,6 +4,7 @@ import { FileInputPlaceholder } from './FileInputPlaceholder';
 import Csv from '../../assets/icons/Csv';
 
 type Props = {
+  name: string;
   type?: 'img' | 'document'
   label: string;
   file?: File | null;
@@ -11,14 +12,14 @@ type Props = {
 };
 
 
-const FileUpload = ({ label, file, type = 'img', onChange }: Props) => {
+const FileUpload = ({ name, label, file, type = 'img', onChange }: Props) => {
 
   if (file) {
     if (type === 'img') {
       const fileURL = file ? URL.createObjectURL(file) : null;
       return (
         <FileInput
-          name='img-file'
+          name={name}
           className={`
             flex h-16 w-full items-center justify-center overflow-hidden rounded border
             border-marine
@@ -68,7 +69,7 @@ const FileUpload = ({ label, file, type = 'img', onChange }: Props) => {
 
   return (
     <FileInput
-      name='dropzone-file'
+      name={name}
       className={`
         h-16 cursor-pointer rounded border border-dashed border-marine-4 bg-coral-9
         hover:bg-coral-8

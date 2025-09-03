@@ -44,10 +44,12 @@ type Props = {
   iconBack?: ReactNode;
   disabled?: boolean;
   className?: string;
+  type?: 'button' | 'submit' ;
 };
 
 const Button: React.FC<Props> = ({
   children,
+  type ='button',
   onClick,
   variant = 'primary',
   icon,
@@ -57,6 +59,7 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={cn(
