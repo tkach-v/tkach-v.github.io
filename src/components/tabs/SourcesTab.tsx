@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTelegram } from '../../contexts/TelegramContext';
 import { API_CONFIG, SOURCES_DATA } from '../../config/api';
 import SourceCard from '../cards/SourceCard';
@@ -6,40 +6,13 @@ import { initWalletConnect } from '../../wallet';
 import { ethers } from 'ethers';
 import { Source, UserData } from '../../types';
 import Swipper from '../onbording/Swipper';
+import { useUser } from '../../contexts/UserContext';
 
 const SourcesTab = () => {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { userData, loading, fetchUserData } = useUser();
   const { tgUser, tgApp } = useTelegram();
 
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(tgUser),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setUserData(data);
-    } catch (err) {
-      console.error('Error fetching user data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    console.log('SourcesTab mounted, fetching data...');
-    void fetchUserData();
-
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         console.log('Page became visible, refreshing data...');

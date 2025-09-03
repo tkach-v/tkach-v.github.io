@@ -24,6 +24,9 @@ const UserTab = () => {
     }
   }, [tgUser?.id]);
 
+
+  console.log('---userData---', userData);
+
   /*const handleGoogleAuth = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");
