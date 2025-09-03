@@ -1,10 +1,6 @@
 import React from "react";
 import Select, { GroupBase, StylesConfig } from "react-select";
-
-type Option = {
-  value: string;
-  label: string;
-};
+import { Option } from "../../types";
 
 const customStyles: StylesConfig<Option, true, GroupBase<Option>> = {
   dropdownIndicator: (provided: any) => ({

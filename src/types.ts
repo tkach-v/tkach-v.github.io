@@ -96,3 +96,8 @@ export type UserData = {
   os?: string;
   browser?: string;
 };
+
+export type Option = {
+  value: string;
+  label: string;
+};

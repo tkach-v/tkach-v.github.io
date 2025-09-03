@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   id: string;
-  label: string;
+  label?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -23,12 +23,14 @@ const Input = ({
                }: Props) => {
   return (
     <div className="flex flex-col gap-2">
-      <label
-        htmlFor={id}
-        className="block mb-2 text-sm font-semibold text-green-blue-0"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={id}
+          className="block text-sm font-semibold text-green-blue-0"
+        >
+          {label}
+        </label>
+      )}
       <div className="relative w-full">
         <input
           id={id}
@@ -42,7 +44,8 @@ const Input = ({
           }`}
         />
         {currency && (
-          <div className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-marine rounded bg-dark-blue text-sm font-medium pointer-events-none">
+          <div
+            className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-marine rounded bg-dark-blue text-sm font-medium pointer-events-none">
             DAAC
           </div>
         )}

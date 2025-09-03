@@ -12,7 +12,7 @@ const BackButton = () => {
   return (
     <button
       onClick={handleBack}
-      className="py-1 px-2 border rounded-tl-none rounded-full text-marine border-marine bg-linear-custom flex items-center justify-center"
+      className="py-1 px-2 border rounded-tl-none rounded-full text-marine hover:bg-radial-border border-marine bg-linear-custom flex items-center justify-center"
     >
       <BackArrow />
     </button>

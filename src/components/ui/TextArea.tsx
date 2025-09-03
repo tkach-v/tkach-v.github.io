@@ -14,7 +14,7 @@ const TextArea = ({ id, label, value, onChange, placeholder = "", required = fal
     <div className="flex flex-col gap-2">
       <label
         htmlFor={id}
-        className="block mb-2 text-sm font-semibold text-green-blue-0"
+        className="block text-sm font-semibold text-green-blue-0"
       >
         {label}
       </label>

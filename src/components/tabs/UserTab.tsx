@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
 import { useTelegram } from "../../contexts/TelegramContext";
-import { API_CONFIG } from "../../config/api";
-import UserInfoCard from "../cards/UserInfoCard";
+import { API_CONFIG, SOURCES_DATA } from "../../config/api";
 import Button from "../ui/Button";
 import Swipper from "../onbording/Swipper";
+import { useNavigate } from "react-router";
+import { TabPathes, UserData } from "../../types";
+import Tag from "../ui/Tag";
+import SourceCard from "../cards/SourceCard";
+
+export const assets = ["All", "Music", "NFT", "Dataset", "Links", "Retweets"];
 
 const UserTab = () => {
   const { userData, fetchUserData } = useUser();
   const { tgUser, tgApp } = useTelegram();
+  const navigate = useNavigate();
+
+  const goToData = (path: string) => navigate("/" + path);
 
   useEffect(() => {
     if (tgUser?.id && !userData) {
@@ -16,7 +24,7 @@ const UserTab = () => {
     }
   }, [tgUser?.id]);
 
-  const handleGoogleAuth = () => {
+  /*const handleGoogleAuth = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");
     } else {
@@ -29,7 +37,7 @@ const UserTab = () => {
   const deleteUser = async () => {
     if (
       !window.confirm(
-        "Are you sure you want to delete all your data? This action cannot be undone."
+        "Are you sure you want to delete all your data? This action cannot be undone.",
       )
     )
       return;
@@ -50,13 +58,73 @@ const UserTab = () => {
       //@ts-expect-error Type 'Error' includes message.
       alert(err.message);
     }
-  };
+  };*/
 
   return (
     <div className="space-y-6">
       <Swipper />
 
-      <UserInfoCard userData={userData} />
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col font-medium">
+          <h2 className="text-lg text-marine">Your Data:</h2>
+          <span className="text-teal-2 text-xs">
+          Earn income quickly and securely by connecting your profiles from trusted platforms:
+        </span>
+        </div>
+
+        {SOURCES_DATA.filter(source=>!!userData?.[source.key as keyof UserData])
+          .map((source) => (
+          <SourceCard
+            key={source.key}
+            source={source}
+            connected={!!userData?.[source.key as keyof UserData]}
+          />
+        ))}
+
+        <Button
+          onClick={() => goToData(TabPathes.DATA)}
+          variant="solid"
+          iconBack={<i className="fa-solid fa-arrow-right" />}>
+          Connect data
+        </Button>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col font-medium">
+          <h2 className="text-lg text-marine">Your Assets:</h2>
+          <span className="text-teal-2 text-xs">
+         You haven't any assets yet
+        </span>
+          <div className="w-full flex flex-row gap-2 p-1 mt-2 overflow-x-auto scrollbar-hide">
+            {assets && assets.map((asset,index)=>(<Tag key={index} text={asset} active/>))}
+          </div>
+        </div>
+
+        <Button
+          onClick={() => goToData(TabPathes.ASSETS)}
+          variant="solid"
+          iconBack={<i className="fa-solid fa-plus" />}>
+          Add asset
+        </Button>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col font-medium">
+          <h2 className="text-lg text-marine">Wallet:</h2>
+          <span className="text-teal-2 text-xs">
+          Here will be your balance
+        </span>
+        </div>
+
+        <Button
+          onClick={() => goToData(TabPathes.WALLET)}
+          variant="solid"
+          iconBack={<i className="fa-solid fa-arrow-right" />}>
+          Connect wallet
+        </Button>
+      </div>
+
+      {/*<UserInfoCard userData={userData} />
 
       <div className="space-y-3">
         {!userData?.googleSub && (
@@ -80,7 +148,7 @@ const UserTab = () => {
         <Button onClick={deleteUser} variant="danger" icon="fas fa-trash">
           Delete All Data
         </Button>
-      </div>
+      </div>*/}
     </div>
   );
 };

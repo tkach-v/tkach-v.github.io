@@ -41,7 +41,7 @@ const ImageElement = ({ isEmpty = true, name, imgUrl, tag, description, onAdd, c
     {onAdd && (
       <button
         onClick={onAdd}
-        className="absolute inset-0 m-auto border border-marine rounded-full w-[44px] h-[44px] flex items-center justify-center bg-linear-custom cursor-pointer">
+        className="absolute inset-0 m-auto border hover:bg-radial-border border-marine rounded-full w-[44px] h-[44px] flex items-center justify-center bg-linear-custom cursor-pointer">
         <i className="fa-solid fa-plus text-marine" />
       </button>
     )}

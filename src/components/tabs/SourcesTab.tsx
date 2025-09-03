@@ -5,6 +5,7 @@ import SourceCard from "../cards/SourceCard";
 import { initWalletConnect } from "../../wallet";
 import { ethers } from "ethers";
 import { Source, UserData } from "../../types";
+import Swipper from "../onbording/Swipper";
 
 const SourcesTab = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -148,14 +149,16 @@ const SourcesTab = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="text-center mb-6">
-        <h3 className="text-xl font-semibold text-white mb-2">
-          Connect Your Accounts
-        </h3>
-        <p className="text-gray-400">
-          Link your social media accounts to access your data
-        </p>
+    <div className="space-y-6">
+      <Swipper />
+
+      <div className="flex flex-col font-medium">
+        <h2 className="text-lg text-marine">
+          Connect your data sources:
+        </h2>
+        <span className="text-teal-2 text-xs">
+          Earn income quickly and securely by connecting your profiles from trusted platforms:
+        </span>
       </div>
 
       {SOURCES_DATA.map((source) => (
