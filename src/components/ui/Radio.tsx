@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '../../utils';
+import React from "react";
+import { cn } from "../../utils";
 
 type Props = {
   label: string;
@@ -11,27 +11,22 @@ type Props = {
 
 const Radio = ({ label, name, value, checked, onChange }: Props) => {
   return (
-    <div className='mb-4 flex items-center'>
+    <div className="flex items-center mb-4">
       <input
         id={`${name}-${value}`}
-        type='radio'
+        type="radio"
         name={name}
         value={value}
         checked={checked}
         onChange={() => onChange(value)}
         className={cn(
-          `
-            mr-3 h-[20px] w-[20px] cursor-pointer appearance-none rounded-full border
-            border-green-blue-1 transition-all duration-300
-            focus:outline-none
-          `,
-          checked ? 'border-[6px] border-green-blue-1' : 'border-2 border-green-blue-1',
+          "w-[20px] h-[20px] mr-3 cursor-pointer appearance-none rounded-full border border-green-blue-1 transition-all duration-300  focus:outline-none",
+          checked ? "border-[6px] border-green-blue-1" : "border-2 border-green-blue-1",
         )}
       />
-
       <label
         htmlFor={`${name}-${value}`}
-        className='text-sm font-medium text-green-blue-2'
+        className="text-sm font-medium text-green-blue-2"
       >
         {label}
       </label>
