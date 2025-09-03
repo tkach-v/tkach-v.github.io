@@ -23,7 +23,7 @@ const customStyles: StylesConfig<Option, true, GroupBase<Option>> = {
     backgroundColor: '#101416',
     border: '1px solid #226085',
     borderRadius: '4px',
-    height: '32px',
+    minHeight: '32px',
     boxShadow: 'none',
     '&:hover': {
       borderColor: '#226085',
