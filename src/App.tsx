@@ -10,11 +10,13 @@ import { RootPathes, TabPathes } from './types';
 import './index.css';
 import AssetsTab from './components/tabs/AssetsTab';
 import NewAssetsTab from './components/tabs/NewAssetsTab';
+import { useUser } from './contexts/UserContext';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
 
   const { tgApp, tgUser } = useTelegram();
+  const { fetchUserData } = useUser();
 
   useEffect(() => {
     if (tgApp) {
@@ -25,7 +27,13 @@ const App = () => {
     }
   }, []);
 
-  if (!tgUser || !tgUser.id) {
+  useEffect(() => {
+    if (tgUser) {
+      void fetchUserData();
+    }
+  }, [tgUser]);
+
+  if (!tgUser) {
     return <ErrorScreen />;
   }
 
@@ -38,14 +46,14 @@ const App = () => {
 
           <Route path={TabPathes.DATA} element={<SourcesTab />} />
 
-          <Route path={TabPathes.ASSETS} element={<AssetsTab/>} />
+          <Route path={TabPathes.ASSETS} element={<AssetsTab />} />
 
           <Route path={TabPathes.WALLET} element={<></>} />
         </Route>
 
         <Route path={RootPathes.CONFIG} element={<></>} />
 
-        <Route path={RootPathes.NEW_ASSET} element={<NewAssetsTab/>} />
+        <Route path={RootPathes.NEW_ASSET} element={<NewAssetsTab />} />
       </Routes>
 
       {/* ) : (

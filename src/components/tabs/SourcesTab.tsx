@@ -1,45 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useTelegram } from '../../contexts/TelegramContext';
-import { API_CONFIG, SOURCES_DATA } from '../../config/api';
-import SourceCard from '../cards/SourceCard';
-import { initWalletConnect } from '../../wallet';
 import { ethers } from 'ethers';
+import { useEffect } from 'react';
+import { API_CONFIG, SOURCES_DATA } from '../../api/client/config';
+import { useTelegram } from '../../contexts/TelegramContext';
+import { useUser } from '../../contexts/UserContext';
 import { Source, UserData } from '../../types';
+import { initWalletConnect } from '../../wallet';
+import SourceCard from '../cards/SourceCard';
 import Swipper from '../onbording/Swipper';
+import { disconnect } from '../../api/disconnect';
+import { connectWallet, verifySignature } from '../../api/wallets';
 
 const SourcesTab = () => {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { userData, loading, fetchUserData } = useUser();
   const { tgUser, tgApp } = useTelegram();
 
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${API_CONFIG.BASE_URL}/user/me`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(tgUser),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setUserData(data);
-    } catch (err) {
-      console.error('Error fetching user data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    console.log('SourcesTab mounted, fetching data...');
-    void fetchUserData();
-
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         console.log('Page became visible, refreshing data...');
@@ -82,34 +57,21 @@ const SourcesTab = () => {
 
     console.log('Connected address:', address);
 
-    // 1. Fetch nonce from backend
-    const res = await fetch(`${API_CONFIG.BASE_URL}/wallets/connect-external`, {
-      method: 'POST',
-      body: JSON.stringify({ address, ...tgUser }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    try {
+      // 1. Fetch nonce from backend
+      const nonce = await connectWallet(tgUser?.id!, address);
 
-    const nonce = await res.json();
+      // 2. Sign nonce
+      const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
 
-    // 2. Sign nonce
-    const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
+      // 3. Send signature to backend
+      await verifySignature(tgUser?.id!, address, signature);
 
-    // 3. Send signature to backend
-    await fetch(`${API_CONFIG.BASE_URL}/wallets/verify-signature`, {
-      method: 'POST',
-      body: JSON.stringify({
-        address: address,
-        signature: signature,
-        ...tgUser,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    await fetchUserData();
+      await fetchUserData();
+    } catch (error) {
+      //@ts-expect-error Type 'Error' includes message.
+      setError(err.message);
+    }
   };
 
   const handleSourceToggle = async (source: Source) => {
@@ -123,18 +85,8 @@ const SourcesTab = () => {
       if (!window.confirm(`Disconnect ${source.name}?`)) return;
 
       try {
-        const res = await fetch(
-          `${API_CONFIG.BASE_URL}/${source.name.toLowerCase()}/disconnect`,
-          {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(tgUser),
-          },
-        );
-
-        if (res.status === 204) {
-          await fetchUserData();
-        }
+        await disconnect(source.name, tgUser?.id!);
+        await fetchUserData();
       } catch (err) {
         //@ts-expect-error Type 'Error' includes message.
         alert(`Error: ${err.message}`);
@@ -153,12 +105,11 @@ const SourcesTab = () => {
       <Swipper />
 
       <div className='flex flex-col font-medium'>
-        <h2 className='text-lg text-marine'>
-          Connect your data sources:
-        </h2>
+        <h2 className='text-lg text-marine'>Connect your data sources:</h2>
 
         <span className='text-xs text-teal-2'>
-          Earn income quickly and securely by connecting your profiles from trusted platforms:
+          Earn income quickly and securely by connecting your profiles from
+          trusted platforms:
         </span>
       </div>
 
