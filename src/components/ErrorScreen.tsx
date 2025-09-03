@@ -1,5 +1,4 @@
-import React from 'react';
-import { BOT_CONFIG } from '../config/api';
+import { BOT_CONFIG } from '../api/client/config';
 
 const ErrorScreen = () => {
   const telegramWebAppUrl = `https://t.me/${BOT_CONFIG.BOT_USERNAME}/${BOT_CONFIG.APP_NAME}`;

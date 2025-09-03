@@ -1,11 +1,11 @@
 import React, {
   createContext,
+  PropsWithChildren,
+  useCallback,
   useContext,
   useState,
-  useCallback,
-  PropsWithChildren,
 } from 'react';
-import { API_CONFIG } from '../config/api';
+import { API_CONFIG } from '../api/client/config';
 import { UserData } from '../types';
 import { useTelegram } from './TelegramContext';
 

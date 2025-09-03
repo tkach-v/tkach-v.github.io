@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useTelegram } from '../../contexts/TelegramContext';
-import { API_CONFIG, SOURCES_DATA } from '../../config/api';
-import SourceCard from '../cards/SourceCard';
-import { initWalletConnect } from '../../wallet';
 import { ethers } from 'ethers';
-import { Source, UserData } from '../../types';
-import Swipper from '../onbording/Swipper';
+import { useEffect } from 'react';
+import { API_CONFIG, SOURCES_DATA } from '../../api/client/config';
+import { useTelegram } from '../../contexts/TelegramContext';
 import { useUser } from '../../contexts/UserContext';
+import { Source, UserData } from '../../types';
+import { initWalletConnect } from '../../wallet';
+import SourceCard from '../cards/SourceCard';
+import Swipper from '../onbording/Swipper';
 
 const SourcesTab = () => {
   const { userData, loading, fetchUserData } = useUser();
@@ -126,12 +126,11 @@ const SourcesTab = () => {
       <Swipper />
 
       <div className='flex flex-col font-medium'>
-        <h2 className='text-lg text-marine'>
-          Connect your data sources:
-        </h2>
+        <h2 className='text-lg text-marine'>Connect your data sources:</h2>
 
         <span className='text-xs text-teal-2'>
-          Earn income quickly and securely by connecting your profiles from trusted platforms:
+          Earn income quickly and securely by connecting your profiles from
+          trusted platforms:
         </span>
       </div>
 
