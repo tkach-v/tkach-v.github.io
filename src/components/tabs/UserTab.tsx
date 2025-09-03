@@ -4,6 +4,7 @@ import { useTelegram } from "../../contexts/TelegramContext";
 import { API_CONFIG } from "../../config/api";
 import UserInfoCard from "../cards/UserInfoCard";
 import Button from "../ui/Button";
+import Swipper from "../onbording/Swipper";
 
 const UserTab = () => {
   const { userData, fetchUserData } = useUser();
@@ -28,7 +29,7 @@ const UserTab = () => {
   const deleteUser = async () => {
     if (
       !window.confirm(
-        "Are you sure you want to delete all your data? This action cannot be undone.",
+        "Are you sure you want to delete all your data? This action cannot be undone."
       )
     )
       return;
@@ -53,6 +54,8 @@ const UserTab = () => {
 
   return (
     <div className="space-y-6">
+      <Swipper />
+
       <UserInfoCard userData={userData} />
 
       <div className="space-y-3">

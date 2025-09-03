@@ -11,6 +11,14 @@ export enum TabPathes {
   WALLET = "wallet",
 }
 
+export type OnboardingSlide = {
+  id: number;
+  title: string;
+  description: string;
+  Icon: (props: any) => React.JSX.Element;
+};
+
+
 export type Tab = {
   id: number;
   label: string;
