@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useUser } from "../../contexts/UserContext";
-import { useTelegram } from "../../contexts/TelegramContext";
-import { API_CONFIG, SOURCES_DATA } from "../../config/api";
-import Button from "../ui/Button";
-import Swipper from "../onbording/Swipper";
-import { useNavigate } from "react-router";
-import { TabPathes, UserData } from "../../types";
-import Tag from "../ui/Tag";
-import SourceCard from "../cards/SourceCard";
+import React, { useEffect } from 'react';
+import { useUser } from '../../contexts/UserContext';
+import { useTelegram } from '../../contexts/TelegramContext';
+import { API_CONFIG, SOURCES_DATA } from '../../config/api';
+import Button from '../ui/Button';
+import Swipper from '../onbording/Swipper';
+import { useNavigate } from 'react-router';
+import { TabPathes, UserData } from '../../types';
+import Tag from '../ui/Tag';
+import SourceCard from '../cards/SourceCard';
 
-export const assets = ["All", "Music", "NFT", "Dataset", "Links", "Retweets"];
+export const assets = ['All', 'Music', 'NFT', 'Dataset', 'Links', 'Retweets'];
 
 const UserTab = () => {
   const { userData, fetchUserData } = useUser();
   const { tgUser, tgApp } = useTelegram();
   const navigate = useNavigate();
 
-  const goToData = (path: string) => navigate("/" + path);
+  const goToData = (path: string) => navigate('/' + path);
 
   useEffect(() => {
     if (tgUser?.id && !userData) {
@@ -61,65 +61,69 @@ const UserTab = () => {
   };*/
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Swipper />
 
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col font-medium">
-          <h2 className="text-lg text-marine">Your Data:</h2>
-          <span className="text-teal-2 text-xs">
+      <div className='flex flex-col gap-3'>
+        <div className='flex flex-col font-medium'>
+          <h2 className='text-lg text-marine'>Your Data:</h2>
+
+          <span className='text-xs text-teal-2'>
           Earn income quickly and securely by connecting your profiles from trusted platforms:
-        </span>
+          </span>
         </div>
 
         {SOURCES_DATA.filter(source=>!!userData?.[source.key as keyof UserData])
           .map((source) => (
-          <SourceCard
-            key={source.key}
-            source={source}
-            connected={!!userData?.[source.key as keyof UserData]}
-          />
-        ))}
+            <SourceCard
+              key={source.key}
+              source={source}
+              connected={!!userData?.[source.key as keyof UserData]}
+            />
+          ))}
 
         <Button
           onClick={() => goToData(TabPathes.DATA)}
-          variant="solid"
-          iconBack={<i className="fa-solid fa-arrow-right" />}>
+          variant='solid'
+          iconBack={<i className='fa-solid fa-arrow-right' />}>
           Connect data
         </Button>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col font-medium">
-          <h2 className="text-lg text-marine">Your Assets:</h2>
-          <span className="text-teal-2 text-xs">
+      <div className='flex flex-col gap-3'>
+        <div className='flex flex-col font-medium'>
+          <h2 className='text-lg text-marine'>Your Assets:</h2>
+
+          <span className='text-xs text-teal-2'>
          You haven't any assets yet
-        </span>
-          <div className="w-full flex flex-row gap-2 p-1 mt-2 overflow-x-auto scrollbar-hide">
+          </span>
+
+          <div className='scrollbar-hide mt-2 flex w-full flex-row gap-2 overflow-x-auto p-1'>
             {assets && assets.map((asset,index)=>(<Tag key={index} text={asset} active/>))}
           </div>
         </div>
 
         <Button
           onClick={() => goToData(TabPathes.ASSETS)}
-          variant="solid"
-          iconBack={<i className="fa-solid fa-plus" />}>
+          variant='solid'
+          iconBack={<i className='fa-solid fa-plus' />}>
           Add asset
         </Button>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col font-medium">
-          <h2 className="text-lg text-marine">Wallet:</h2>
-          <span className="text-teal-2 text-xs">
+      <div className='flex flex-col gap-3'>
+        <div className='flex flex-col font-medium'>
+          <h2 className='text-lg text-marine'>Wallet:</h2>
+
+          <span className='text-xs text-teal-2'>
           Here will be your balance
-        </span>
+          </span>
         </div>
 
         <Button
           onClick={() => goToData(TabPathes.WALLET)}
-          variant="solid"
-          iconBack={<i className="fa-solid fa-arrow-right" />}>
+          variant='solid'
+          iconBack={<i className='fa-solid fa-arrow-right' />}>
           Connect wallet
         </Button>
       </div>

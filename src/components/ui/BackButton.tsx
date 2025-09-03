@@ -1,6 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router";
-import BackArrow from "../../assets/icons/BackArrow";
+import React from 'react';
+import { useNavigate } from 'react-router';
+import BackArrow from '../../assets/icons/BackArrow';
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -12,7 +12,11 @@ const BackButton = () => {
   return (
     <button
       onClick={handleBack}
-      className="py-1 px-2 border rounded-tl-none rounded-full text-marine hover:bg-radial-border border-marine bg-linear-custom flex items-center justify-center"
+      className={`
+        flex items-center justify-center rounded-full rounded-tl-none border border-marine
+        bg-linear-custom px-2 py-1 text-marine
+        hover:bg-radial-border
+      `}
     >
       <BackArrow />
     </button>

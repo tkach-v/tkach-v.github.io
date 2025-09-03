@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Props = {
   id: string;
@@ -9,22 +9,28 @@ type Props = {
   required?: boolean;
 };
 
-const TextArea = ({ id, label, value, onChange, placeholder = "", required = false }: Props) => {
+const TextArea = ({ id, label, value, onChange, placeholder = '', required = false }: Props) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className='flex flex-col gap-2'>
       <label
         htmlFor={id}
-        className="block text-sm font-semibold text-green-blue-0"
+        className='block text-sm font-semibold text-green-blue-0'
       >
         {label}
       </label>
+
       <textarea
         id={id}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="resize-y min-h-16 max-h-32 bg-coral-9 border border-marine-4 placeholder:text-coral-6 text-coral text-sm rounded font-medium focus:outline-none focus:ring-0 focus:ring-marine-4 focus:border-marine-4 block w-full p-[6px]"
+        className={`
+          block max-h-32 min-h-16 w-full resize-y rounded border border-marine-4 bg-coral-9 p-[6px]
+          text-sm font-medium text-coral
+          placeholder:text-coral-6
+          focus:border-marine-4 focus:outline-none focus:ring-0 focus:ring-marine-4
+        `}
       />
     </div>
   );

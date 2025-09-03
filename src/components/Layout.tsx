@@ -1,31 +1,33 @@
-import React from "react";
-import TabBar from "./TabBar";
-import LoadingSpinner from "./LoadingSpinner";
-import { useUser } from "../contexts/UserContext";
-import { Outlet } from "react-router";
-import HandsUp from "../assets/icons/HandsUp";
+import React from 'react';
+import TabBar from './TabBar';
+import LoadingSpinner from './LoadingSpinner';
+import { useUser } from '../contexts/UserContext';
+import { Outlet } from 'react-router';
+import HandsUp from '../assets/icons/HandsUp';
 
 
 const Layout: React.FC = () => {
   const { loading, error, userData } = useUser();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
-      <div className="max-w-2xl mx-auto p-4 pb-20">
+    <div className='min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950'>
+      <div className='mx-auto max-w-2xl p-4 pb-20'>
         {userData && (
-          <header className="flex flex-row gap-2 mb-4 items-center">
+          <header className='mb-4 flex flex-row items-center gap-2'>
             {userData.googlePicture && (
               <img
                 src={userData.googlePicture}
-                alt="Profile"
-                className="w-12 h-12 rounded-full ring-2 ring-marine shadow-glow-inset"
+                alt='Profile'
+                className='h-12 w-12 rounded-full shadow-glow-inset ring-2 ring-marine'
               />
             )}
+
             <h1
-              className="text-2xl font-semibold text-marine flex flex-col">
+              className='flex flex-col text-2xl font-semibold text-marine'>
               Hello,
-              <span className="inline-flex items-center gap-1 ">
+              <span className='inline-flex items-center gap-1'>
                 {userData.telegramFirstName}
+
                 <HandsUp />
               </span>
             </h1>

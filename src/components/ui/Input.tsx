@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Props = {
   id: string;
@@ -12,26 +12,27 @@ type Props = {
 };
 
 const Input = ({
-                 id,
-                 label,
-                 value,
-                 onChange,
-                 placeholder = "",
-                 type = "text",
-                 required = false,
-                 currency = false,
-               }: Props) => {
+  id,
+  label,
+  value,
+  onChange,
+  placeholder = '',
+  type = 'text',
+  required = false,
+  currency = false,
+}: Props) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className='flex flex-col gap-2'>
       {label && (
         <label
           htmlFor={id}
-          className="block text-sm font-semibold text-green-blue-0"
+          className='block text-sm font-semibold text-green-blue-0'
         >
           {label}
         </label>
       )}
-      <div className="relative w-full">
+
+      <div className='relative w-full'>
         <input
           id={id}
           type={type}
@@ -39,13 +40,23 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
-          className={`bg-coral-9 border h-9 border-marine-4 placeholder:text-coral-6 text-coral text-sm rounded font-medium focus:outline-none focus:ring-0 focus:ring-marine-4 focus:border-marine-4 block w-full p-[6px] ${
-            currency ? "pr-12" : ""
-          }`}
+          className={`
+            block h-9 w-full rounded border border-marine-4 bg-coral-9 p-[6px] text-sm font-medium
+            text-coral
+            placeholder:text-coral-6
+            focus:border-marine-4 focus:outline-none focus:ring-0 focus:ring-marine-4
+            ${
+    currency ? 'pr-12' : ''
+    }
+          `}
         />
+
         {currency && (
           <div
-            className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-marine rounded bg-dark-blue text-sm font-medium pointer-events-none">
+            className={`
+              pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 rounded bg-dark-blue p-1
+              text-sm font-medium text-marine
+            `}>
             DAAC
           </div>
         )}
