@@ -1,0 +1,57 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:better-tailwindcss/recommended-warn",
+    "plugin:better-tailwindcss/recommended-error"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["better-tailwindcss", "eslint-plugin-react"],
+    "rules": {
+    "better-tailwindcss/enforce-consistent-line-wrapping": ["warn", { "printWidth": 100 }],
+    "better-tailwindcss/no-unregistered-classes": "warn",
+    "no-unused-vars": "warn",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "react/jsx-newline": [
+      "warn",
+      {
+        "prevent": false
+      }
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
+    "prefer-const": "error",
+    "indent": [
+      "warn",
+      2
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ]
+  },
+  "settings": {
+    "better-tailwindcss": {
+      "tailwindConfig": "tailwind.config.js"
+    }
+  }
+}
