@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 
 type Props = {
-  progress: number;
+  total: number;
+  ready: number;
   text?: string;
 };
 
-const Progress: FC<Props> = ({ progress, text }) => {
+const Progress: FC<Props> = ({ total, ready, text }) => {
+  const progress = (ready / total) * 100;
+
   return (
     <div className='flex flex-1 items-center gap-2'>
       <div className='relative h-2 w-full rounded-md bg-white'>

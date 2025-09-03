@@ -18,7 +18,6 @@ export type OnboardingSlide = {
   Icon: (props: any) => React.JSX.Element;
 };
 
-
 export type Tab = {
   id: number;
   label: string;
@@ -81,20 +80,35 @@ export type Source = {
 };
 
 export type UserData = {
-  googlePicture?: string;
-  telegramFirstName?: string;
-  telegramLastName?: string;
-  telegramUsername?: string;
-  telegramId?: string | number;
-  telegramLanguageCode?: string;
-  googleSub?: string;
-  googleEmail?: string;
-  googleName?: string;
-  geoCity?: string;
-  geoCountry?: string;
-  device?: string;
-  os?: string;
-  browser?: string;
+  device: string | null;
+  os: string | null;
+  browser: string | null;
+  geoIp: string | null;
+  geoCity: string | null;
+  geoRegion: string | null;
+  geoCountry: string | null;
+  geoPostal: string | null;
+  geoLatitude: number | null;
+  geoLongitude: number | null;
+  geoTimezone: string | null;
+  geoCurrency: string | null;
+  youtubeConnected: boolean;
+  redditConnected: boolean;
+  linkedinConnected: boolean;
+  spotifyConnected: boolean;
+  xConnected: boolean;
+  walletConnected: boolean;
+  googleSub: string | null;
+  googleEmail: string | null;
+  googleName: string | null;
+  googlePicture: string | null;
+  telegramId: number;
+  telegramUsername: string | null;
+  telegramFirstName: string | null;
+  telegramLastName: string | null;
+  telegramLanguageCode: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Option = {
