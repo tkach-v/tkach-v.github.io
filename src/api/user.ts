@@ -9,6 +9,6 @@ export const getCurrentUser = async (id: number) => {
 };
 
 export const deleteUser = async (id: number) => {
-  const response = await axiosInstance.post(path, { id });
+  const response = await axiosInstance.delete(path, { data: { id } });
   return response.data;
 };

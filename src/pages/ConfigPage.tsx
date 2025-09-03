@@ -4,15 +4,39 @@ import Accordion from '../components/ui/Accordion';
 import Radio from '../components/ui/Radio';
 import Checkbox from '../components/ui/Checkbox';
 import Button from '../components/ui/Button';
+import { useTelegram } from '../contexts/TelegramContext';
+import { deleteUser } from '../api/user';
 
 const ConfigPage = () => {
   const [selected, setSelected] = useState('access');
   const [isPaid, setIsPaid] = useState(false);
+  const { tgUser, tgApp } = useTelegram();
+
+  const logout = async () => {
+    if (
+      !window.confirm(
+        'Are you sure you want to delete all your data? This action cannot be undone.',
+      )
+    )
+      return;
+
+    try {
+      if (tgApp && tgUser) {
+        await deleteUser(tgUser.id);
+        tgApp.close();
+      }
+    } catch (err) {
+      //@ts-expect-error Type 'Error' includes message.
+      alert(err.message);
+    }
+  };
 
   return (
-    <div className={`
-      flex min-h-screen flex-col bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950
-    `}>
+    <div
+      className={`
+        flex min-h-screen flex-col bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950
+      `}
+    >
       <div className='mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4'>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-row gap-2'>
@@ -21,7 +45,9 @@ const ConfigPage = () => {
             <div className='text-sm font-semibold text-green-blue-0'>
               <h2 className='text-marine'>Controls</h2>
 
-              <div className='text-green-blue-2'>Here you can configure your preferences</div>
+              <div className='text-green-blue-2'>
+                Here you can configure your preferences
+              </div>
             </div>
           </div>
 
@@ -181,10 +207,7 @@ const ConfigPage = () => {
         </div>
 
         <div className='mt-auto flex flex-col gap-4'>
-          <Button
-            onClick={() => console.log('Logout')}
-            variant='outlined'
-          >
+          <Button onClick={logout} variant='outlined'>
             Logout
           </Button>
 
