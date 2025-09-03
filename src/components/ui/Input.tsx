@@ -26,7 +26,7 @@ const Input = ({
       {label && (
         <label
           htmlFor={id}
-          className='block text-sm font-semibold text-green-blue-0'
+          className='block text-sm font-semibold text-coral'
         >
           {label}
         </label>

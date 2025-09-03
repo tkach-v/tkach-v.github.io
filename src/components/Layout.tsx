@@ -40,7 +40,7 @@ const Layout: React.FC = () => {
           <LoadingSpinner />
         ) : error ? (
           <div className='py-8 text-center'>
-            <i className='fas fa-exclamation-circle mb-4 text-4xl text-red-500'></i>
+            <i className='fas fa-exclamation-circle text-red-500 mb-4 text-4xl'></i>
 
             <p className='text-red-400'>{error}</p>
           </div>

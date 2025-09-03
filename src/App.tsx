@@ -9,7 +9,8 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { RootPathes, TabPathes } from './types';
 import './index.css';
 import AssetsTab from './components/tabs/AssetsTab';
-import NewAssetsTab from './components/tabs/NewAssetsTab';
+import NewAssetsPage from './pages/NewAssetsPage';
+import ConfigPage from './pages/ConfigPage';
 import { useUser } from './contexts/UserContext';
 
 const App = () => {
@@ -51,9 +52,9 @@ const App = () => {
           <Route path={TabPathes.WALLET} element={<></>} />
         </Route>
 
-        <Route path={RootPathes.CONFIG} element={<></>} />
+        <Route path={RootPathes.CONFIG} element={<ConfigPage/>} />
 
-        <Route path={RootPathes.NEW_ASSET} element={<NewAssetsTab />} />
+        <Route path={RootPathes.NEW_ASSET} element={<NewAssetsPage/>} />
       </Routes>
 
       {/* ) : (

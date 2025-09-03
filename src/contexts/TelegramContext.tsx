@@ -7,6 +7,7 @@ type TelegramState = {
 
 const TelegramContext = createContext({} as TelegramState);
 
+
 export const TelegramProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const value = {
     tgApp: window.Telegram?.WebApp || null,
