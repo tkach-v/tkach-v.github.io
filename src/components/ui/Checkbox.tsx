@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "../../utils";
 
 type Props = {
   label: string;
@@ -14,8 +15,10 @@ const Checkbox = ({ label, checked, onChange }: Props) => {
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className={`w-5 h-5 rounded-sm border border-green-blue-1 focus:ring-green-blue-1 accent-green-blue-1
-          ${checked ? 'bg-green-blue-1' : 'appearance-none'}`}
+        className={cn(
+          "w-5 h-5 rounded-sm border border-green-blue-1 focus:ring-green-blue-1 accent-green-blue-1",
+          checked ? "bg-green-blue-1" : "appearance-none",
+        )}
       />
       <label
         htmlFor="controlled-checkbox"

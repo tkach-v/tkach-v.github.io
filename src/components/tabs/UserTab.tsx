@@ -19,7 +19,7 @@ const UserTab = () => {
     if (userData?.googleSub) {
       alert("Disconnect functionality coming soon!");
     } else {
-     tgApp?.openLink(
+      tgApp?.openLink(
         `${API_CONFIG.BASE_URL}/auth/google?telegram_id=${tgUser?.id}`,
       );
     }
@@ -41,7 +41,7 @@ const UserTab = () => {
       });
 
       if (res.status === 204) {
-       tgApp?.close();
+        tgApp?.close();
       } else {
         throw new Error("Failed to delete user");
       }

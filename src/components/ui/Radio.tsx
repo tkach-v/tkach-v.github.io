@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "../../utils";
 
 type Props = {
   label: string;
@@ -18,10 +19,10 @@ const Radio = ({ label, name, value, checked, onChange }: Props) => {
         value={value}
         checked={checked}
         onChange={() => onChange(value)}
-        className={`
-          w-[20px] h-[20px] mr-3 cursor-pointer appearance-none rounded-full
-          border border-green-blue-1 transition-all duration-300  focus:outline-none
-          ${checked ? "border-[6px] border-green-blue-1" : "border-2 border-green-blue-1"}`}
+        className={cn(
+          "w-[20px] h-[20px] mr-3 cursor-pointer appearance-none rounded-full border border-green-blue-1 transition-all duration-300  focus:outline-none",
+          checked ? "border-[6px] border-green-blue-1" : "border-2 border-green-blue-1",
+        )}
       />
       <label
         htmlFor={`${name}-${value}`}
