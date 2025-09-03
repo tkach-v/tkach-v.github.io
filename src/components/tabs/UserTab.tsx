@@ -12,17 +12,10 @@ import SourceCard from '../cards/SourceCard';
 export const assets = ['All', 'Music', 'NFT', 'Dataset', 'Links', 'Retweets'];
 
 const UserTab = () => {
-  const { userData, fetchUserData } = useUser();
-  const { tgUser, tgApp } = useTelegram();
+  const { userData } = useUser();
   const navigate = useNavigate();
 
   const goToData = (path: string) => navigate('/' + path);
-
-  useEffect(() => {
-    if (tgUser?.id && !userData) {
-      void fetchUserData();
-    }
-  }, [tgUser?.id]);
 
 
   console.log('---userData---', userData);
