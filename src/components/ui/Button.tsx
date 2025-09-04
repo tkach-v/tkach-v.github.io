@@ -7,8 +7,8 @@ const variants = {
   secondary: 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-700',
   danger: 'bg-red-600 hover:bg-red-700 text-white shadow-lg',
 
-  remove: 'text-green-blue-0 bg-green-blue-6 hover:bg-green-blue',
-  connected: 'bg-marine-0.5 text-coral-9.5 hover:bg-teal',
+  remove: 'text-green-blue-0 bg-green-blue-6 hover:bg-green-blue border border-transparent',
+  connected: 'bg-marine-0.5 text-coral-9.5 hover:bg-linear-fancy border border-transparent',
   solid: `border-b bg-radial-border border-marine
     text-teal shadow-sky-glow hover:bg-linear-fancy
     hover:border-transparent hover:text-black active:text-black active:bg-fancy`,
@@ -23,10 +23,10 @@ const variants_disable = {
   secondary: 'opacity-50 cursor-not-allowed',
   danger: 'opacity-50 cursor-not-allowed',
 
-  remove: 'opacity-50 cursor-not-allowed',
-  connected: 'opacity-50 cursor-not-allowed',
-  solid: 'border disabled:text-coral-6 disabled:bg-coral-8 border-coral-6',
-  outlined: 'border border-coral-6 disabled:text-coral-6',
+  remove: 'cursor-not-allowed border border-coral-6 text-coral-6 bg-coral-8',
+  connected: 'cursor-not-allowed border border-coral-6 text-coral-6 bg-coral-8',
+  solid: 'cursor-not-allowed border disabled:text-coral-6 disabled:bg-coral-8 border-coral-6',
+  outlined: 'cursor-not-allowed border border-coral-6 disabled:text-coral-6',
 };
 
 type Props = {
@@ -64,8 +64,8 @@ const Button: React.FC<Props> = ({
       disabled={disabled}
       className={cn(
         `
-          flex h-9 w-full items-center justify-center gap-2 rounded px-2 py-1 font-medium
-          transition-all duration-200
+          flex h-9 w-full min-w-[110px] items-center justify-center gap-2 rounded px-2 py-1
+          font-medium transition-all duration-200
         `,
         disabled ? variants_disable[variant] : variants[variant],
         className,

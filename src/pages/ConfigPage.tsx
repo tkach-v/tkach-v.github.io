@@ -10,6 +10,8 @@ import { deleteUser } from '../api/user';
 const ConfigPage = () => {
   const [selected, setSelected] = useState('access');
   const [isPaid, setIsPaid] = useState(false);
+  const [isPaid2, setIsPaid2] = useState(false);
+  const [isPaid3, setIsPaid3] = useState(false);
   const { tgUser, tgApp } = useTelegram();
 
   const logout = async () => {
@@ -192,14 +194,14 @@ const ConfigPage = () => {
 
                 <Checkbox
                   label='Allow resale by third parties'
-                  checked={isPaid}
-                  onChange={setIsPaid}
+                  checked={isPaid2}
+                  onChange={setIsPaid2}
                 />
 
                 <Checkbox
                   label='Anonymise personal identifiers before sharing'
-                  checked={isPaid}
-                  onChange={setIsPaid}
+                  checked={isPaid3}
+                  onChange={setIsPaid3}
                 />
               </div>
             </Accordion>
