@@ -7,17 +7,10 @@ type TelegramState = {
 
 const TelegramContext = createContext({} as TelegramState);
 
-const mockUser = {
-  id: 5300653520,
-  first_name: 'Artem',
-};
-
-
 export const TelegramProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const value = {
     tgApp: window.Telegram?.WebApp || null,
-    tgUser: mockUser,
-    // tgUser: window.Telegram?.WebApp?.initDataUnsafe?.user || null,
+    tgUser: window.Telegram?.WebApp?.initDataUnsafe?.user || null,
   };
 
   return (
