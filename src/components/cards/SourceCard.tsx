@@ -39,7 +39,16 @@ const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
             onClick={onToggle}
             variant={connected ? 'remove' : 'connected'}
             iconBack={connected
-              ? <SquareClip />
+              ? <SquareClip
+                color={
+                  source.disabled || (connected && source.key === 'walletConnected')
+                    ? '#21282B':'#050A0B'
+                }
+                stroke={
+                  source.disabled || (connected && source.key === 'walletConnected')
+                    ? '#425056':'#D7EAEF'
+                }
+              />
               : (
                 <span className='flex h-[22px] w-[22px] items-center justify-center'>
                   <i className='fas fa-plus-square text-[22px] text-current' />

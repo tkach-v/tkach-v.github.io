@@ -36,10 +36,10 @@ const TabBar: React.FC = () => {
                 flex-1 scale-95 whitespace-nowrap rounded border-b border-transparent bg-coral-32
                 px-2 py-1 text-center text-sm font-medium text-coral-3 shadow-inset-combo
                 transition-all duration-200
+                hover:border-transparent hover:bg-linear-fancy hover:text-black
               `,
               {
-                'scale-100 border-marine bg-linear-custom text-marine':
-                  isActive,
+                'scale-100 border-marine bg-linear-custom text-marine': isActive,
               },
             )
           }
