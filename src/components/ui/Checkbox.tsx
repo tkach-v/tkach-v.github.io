@@ -17,7 +17,7 @@ const Checkbox = ({ label, checked, onChange }: Props) => {
         onChange={(e) => onChange(e.target.checked)}
         className={cn(
           `
-            h-5 w-5 rounded-sm border border-neon-green accent-neon-green
+            h-5 w-5 flex-shrink-0 rounded-sm border border-neon-green accent-neon-green
             focus:ring-neon-green
           `,
           checked ? 'bg-neon-green' : 'appearance-none',

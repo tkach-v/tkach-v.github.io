@@ -38,6 +38,7 @@ module.exports = {
         'coral-9.5': '#080A0B',
         'coral-32': '#313C4152',
 
+        'dark':'#020202',
         'gray': '#8E8E93',
         'light-gray': '#9CA3AF',
         'light-green': '#B0FF92',

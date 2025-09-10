@@ -11,7 +11,7 @@ type Props = {
 
 const Radio = ({ label, name, value, checked, onChange }: Props) => {
   return (
-    <div className='mb-4 flex items-center'>
+    <div className='mb-2 flex items-center'>
       <input
         id={`${name}-${value}`}
         type='radio'

@@ -13,6 +13,7 @@ import Checkbox from './ui/Checkbox';
 import Wallet from '../assets/icons/Wallet';
 import Copy from '../assets/icons/Copy';
 import { Link } from 'react-router';
+import ArrowsLine from '../assets/icons/ArrowsLine';
 
 const MonetiseSettingsForm = () => {
   const form = useForm<MonetiseSettingsFormValues>({
@@ -198,8 +199,9 @@ const MonetiseSettingsForm = () => {
           type='submit'
           onClick={form.handleSubmit(onSubmitHandler)}
           variant='solid'
+          iconBack={<ArrowsLine color='currentColor'/>}
         >
-          Confirm
+          Create asset
         </Button>
       </div>
     </div>
