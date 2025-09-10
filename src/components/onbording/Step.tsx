@@ -16,7 +16,7 @@ const Step: React.FC<Props> = ({ step }) => {
         <div
           className={cn(
             `
-              flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-white
+              flex h-10 w-10 items-center justify-center rounded-full border border-white
               bg-[radial-gradient(421.88%_421.88%_at_50%_50%,#002135_0%,#91F800_100%)]
             `,
             {

@@ -48,3 +48,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* graph styles */
+.domain {
+  stroke: transparent;
+}
+
+.tickLabel {
+  stroke: #7198A3;
+}
+
+line {
+  stroke: #7198A3;
+  stroke-dasharray: 4;
+}
+
+.grid .tick line {
+  stroke: transparent;
+}
+
+.tickLabel {
+  font-family: Manrope;
+}
