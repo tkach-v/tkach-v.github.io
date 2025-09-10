@@ -43,11 +43,11 @@ const WalletGraph = () => {
       [],
       );
 
-  const address = '0xb8E08...14728'; // TODO: replace with real
+  const address = '0xb8E08 ... 14728'; // TODO: replace with real
 
   return (
     <div>
-      <div>
+      <div className='mb-3'>
         <span className='text-lg font-medium text-white'>Your Wallet:</span>
 
         <div className='grid grid-cols-2 grid-rows-2'>
