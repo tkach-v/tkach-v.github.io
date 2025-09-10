@@ -23,25 +23,25 @@ const WalletGraph = () => {
 
   const primaryAxis = React.useMemo<
     AxisOptions<(typeof data)[number]['data'][number]>
-  >(
-    () => ({
-      getValue: (datum) => datum.primary as Date,
-      min: data[0].data[0].primary, // first date
-    }),
-    [],
-  );
+      >(
+      () => ({
+        getValue: (datum) => datum.primary as Date,
+        min: data[0].data[0].primary, // first date
+      }),
+      [],
+      );
 
   const secondaryAxes = React.useMemo<
     AxisOptions<(typeof data)[number]['data'][number]>[]
-  >(
-    () => [
-      {
-        getValue: (datum) => datum.secondary,
-        elementType: 'area',
-      },
-    ],
-    [],
-  );
+      >(
+      () => [
+        {
+          getValue: (datum) => datum.secondary,
+          elementType: 'area',
+        },
+      ],
+      [],
+      );
 
   const address = '0xb8E08...14728'; // TODO: replace with real
 
@@ -51,7 +51,7 @@ const WalletGraph = () => {
         <span className='text-lg font-medium text-white'>Your Wallet:</span>
 
         <div className='grid grid-cols-2 grid-rows-2'>
-          <div className='text-sm font-medium text-teal'>
+          <div className='flex items-center text-sm font-medium text-teal'>
             Your current balance is:
           </div>
 

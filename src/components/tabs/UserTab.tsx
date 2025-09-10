@@ -5,6 +5,7 @@ import Button from '../ui/Button';
 import ArrowsLine from '../../assets/icons/ArrowsLine';
 import React from 'react';
 import WalletGraph from '../WalletGraph';
+import WalletOverlay from '../WalletOverlay';
 
 export const assets = ['All', 'Music', 'NFT', 'Dataset', 'Links', 'Retweets'];
 
@@ -65,12 +66,14 @@ const UserTab = () => {
 
         <div
           className={`
-            rounded-xl border border-[#353644]
+            relative overflow-hidden rounded-xl border border-[#353644]
             bg-[linear-gradient(317.83deg,rgba(53,54,68,0.66)_-7.3%,rgba(20,19,24,0.66)_107.21%)]
             p-2
           `}
         >
           <WalletGraph />
+
+          <WalletOverlay />
         </div>
       </div>
 
