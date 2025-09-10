@@ -37,8 +37,9 @@ module.exports = {
         'coral-9': '#101416',
         'coral-9.5': '#080A0B',
         'coral-32': '#313C4152',
-        
-        'light-gray':'#9CA3AF',
+
+        'gray': '#8E8E93',
+        'light-gray': '#9CA3AF',
         'light-green': '#B0FF92',
         'green': '#A6CD6F',
         'neon-green': '#91F800',
@@ -54,7 +55,7 @@ module.exports = {
         'radial-border': 'radial-gradient(421.88% 421.88% at 50% 50%, #002135 0%, #96D1F6 100%)',
         'radial-fancy': 'radial-gradient(421.88% 421.88% at 50% 50%, #002135 0%, #96D1F6 100%),linear-gradient(0deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
 
-        'black_gradient':'linear-gradient(180deg, rgba(0, 0, 0, 0) 41.36%, #0D0C0F 96.96%)',
+        'black_gradient': 'linear-gradient(180deg, rgba(0, 0, 0, 0) 41.36%, #0D0C0F 96.96%)',
         'pink-purple-gradient': 'linear-gradient(95.1deg, #BE8AFF -0.55%, #FA00FF 106.01%)',
         'purple-light-gradient': 'linear-gradient(94.59deg, #AD52F9 0%, #CD8CFF 100%)',
         'linear-dark': 'linear-gradient(180deg, #565460 0%, #353644 100%)',

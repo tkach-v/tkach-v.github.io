@@ -11,6 +11,7 @@ import './index.css';
 import ConfigPage from './pages/ConfigPage';
 import NewAssetsPage from './pages/NewAssetsPage';
 import { RootPathes, TabPathes } from './types';
+import WalletTab from './components/tabs/WalletTab';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -50,7 +51,7 @@ const App = () => {
 
           <Route path={TabPathes.ASSETS} element={<AssetsTab />} />
 
-          <Route path={TabPathes.WALLET} element={<></>} />
+          <Route path={TabPathes.WALLET} element={<WalletTab/>} />
         </Route>
 
         <Route path={RootPathes.CONFIG} element={<ConfigPage />} />

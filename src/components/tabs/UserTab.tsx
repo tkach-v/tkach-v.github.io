@@ -56,10 +56,10 @@ const UserTab = () => {
 
         <div className='flex w-full flex-row gap-3'>
           <div
-            className='flex-1 cursor-pointer rounded-[12px] bg-linear-dark p-[1px]'
+            className='flex-1 cursor-pointer rounded-xl bg-linear-dark p-[1px]'
             onClick={() => goToData(TabPathes.ASSETS)}
           >
-            <div className='relative overflow-hidden rounded-[12px]'>
+            <div className='relative overflow-hidden rounded-xl'>
               <img
                 className='h-[214px] w-full object-cover'
                 src='/images/music.jpg'
@@ -77,10 +77,10 @@ const UserTab = () => {
           </div>
 
           <div
-            className='flex-1 cursor-pointer rounded-[12px] bg-linear-dark p-[1px]'
+            className='flex-1 cursor-pointer rounded-xl bg-linear-dark p-[1px]'
             onClick={() => goToData(TabPathes.ASSETS)}
           >
-            <div className='relative overflow-hidden rounded-[12px]'>
+            <div className='relative overflow-hidden rounded-xl'>
               <img
                 className='h-[214px] w-full object-cover'
                 src='/images/social_media.png'
