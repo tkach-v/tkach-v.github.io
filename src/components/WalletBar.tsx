@@ -31,16 +31,18 @@ const actions = [
 
 type Props = {
   active: number;
+  onChange: (e:number) => void;
 };
 
-const WalletBar: React.FC<Props> = ({ active }) => {
+const WalletBar: React.FC<Props> = ({ active , onChange}) => {
   return (
-    <div className='rounded-xl bg-linear-dark p-[1px]'>
+    <div className='h-fit rounded-xl bg-linear-dark p-[1px]'>
       <div className='flex justify-between gap-3 rounded-xl bg-linear-dark-overlay p-2'>
         {actions.map((action) => (
           <button
             key={action.id}
             className='flex flex-col items-center gap-2 px-1'
+            onClick={() => onChange(action.id)}
           >
             <div
               className={cn(
