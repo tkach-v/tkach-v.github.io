@@ -18,7 +18,7 @@ const Layout: React.FC = () => {
       >
         {loading && <LoadingSpinner />}
 
-        {!error && (
+        {error && (
           <div className='text-center'>
             <i className='fas fa-exclamation-circle text-red-500 mb-4 text-4xl'></i>
 
