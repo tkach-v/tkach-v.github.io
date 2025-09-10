@@ -216,7 +216,7 @@ const ConfigPage = () => {
                   w-full text-left text-sm font-medium text-green-blue-2 transition-colors
                 `}
               >
-                l acknowledge that I agree to the
+                I acknowledge that I have read and agree to the
                 <Link
                   className={`
                     mx-1 bg-green-gradient bg-clip-text text-transparent underline
@@ -225,7 +225,8 @@ const ConfigPage = () => {
                 >
                   Terms of Use
                 </Link>
-                and have read the
+
+                and the
 
                 <Link
                   className={`

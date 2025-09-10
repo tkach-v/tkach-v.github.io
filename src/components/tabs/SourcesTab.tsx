@@ -110,14 +110,16 @@ const SourcesTab = () => {
         </span>
       </div>
 
-      {SOURCES_DATA.map((source) => (
-        <SourceCard
-          key={source.key}
-          source={source}
-          connected={!!userData?.[source.key as keyof UserData]}
-          onToggle={() => handleSourceToggle(source)}
-        />
-      ))}
+      <div className='flex flex-col gap-3'>
+        {SOURCES_DATA.map((source) => (
+          <SourceCard
+            key={source.key}
+            source={source}
+            connected={!!userData?.[source.key as keyof UserData]}
+            onToggle={() => handleSourceToggle(source)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
