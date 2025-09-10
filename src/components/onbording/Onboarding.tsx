@@ -8,6 +8,8 @@ import { useUser } from '../../contexts/UserContext';
 import { OnboardingStep, UserData } from '../../types';
 import Step from './Step';
 import Progress from './Progress';
+import Button from '../ui/Button';
+import ArrowsLine from '../../assets/icons/ArrowsLine';
 
 const TOTAL_STEPS = 4;
 
@@ -82,11 +84,21 @@ const Onboarding = () => {
         text={`${stepsProgress.stepsCompleted}/${TOTAL_STEPS}`}
       />
 
-      <div className='flex flex-col gap-3'>
-        {onboardingSteps.map((step) => (
-          <Step step={step} key={step.id} />
-        ))}
-      </div>
+      {stepsProgress.stepsCompleted === 4 ? (
+        <Button
+          onClick={() => console.log('Money!!!')}
+          variant='solid'
+          iconBack={<ArrowsLine color='currentColor' />}
+        >
+          Connect your data
+        </Button>
+      ) : (
+        <div className='flex flex-col gap-3'>
+          {onboardingSteps.map((step) => (
+            <Step step={step} key={step.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
