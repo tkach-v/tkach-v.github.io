@@ -38,6 +38,7 @@ const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
           <Button
             onClick={onToggle}
             variant={connected ? 'remove' : 'connected'}
+            className='min-w-[122px]'
             iconBack={connected
               ? <SquareClip
                 color={
@@ -58,7 +59,7 @@ const SourceCard: React.FC<Props> = ({ source, connected, onToggle }) => {
               source.disabled || (connected && source.key === 'walletConnected')
             }
           >
-            {connected ? 'Remove' : 'Connect'}
+            {connected ? 'Connected' : 'Connect'}
           </Button>
         </div>
       )}

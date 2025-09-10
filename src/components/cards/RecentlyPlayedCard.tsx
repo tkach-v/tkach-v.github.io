@@ -28,7 +28,7 @@ const RecentlyPlayedCard: React.FC<Props> = ({ item }) => (
         </a>
       </h4>
 
-      <p className='text-sm text-gray-400'>
+      <p className='text-gray-400 text-sm'>
         <a
           href={item.artistUrl}
           target='_blank'
@@ -42,7 +42,7 @@ const RecentlyPlayedCard: React.FC<Props> = ({ item }) => (
         </a>
       </p>
 
-      <p className='text-sm text-gray-400'>
+      <p className='text-gray-400 text-sm'>
         <a
           href={item.albumUrl}
           target='_blank'
@@ -57,11 +57,11 @@ const RecentlyPlayedCard: React.FC<Props> = ({ item }) => (
       </p>
 
       <div className='mt-2 flex items-center gap-4'>
-        <span className='text-xs text-gray-500'>
+        <span className='text-gray-500 text-xs'>
           Popularity: {item.popularity}
         </span>
 
-        <span className='text-xs text-gray-500'>
+        <span className='text-gray-500 text-xs'>
           {new Date(item.playedAt).toLocaleString()}
         </span>
       </div>

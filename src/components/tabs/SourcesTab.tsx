@@ -6,7 +6,6 @@ import { useUser } from '../../contexts/UserContext';
 import { Source, UserData } from '../../types';
 import { initWalletConnect } from '../../wallet';
 import SourceCard from '../cards/SourceCard';
-import Swipper from '../onbording/Swipper';
 import { disconnect } from '../../api/disconnect';
 import { connectWallet, verifySignature } from '../../api/wallets';
 
@@ -101,13 +100,11 @@ const SourcesTab = () => {
   };
 
   return (
-    <div className='space-y-6'>
-      <Swipper />
-
+    <div className='mt-[20px] space-y-6'>
       <div className='flex flex-col font-medium'>
-        <h2 className='text-lg text-marine'>Connect your data sources:</h2>
-
-        <span className='text-xs text-teal-2'>
+        <h2 className='text-lg text-white'>Connect your data sources:</h2>
+        
+        <span className='text-xs text-coral-2'>
           Earn income quickly and securely by connecting your profiles from
           trusted platforms:
         </span>

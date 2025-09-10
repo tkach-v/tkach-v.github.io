@@ -22,7 +22,7 @@ const FileUpload = ({ name, label, file, type = 'img', onChange }: Props) => {
           name={name}
           className={`
             flex h-16 w-full items-center justify-center overflow-hidden rounded border
-            border-marine
+            border-neon-green
           `}
           node={<img
             src={fileURL || ''}

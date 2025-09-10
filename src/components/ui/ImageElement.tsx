@@ -13,15 +13,19 @@ type Props = {
 
 const ImageElement = ({ isEmpty = true, name, imgUrl, tag, description, onAdd, className = '' }: Props) => (
   <div
-    className={cn('h-[158px] w-[140px] flex-shrink-0 rounded border border-marine shadow-glow-inset',
-      'relative flex items-center justify-center overflow-hidden',
-      className)}>
+    className={cn(`
+      h-[158px] w-[140px] flex-shrink-0 rounded bg-linear-dark p-[1px] shadow-glow-inset
+    `,
+    'relative flex items-center justify-center overflow-hidden',
+    className,
+    isEmpty && 'border border-marine bg-transparent',
+    )}>
     {!isEmpty && (
-      <>
+      <div className='relative w-full overflow-hidden rounded'>
         <span
           className={`
-            font-mediu absolute left-1 top-1 w-[130px] truncate whitespace-nowrap rounded border
-            border-marine bg-radial-border px-2 py-1 text-xs text-marine shadow-inset-combo
+            absolute left-1 top-1 w-fit truncate whitespace-nowrap rounded border border-neon-green
+            bg-radial-border px-2 py-1 text-xs font-medium text-white shadow-inset-combo
           `}>
           {tag}
         </span>
@@ -29,7 +33,7 @@ const ImageElement = ({ isEmpty = true, name, imgUrl, tag, description, onAdd, c
         <img
           src={imgUrl || ''}
           alt={name}
-          className='max-h-full max-w-full object-contain'
+          className='h-[156px] w-full object-cover'
         />
 
         <div className={`
@@ -37,11 +41,11 @@ const ImageElement = ({ isEmpty = true, name, imgUrl, tag, description, onAdd, c
         `} />
 
         <div className='absolute bottom-0 left-1 w-[130px] p-2 font-medium'>
-          <div className='truncate whitespace-nowrap text-lg text-marine'>{name}</div>
+          <div className='truncate whitespace-nowrap text-lg text-white'>{name}</div>
 
-          <div className='truncate whitespace-nowrap text-[14px] text-teal-2'>{description}</div>
+          <div className='truncate whitespace-nowrap text-sm text-teal-2'>{description}</div>
         </div>
-      </>
+      </div>
     )}
 
     {onAdd && (

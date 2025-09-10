@@ -21,7 +21,7 @@ const PlatformSelector: React.FC<Props> = ({
   return (
     <div className='space-y-4'>
       <div>
-        <label className='mb-2 block text-sm font-medium text-gray-400'>
+        <label className='text-gray-400 mb-2 block text-sm font-medium'>
           Select Platform
         </label>
 
@@ -35,7 +35,7 @@ const PlatformSelector: React.FC<Props> = ({
               platform && onDataTypeChange(platform.types[0].value);
             }}
             className={`
-              w-full cursor-pointer appearance-none rounded-lg border border-gray-700 bg-gray-800
+              border-gray-700 bg-gray-800 w-full cursor-pointer appearance-none rounded-lg border
               px-4 py-3 text-white
               focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
             `}
@@ -48,14 +48,14 @@ const PlatformSelector: React.FC<Props> = ({
           </select>
 
           <i className={`
-            fas fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2
-            transform text-gray-400
+            fas fa-chevron-down text-gray-400 pointer-events-none absolute right-4 top-1/2
+            -translate-y-1/2 transform
           `}></i>
         </div>
       </div>
 
       <div>
-        <label className='mb-2 block text-sm font-medium text-gray-400'>
+        <label className='text-gray-400 mb-2 block text-sm font-medium'>
           Data Type
         </label>
 
@@ -64,7 +64,7 @@ const PlatformSelector: React.FC<Props> = ({
             value={selectedDataType}
             onChange={(e) => onDataTypeChange(e.target.value)}
             className={`
-              w-full cursor-pointer appearance-none rounded-lg border border-gray-700 bg-gray-800
+              border-gray-700 bg-gray-800 w-full cursor-pointer appearance-none rounded-lg border
               px-4 py-3 text-white
               focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
             `}
@@ -77,8 +77,8 @@ const PlatformSelector: React.FC<Props> = ({
           </select>
 
           <i className={`
-            fas fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2
-            transform text-gray-400
+            fas fa-chevron-down text-gray-400 pointer-events-none absolute right-4 top-1/2
+            -translate-y-1/2 transform
           `}></i>
         </div>
       </div>

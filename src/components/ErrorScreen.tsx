@@ -6,13 +6,13 @@ const ErrorScreen = () => {
   return (
     <div
       className={`
-        flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-950 to-gray-900
+        from-gray-950 to-gray-900 flex min-h-screen items-center justify-center bg-gradient-to-br
         p-4
       `}
     >
       <div className='text-center'>
         <div className='relative mb-8'>
-          <div className='text-8xl font-bold text-gray-800'>404</div>
+          <div className='text-gray-800 text-8xl font-bold'>404</div>
 
           <div
             className={`
@@ -33,7 +33,7 @@ const ErrorScreen = () => {
           target='_blank'
           rel='noopener noreferrer'
           className={`
-            mb-8 inline-block cursor-pointer text-gray-400 underline decoration-dotted
+            text-gray-400 mb-8 inline-block cursor-pointer underline decoration-dotted
             underline-offset-4 transition-colors duration-200
             hover:text-blue-400 hover:decoration-solid
           `}

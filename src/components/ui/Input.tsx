@@ -1,14 +1,16 @@
 import React from 'react';
+import { cn } from '../../utils';
 
 type Props = {
   id: string;
   label?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
   required?: boolean;
   currency?: boolean;
+  disabled?: boolean;
 };
 
 const Input = ({
@@ -20,6 +22,7 @@ const Input = ({
   type = 'text',
   required = false,
   currency = false,
+  disabled = false,
 }: Props) => {
   return (
     <div className='flex flex-col gap-2'>
@@ -34,28 +37,29 @@ const Input = ({
 
       <div className='relative w-full'>
         <input
+          readOnly={disabled}
           id={id}
           type={type}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
           required={required}
-          className={`
+          className={cn(`
             block h-9 w-full rounded border border-marine-4 bg-coral-9 p-[6px] text-sm font-medium
             text-coral
             placeholder:text-coral-6
             focus:border-marine-4 focus:outline-none focus:ring-0 focus:ring-marine-4
-            ${
-    currency ? 'pr-12' : ''
-    }
-          `}
+          `,
+          currency && 'pr-12',
+          disabled && 'select-text caret-transparent',
+          )}
         />
 
         {currency && (
           <div
             className={`
-              pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 rounded bg-dark-blue p-1
-              text-sm font-medium text-marine
+              pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 rounded
+              bg-purple-gradient p-1 text-sm font-medium text-white
             `}>
             DAAC
           </div>

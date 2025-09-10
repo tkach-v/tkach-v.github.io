@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router';
-import { SOURCES_DATA } from '../../api/client/config';
 import { useUser } from '../../contexts/UserContext';
-import { TabPathes, UserData } from '../../types';
-import SourceCard from '../cards/SourceCard';
-import Swipper from '../onbording/Swipper';
+import { TabPathes } from '../../types';
 import Button from '../ui/Button';
-import Tag from '../ui/Tag';
+import ArrowsLine from '../../assets/icons/ArrowsLine';
+import React from 'react';
 
 export const assets = ['All', 'Music', 'NFT', 'Dataset', 'Links', 'Retweets'];
 
@@ -52,76 +50,62 @@ const UserTab = () => {
   };*/
 
   return (
-    <div className='space-y-6'>
-      <Swipper />
-
+    <div className='mt-[20px] flex h-full flex-col justify-between space-y-3'>
       <div className='flex flex-col gap-3'>
-        <div className='flex flex-col font-medium'>
-          <h2 className='text-lg text-marine'>Your Data:</h2>
+        <h2 className='text-base font-medium text-white'>Your Assets:</h2>
 
-          <span className='text-xs text-teal-2'>
-            Earn income quickly and securely by connecting your profiles from
-            trusted platforms:
-          </span>
+        <div className='flex w-full flex-row gap-3'>
+          <div
+            className='flex-1 cursor-pointer rounded-xl bg-linear-dark p-[1px]'
+            onClick={() => goToData(TabPathes.ASSETS)}
+          >
+            <div className='relative overflow-hidden rounded-xl'>
+              <img
+                className='h-[214px] w-full object-cover'
+                src='/images/music.jpg'
+                alt='music'
+              />
+
+              <div className='absolute inset-0 bg-black_gradient' />
+
+              <div className='absolute bottom-0 left-0 right-0 p-2'>
+                <p className='text-sm font-medium text-white'>
+                  Monetise your music & assets
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className='flex-1 cursor-pointer rounded-xl bg-linear-dark p-[1px]'
+            onClick={() => goToData(TabPathes.ASSETS)}
+          >
+            <div className='relative overflow-hidden rounded-xl'>
+              <img
+                className='h-[214px] w-full object-cover'
+                src='/images/social_media.png'
+                alt='social media'
+              />
+
+              <div className='absolute inset-0 bg-black_gradient' />
+
+              <div className='absolute bottom-0 left-0 right-0 p-2'>
+                <p className='text-sm font-medium text-white'>
+                  Monetise your social media presence
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {SOURCES_DATA.filter(
-          (source) => !!userData?.[source.key as keyof UserData],
-        ).map((source) => (
-          <SourceCard
-            key={source.key}
-            source={source}
-            connected={!!userData?.[source.key as keyof UserData]}
-          />
-        ))}
-
+      <div className='mt-auto flex'>
         <Button
           onClick={() => goToData(TabPathes.DATA)}
           variant='solid'
-          iconBack={<i className='fa-solid fa-arrow-right' />}
+          iconBack={<ArrowsLine color='currentColor'/>}
         >
-          Connect data
-        </Button>
-      </div>
-
-      <div className='flex flex-col gap-3'>
-        <div className='flex flex-col font-medium'>
-          <h2 className='text-lg text-marine'>Your Assets:</h2>
-
-          <span className='text-xs text-teal-2'>
-            You haven't any assets yet
-          </span>
-
-          <div className='scrollbar-hide mt-2 flex w-full flex-row gap-2 overflow-x-auto p-1'>
-            {assets &&
-              assets.map((asset, index) => (
-                <Tag key={index} text={asset} active />
-              ))}
-          </div>
-        </div>
-
-        <Button
-          onClick={() => goToData(TabPathes.ASSETS)}
-          variant='solid'
-          iconBack={<i className='fa-solid fa-plus' />}
-        >
-          Add asset
-        </Button>
-      </div>
-
-      <div className='flex flex-col gap-3'>
-        <div className='flex flex-col font-medium'>
-          <h2 className='text-lg text-marine'>Wallet:</h2>
-
-          <span className='text-xs text-teal-2'>Here will be your balance</span>
-        </div>
-
-        <Button
-          onClick={() => goToData(TabPathes.WALLET)}
-          variant='solid'
-          iconBack={<i className='fa-solid fa-arrow-right' />}
-        >
-          Connect wallet
+          Connect your data
         </Button>
       </div>
 

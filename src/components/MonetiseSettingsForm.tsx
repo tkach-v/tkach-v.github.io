@@ -12,6 +12,7 @@ import Range from '../components/ui/Range';
 import Checkbox from './ui/Checkbox';
 import Wallet from '../assets/icons/Wallet';
 import Copy from '../assets/icons/Copy';
+import { Link } from 'react-router';
 
 const MonetiseSettingsForm = () => {
   const form = useForm<MonetiseSettingsFormValues>({
@@ -47,11 +48,18 @@ const MonetiseSettingsForm = () => {
           <BackButton />
 
           <div className='text-sm font-semibold'>
-            <h2 className='text-green-blue-0'>Settings</h2>
+            <h2 className='text-green-blue-0'>New Asset</h2>
 
-            <div className='text-green-blue-2'>Monetise Settings</div>
+            <div className='text-green-blue-2'>Asset input details</div>
           </div>
         </div>
+
+        <Input
+          value='Electro Odyssey'
+          label='Asset Name'
+          placeholder='Asset Name'
+          id='Asset Name'
+        />
 
         <div className='flex flex-col font-medium'>
           <h2 className='text-sm text-coral'>Asset info:</h2>
@@ -146,7 +154,28 @@ const MonetiseSettingsForm = () => {
                       {...field}
                       checked={field.value}
                       onChange={(val) => field.onChange(val)}
-                      label='I agree to the License / Usage Terms'
+                      label={
+                        <div className={`
+                          w-full text-left text-sm font-medium text-green-blue-2 transition-colors
+                        `}>
+                            l acknowledge that I agree to the
+                          <Link className={`
+                            mx-1 bg-green-gradient bg-clip-text text-transparent underline
+                            decoration-neon-green
+                          `}>
+                              Terms of Use
+                          </Link>
+
+                            and have read the
+
+                          <Link className={`
+                            ml-1 bg-green-gradient bg-clip-text text-transparent underline
+                            decoration-neon-green
+                          `}>
+                              Privacy Policy
+                          </Link>.
+                        </div>
+                      }
                     />
                   </FormControl>
 
