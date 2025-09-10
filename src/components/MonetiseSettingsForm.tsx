@@ -14,6 +14,7 @@ import Wallet from '../assets/icons/Wallet';
 import Copy from '../assets/icons/Copy';
 import { Link } from 'react-router';
 import ArrowsLine from '../assets/icons/ArrowsLine';
+import { copyToClipboard } from '../utils';
 
 const MonetiseSettingsForm = () => {
   const form = useForm<MonetiseSettingsFormValues>({
@@ -33,13 +34,8 @@ const MonetiseSettingsForm = () => {
   const [copyText, setCopyText] = useState('Copy address');
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(address);
-      setCopyText('Copied');
-      setTimeout(() => setCopyText('Copy address'), 3000);
-    } catch (err) {
-      console.error('Failed to copy!', err);
-    }
+    copyToClipboard(address);
+    setTimeout(() => setCopyText('Copy address'), 3000); // TODO: remove
   };
 
   return (

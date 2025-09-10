@@ -4,6 +4,7 @@ import HistoryItem from '../../components/HistoryItem';
 import XData from '../../assets/icons/XData';
 import Chart from '../../assets/icons/Chart';
 import DataBase from '../../assets/icons/DataBase';
+import WalletGraph from '../WalletGraph';
 
 const data = {
   'Fri 28 Jun, 2024': [
@@ -39,6 +40,8 @@ const WalletTab = () => {
   return (
     <div className='mt-[20px] flex flex-col gap-2'>
       <WalletBar active={activeTab} onChange={(value) => setActiveTab(value)} />
+
+      <WalletGraph />
 
       <span className='text-sm font-medium text-white'>
         History:
