@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../utils';
 
 type Props = {
-  label: string;
+  label: React.ReactNode;
   checked: boolean;
   onChange: (checked: boolean) => void;
 };
@@ -17,10 +17,10 @@ const Checkbox = ({ label, checked, onChange }: Props) => {
         onChange={(e) => onChange(e.target.checked)}
         className={cn(
           `
-            h-5 w-5 rounded-sm border border-green-blue-1 accent-green-blue-1
-            focus:ring-green-blue-1
+            h-5 w-5 rounded-sm border border-neon-green accent-neon-green
+            focus:ring-neon-green
           `,
-          checked ? 'bg-green-blue-1' : 'appearance-none',
+          checked ? 'bg-neon-green' : 'appearance-none',
         )}
       />
 

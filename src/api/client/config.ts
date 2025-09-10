@@ -36,7 +36,7 @@ export const SOURCES_DATA: Source[] = [
     key: 'xConnected',
     name: 'X',
     icon: 'fab fa-x-twitter',
-    color: '#000000',
+    color: '#fff',
     disabled: false,
   },
   {

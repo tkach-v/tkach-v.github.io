@@ -16,8 +16,8 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, defaultOpen = fa
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          text-md flex w-full items-center justify-between text-left font-medium text-green-blue-1
-          transition-colors
+          text-md flex w-full items-center justify-between text-left font-medium uppercase
+          text-green-blue-1 transition-colors
         `}
       >
         <span>{title}</span>

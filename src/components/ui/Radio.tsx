@@ -22,10 +22,10 @@ const Radio = ({ label, name, value, checked, onChange }: Props) => {
         className={cn(
           `
             mr-3 h-[20px] w-[20px] cursor-pointer appearance-none rounded-full border
-            border-green-blue-1 transition-all duration-300
+            border-neon-green transition-all duration-300
             focus:outline-none
           `,
-          checked ? 'border-[6px] border-green-blue-1' : 'border-2 border-green-blue-1',
+          checked ? 'border-[6px] border-neon-green' : 'border-2 border-neon-green',
         )}
       />
 

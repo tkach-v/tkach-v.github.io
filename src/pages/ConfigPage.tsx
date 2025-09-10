@@ -6,6 +6,8 @@ import Checkbox from '../components/ui/Checkbox';
 import Button from '../components/ui/Button';
 import { useTelegram } from '../contexts/TelegramContext';
 import { deleteUser } from '../api/user';
+import ArrowsLine from '../assets/icons/ArrowsLine';
+import { Link } from 'react-router';
 
 const ConfigPage = () => {
   const [selected, setSelected] = useState('access');
@@ -41,11 +43,11 @@ const ConfigPage = () => {
     >
       <div className='mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4'>
         <div className='flex flex-col gap-6'>
-          <div className='flex flex-row gap-2'>
+          <div className='flex flex-row gap-2 border-b border-neon-green pb-2'>
             <BackButton />
 
             <div className='text-sm font-semibold text-green-blue-0'>
-              <h2 className='text-marine'>Controls</h2>
+              <h2 className='text-white'>Controls</h2>
 
               <div className='text-green-blue-2'>
                 Here you can configure your preferences
@@ -138,24 +140,6 @@ const ConfigPage = () => {
               </div>
             </Accordion>
 
-            <Accordion title='Data Deletion'>
-              <div className='flex flex-col gap-4 pt-4'>
-                <Button
-                  onClick={() => console.log('Delete my data')}
-                  variant='outlined'
-                >
-                  Delete my data
-                </Button>
-
-                <Button
-                  onClick={() => console.log('Delete my account')}
-                  variant='outlined'
-                >
-                  Delete my account
-                </Button>
-              </div>
-            </Accordion>
-
             <Accordion title='Revenue preferences'>
               <div className='flex flex-col pt-4'>
                 <Radio
@@ -205,17 +189,57 @@ const ConfigPage = () => {
                 />
               </div>
             </Accordion>
+
+            <Accordion title='Unconnection controls '>
+              <div className='flex flex-col gap-4 pt-4'>
+                <Button
+                  onClick={() => console.log('Delete my account')}
+                  variant='outlinedPink'
+                >
+                  Delete my account
+                </Button>
+              </div>
+            </Accordion>
+            
+            <div className='flex flex-col gap-2'>
+              <div
+                className={`
+                  text-md flex w-full items-center justify-between text-left font-medium uppercase
+                  text-green-blue-1 transition-colors
+                `}
+              >
+                Privacy Policy
+              </div>
+
+              <div className={`
+                w-full text-left text-sm font-medium text-green-blue-2 transition-colors
+              `}>
+                l acknowledge that I agree to the
+                <Link className={`
+                  mx-1 bg-green-gradient bg-clip-text text-transparent underline
+                  decoration-neon-green
+                `}>
+                  Terms of Use
+                </Link>
+
+                and have read the
+
+                <Link className={`
+                  ml-1 bg-green-gradient bg-clip-text text-transparent underline
+                  decoration-neon-green
+                `}>
+                  Privacy Policy
+                </Link>.
+              </div>
+            </div>
           </div>
         </div>
 
         <div className='mt-auto flex flex-col gap-4'>
-          <Button onClick={logout} variant='outlined'>
-            Logout
-          </Button>
-
           <Button
             onClick={() => console.log(' Save Preferences clicked')}
             variant='solid'
+            iconBack={<ArrowsLine color='currentColor'/>}
           >
             Save Preferences
           </Button>
