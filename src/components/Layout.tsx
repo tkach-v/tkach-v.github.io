@@ -63,8 +63,8 @@ const Layout: React.FC = () => {
         >
           <div
             className={`
-              from-gray-950 via-gray-900 to-gray-950 flex-1 rounded-t-[32px] bg-gradient-to-br p-4
-              pb-20
+              from-gray-950 via-gray-900 to-gray-950 w-full flex-1 rounded-t-[32px]
+              bg-gradient-to-br p-4 pb-20
             `}
           >
             <TabBar />
