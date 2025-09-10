@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React from 'react';
+import ProgressBar from './ProgressBar';
 
 type Props = {
   total: number;
@@ -6,21 +7,20 @@ type Props = {
   text?: string;
 };
 
-const Progress: FC<Props> = ({ total, ready, text }) => {
-  const progress = (ready / total) * 100;
-
+const Progress: React.FC<Props> = ({ total, ready }) => {
   return (
-    <div className='flex flex-1 items-center gap-2'>
-      <div className='relative h-2 w-full rounded-md bg-white'>
-        <div
-          className={`
-            absolute bottom-0 left-0 top-0 rounded-md bg-[#262A31]
-            w-[${progress}%]
-          `}
-        ></div>
-      </div>
+    <div className={'flex w-full flex-col justify-between'}>
+      <span className='text-sm font-bold text-black'>Onboarding Progress:</span>
 
-      {text && <span className='text-xs font-bold text-black'>{text}</span>}
+      <div className='flex flex-col gap-1'>
+        <div className='flex gap-0.5 text-xs text-black'>
+          <span className='font-medium'>Complete all steps to receive</span>
+
+          <span className='font-bold'>10 DAAC</span>
+        </div>
+
+        <ProgressBar total={total} ready={ready} text={`${ready}/${total}`} />
+      </div>
     </div>
   );
 };

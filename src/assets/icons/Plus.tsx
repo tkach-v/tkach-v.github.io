@@ -16,7 +16,7 @@ const Plus = ({ width = 20, height = 20 }: Props) => {
     >
       <path
         d='M7 1V13M1 7H13'
-        stroke='#99D6FB'
+        stroke='#FFFFFF'
         stroke-linecap='round'
         stroke-linejoin='round'
       />
