@@ -29,7 +29,7 @@ const Range = ({ value, setValue, label }: Props) => {
 
           <div className='h-2 rounded-full bg-white'>
             <div
-              className='bg-purple-light-gradient h-2 rounded-full'
+              className='h-2 rounded-full bg-purple-light-gradient'
               style={{ width: `${value}%` }}
             />
           </div>

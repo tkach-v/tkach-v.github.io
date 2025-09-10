@@ -15,14 +15,14 @@ const YtLikedVideoCard: React.FC<Props> = ({ item }) => (
 
     <h4 className='mb-1 font-semibold text-white'>{item.title}</h4>
 
-    <p className='mb-2 text-sm text-gray-400'>{item.channelTitle}</p>
+    <p className='text-gray-400 mb-2 text-sm'>{item.channelTitle}</p>
 
-    <p className='text-xs text-gray-500'>
+    <p className='text-gray-500 text-xs'>
       {new Date(item.videoPublishedAt).toLocaleDateString()}
     </p>
 
     {item.description && (
-      <p className='mt-2 line-clamp-3 text-sm text-gray-300'>
+      <p className='text-gray-300 mt-2 line-clamp-3 text-sm'>
         {item.description}
       </p>
     )}

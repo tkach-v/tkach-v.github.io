@@ -31,7 +31,7 @@ const DataCard: React.FC<Props<any>> = ({ item, dataType }) => {
       return <RecentlyPlayedCard item={item} />;
     default:
       return (
-        <pre className='text-xs text-gray-400'>
+        <pre className='text-gray-400 text-xs'>
           {JSON.stringify(item, null, 2)}
         </pre>
       );
@@ -40,7 +40,7 @@ const DataCard: React.FC<Props<any>> = ({ item, dataType }) => {
 
   return (
     <div className={`
-      rounded-xl bg-gray-800/50 p-4 transition-colors
+      bg-gray-800/50 rounded-xl p-4 transition-colors
       hover:bg-gray-800/70
     `}>
       {renderContent()}

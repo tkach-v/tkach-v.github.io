@@ -16,7 +16,7 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, icon }) => {
   return (
     <div
       className={`
-        flex items-start gap-3 border-b border-gray-800 py-2
+        border-gray-800 flex items-start gap-3 border-b py-2
         last:border-0
       `}
     >
@@ -24,12 +24,12 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, icon }) => {
         <i
           className={`
             ${icon}
-            mt-1 w-5 text-gray-500
+            text-gray-500 mt-1 w-5
           `}
         ></i>
       )}
 
-      <span className='min-w-[100px] text-gray-400'>{label}:</span>
+      <span className='text-gray-400 min-w-[100px]'>{label}:</span>
 
       <span className='overflow-hidden whitespace-normal break-words text-white'>
         {value}
@@ -48,7 +48,7 @@ const UserInfoCard: React.FC<Props> = ({ userData }) => {
           <img
             src={userData.googlePicture}
             alt='Profile'
-            className='h-16 w-16 rounded-full ring-4 ring-gray-800'
+            className='ring-gray-800 h-16 w-16 rounded-full ring-4'
           />
 
           <div>
@@ -63,8 +63,8 @@ const UserInfoCard: React.FC<Props> = ({ userData }) => {
         </div>
       )}
 
-      <div className='rounded-xl bg-gray-800/50 p-4'>
-        <h4 className='mb-3 text-sm font-semibold uppercase text-gray-400'>
+      <div className='bg-gray-800/50 rounded-xl p-4'>
+        <h4 className='text-gray-400 mb-3 text-sm font-semibold uppercase'>
           Telegram Info
         </h4>
 
@@ -90,8 +90,8 @@ const UserInfoCard: React.FC<Props> = ({ userData }) => {
       </div>
 
       {userData.googleSub && (
-        <div className='overflow-hidden rounded-xl bg-gray-800/50 p-4'>
-          <h4 className='mb-3 text-sm font-semibold uppercase text-gray-400'>
+        <div className='bg-gray-800/50 overflow-hidden rounded-xl p-4'>
+          <h4 className='text-gray-400 mb-3 text-sm font-semibold uppercase'>
             Google Account
           </h4>
 
@@ -110,8 +110,8 @@ const UserInfoCard: React.FC<Props> = ({ userData }) => {
       )}
 
       {userData.geoCity && (
-        <div className='rounded-xl bg-gray-800/50 p-4'>
-          <h4 className='mb-3 text-sm font-semibold uppercase text-gray-400'>
+        <div className='bg-gray-800/50 rounded-xl p-4'>
+          <h4 className='text-gray-400 mb-3 text-sm font-semibold uppercase'>
             Location & Device
           </h4>
 

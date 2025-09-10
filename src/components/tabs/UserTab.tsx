@@ -66,7 +66,7 @@ const UserTab = () => {
                 alt='music'
               />
 
-              <div className='bg-black_gradient absolute inset-0' />
+              <div className='absolute inset-0 bg-black_gradient' />
 
               <div className='absolute bottom-0 left-0 right-0 p-2'>
                 <p className='text-sm font-medium text-white'>
@@ -87,7 +87,7 @@ const UserTab = () => {
                 alt='social media'
               />
 
-              <div className='bg-black_gradient absolute inset-0' />
+              <div className='absolute inset-0 bg-black_gradient' />
 
               <div className='absolute bottom-0 left-0 right-0 p-2'>
                 <p className='text-sm font-medium text-white'>

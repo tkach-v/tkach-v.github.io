@@ -15,14 +15,14 @@ const YtSubscriptionCard: React.FC<Props> = ({ item }) => (
 
     <h4 className='mb-1 font-semibold text-white'>{item.title}</h4>
 
-    <p className='mb-2 text-sm text-gray-400'>Channel ID: {item.channelId}</p>
+    <p className='text-gray-400 mb-2 text-sm'>Channel ID: {item.channelId}</p>
 
-    <p className='text-xs text-gray-500'>
+    <p className='text-gray-500 text-xs'>
       Subscribed: {new Date(item.subscribedAt).toLocaleDateString()}
     </p>
 
     {item.description && (
-      <p className='mt-2 line-clamp-3 text-sm text-gray-300'>
+      <p className='text-gray-300 mt-2 line-clamp-3 text-sm'>
         {item.description}
       </p>
     )}

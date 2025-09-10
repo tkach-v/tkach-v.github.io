@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
   const { loading, error, userData } = useUser();
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950'>
+    <div className='from-gray-950 via-gray-900 to-gray-950 min-h-screen bg-gradient-to-br'>
       <div className='mx-auto max-w-2xl p-4 pb-20'>
         {userData && (
           <header className='mb-4 flex flex-row items-center gap-2'>

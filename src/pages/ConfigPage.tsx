@@ -38,7 +38,7 @@ const ConfigPage = () => {
   return (
     <div
       className={`
-        flex min-h-screen flex-col bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950
+        from-gray-950 via-gray-900 to-gray-950 flex min-h-screen flex-col bg-gradient-to-br
       `}
     >
       <div className='mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4'>
@@ -200,7 +200,7 @@ const ConfigPage = () => {
                 </Button>
               </div>
             </Accordion>
-            
+
             <div className='flex flex-col gap-2'>
               <div
                 className={`
@@ -211,25 +211,31 @@ const ConfigPage = () => {
                 Privacy Policy
               </div>
 
-              <div className={`
-                w-full text-left text-sm font-medium text-green-blue-2 transition-colors
-              `}>
+              <div
+                className={`
+                  w-full text-left text-sm font-medium text-green-blue-2 transition-colors
+                `}
+              >
                 l acknowledge that I agree to the
-                <Link className={`
-                  mx-1 bg-green-gradient bg-clip-text text-transparent underline
-                  decoration-neon-green
-                `}>
+                <Link
+                  className={`
+                    mx-1 bg-green-gradient bg-clip-text text-transparent underline
+                    decoration-neon-green
+                  `}
+                >
                   Terms of Use
                 </Link>
-
                 and have read the
 
-                <Link className={`
-                  ml-1 bg-green-gradient bg-clip-text text-transparent underline
-                  decoration-neon-green
-                `}>
+                <Link
+                  className={`
+                    ml-1 bg-green-gradient bg-clip-text text-transparent underline
+                    decoration-neon-green
+                  `}
+                >
                   Privacy Policy
-                </Link>.
+                </Link>
+                .
               </div>
             </div>
           </div>
@@ -239,7 +245,7 @@ const ConfigPage = () => {
           <Button
             onClick={() => console.log(' Save Preferences clicked')}
             variant='solid'
-            iconBack={<ArrowsLine color='currentColor'/>}
+            iconBack={<ArrowsLine color='currentColor' />}
           >
             Save Preferences
           </Button>
