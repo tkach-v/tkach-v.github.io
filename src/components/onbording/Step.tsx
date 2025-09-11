@@ -33,11 +33,7 @@ const Step: React.FC<Props> = ({ step }) => {
             {completed ? 'Task is complete' : title}
           </span>
 
-          {!completed && (
-            <span className='text-xs font-medium text-black'>
-              {description}
-            </span>
-          )}
+          <span className='text-xs font-medium text-black'>{description}</span>
         </div>
       </div>
     </div>
