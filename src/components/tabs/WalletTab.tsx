@@ -34,7 +34,6 @@ const data = {
   ],
 };
 
-
 const WalletTab = () => {
   const [activeTab, setActiveTab] = useState(1);
   return (
@@ -43,9 +42,7 @@ const WalletTab = () => {
 
       <WalletGraph />
 
-      <span className='text-sm font-medium text-white'>
-        History:
-      </span>
+      <span className='text-sm font-medium text-white'>History:</span>
 
       <div className='flex flex-col gap-2'>
         {Object.entries(data).map(([date, items]) => (
@@ -53,10 +50,7 @@ const WalletTab = () => {
             <span className='text-sm text-green-blue-3'>{date}</span>
 
             {items.map((item, index) => (
-              <HistoryItem
-                key={index}
-                {...item}
-              />
+              <HistoryItem key={index} {...item} />
             ))}
           </React.Fragment>
         ))}

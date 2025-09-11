@@ -1,17 +1,16 @@
-import { ethers } from 'ethers';
 import { useEffect } from 'react';
 import { API_CONFIG, SOURCES_DATA } from '../../api/client/config';
 import { useTelegram } from '../../contexts/TelegramContext';
 import { useUser } from '../../contexts/UserContext';
 import { Source, UserData } from '../../types';
-import { initWalletConnect } from '../../wallet';
 import SourceCard from '../cards/SourceCard';
 import { disconnect } from '../../api/disconnect';
-import { connectWallet, verifySignature } from '../../api/wallets';
+import { useWalletConnect } from '../../hooks/useWalletConnetc';
 
 const SourcesTab = () => {
   const { userData, loading, fetchUserData } = useUser();
   const { tgUser, tgApp } = useTelegram();
+  const { handleWalletConnect } = useWalletConnect();
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -46,33 +45,6 @@ const SourcesTab = () => {
     );
   }
 
-  const handleWalletConnect = async () => {
-    console.log('Connecting to Wallet...');
-
-    const provider = await initWalletConnect();
-    const ethersProvider = new ethers.BrowserProvider(provider);
-    const signer = await ethersProvider.getSigner();
-    const address = await signer.getAddress();
-
-    console.log('Connected address:', address);
-
-    try {
-      // 1. Fetch nonce from backend
-      const nonce = await connectWallet(tgUser?.id!, address);
-
-      // 2. Sign nonce
-      const signature = await signer.signMessage(`Sign to verify: ${nonce}`);
-
-      // 3. Send signature to backend
-      await verifySignature(tgUser?.id!, address, signature);
-
-      await fetchUserData();
-    } catch (error) {
-      //@ts-expect-error Type 'Error' includes message.
-      setError(err.message);
-    }
-  };
-
   const handleSourceToggle = async (source: Source) => {
     if (source.key === 'walletConnected') {
       return await handleWalletConnect();
@@ -103,7 +75,7 @@ const SourcesTab = () => {
     <div className='mt-[20px] space-y-6'>
       <div className='flex flex-col font-medium'>
         <h2 className='text-lg text-white'>Connect your data sources:</h2>
-        
+
         <span className='text-xs text-coral-2'>
           Earn income quickly and securely by connecting your profiles from
           trusted platforms:
