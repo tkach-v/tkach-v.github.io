@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SOURCES_DATA } from '../../api/client/config';
 import Asset from '../../assets/icons/Asset';
 import Connect from '../../assets/icons/Connect';
@@ -76,12 +76,27 @@ const Onboarding = () => {
     [stepsProgress],
   );
 
+  const [open, setOpen] = useState(false);
+  const [height, setHeight] = useState('0px');
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      if (open) {
+        setHeight(`${ref.current.scrollHeight}px`);
+      } else {
+        setHeight('0px');
+      }
+    }
+  }, [open]);
+
   return (
-    <div className='flex flex-col gap-4'>
+    <div className={'flex flex-col gap-4'}>
       <Progress
         total={TOTAL_STEPS}
         ready={stepsProgress.stepsCompleted}
         text={`${stepsProgress.stepsCompleted}/${TOTAL_STEPS}`}
+        onClick={() => setOpen(!open)}
       />
 
       {stepsProgress.stepsCompleted === 4 ? (
@@ -93,7 +108,13 @@ const Onboarding = () => {
           Connect your data
         </Button>
       ) : (
-        <div className='flex flex-col gap-3'>
+        <div
+          className={`
+            flex flex-col gap-3 overflow-hidden transition-[max-height] duration-500 ease-in-out
+            max-h-[${height}]
+          `}
+          ref={ref}
+        >
           {onboardingSteps.map((step) => (
             <Step step={step} key={step.id} />
           ))}

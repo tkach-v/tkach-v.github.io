@@ -57,9 +57,10 @@ const Layout: React.FC = () => {
         )}
 
         <div
-          className={
-            'flex flex-1 rounded-t-[32px] bg-linear-dark px-[1px] pt-[1px]'
-          }
+          className={`
+            flex flex-1 rounded-t-[32px] bg-linear-dark px-[1px] pt-[1px] transition-all
+            duration-500 ease-in-out
+          `}
         >
           <div
             className={`
