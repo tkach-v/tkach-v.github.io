@@ -2,6 +2,7 @@ import React from 'react';
 import { OnboardingStep } from '../../types';
 import Flag from '../../assets/icons/Flag';
 import { cn } from '../../utils';
+import { Link } from 'react-router';
 
 type Props = {
   step: OnboardingStep;
@@ -11,7 +12,10 @@ const Step: React.FC<Props> = ({ step }) => {
   const { title, description, completed, Icon } = step;
 
   return (
-    <div className={'flex h-[40px] w-full flex-col justify-center'}>
+    <Link
+      to={step.url}
+      className='flex h-[40px] w-full flex-col justify-center'
+    >
       <div className='flex w-full gap-3'>
         <div
           className={cn(
@@ -36,7 +40,7 @@ const Step: React.FC<Props> = ({ step }) => {
           <span className='text-xs font-medium text-black'>{description}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

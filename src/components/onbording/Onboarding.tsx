@@ -5,7 +5,7 @@ import Connect from '../../assets/icons/Connect';
 import Plus from '../../assets/icons/Plus';
 import Window from '../../assets/icons/Window';
 import { useUser } from '../../contexts/UserContext';
-import { OnboardingStep, UserData } from '../../types';
+import { OnboardingStep, TabPathes, UserData } from '../../types';
 import Step from './Step';
 import Progress from './Progress';
 import Button from '../ui/Button';
@@ -48,6 +48,7 @@ const Onboarding = () => {
         id: 1,
         title: 'Connect first data source',
         completed: stepsProgress.hasSourceConnected,
+        url: `/${TabPathes.DATA}`,
         description: 'Connect your data resource to complete',
         Icon: Plus,
       },
@@ -55,6 +56,7 @@ const Onboarding = () => {
         id: 2,
         title: 'Connect your wallet',
         completed: stepsProgress.hasWalletConnected,
+        url: `/${TabPathes.WALLET}`,
         description: 'Connect your crypto wallet to complete',
         Icon: Connect,
       },
@@ -62,6 +64,7 @@ const Onboarding = () => {
         id: 3,
         title: 'Create your first asset',
         completed: stepsProgress.hasAsset,
+        url: `/${TabPathes.ASSETS}`,
         description: 'Upload your first asset to complete',
         Icon: Window,
       },
@@ -69,6 +72,7 @@ const Onboarding = () => {
         id: 4,
         title: 'Create 2 media asset',
         completed: stepsProgress.hasTwoAssets,
+        url: `/${TabPathes.ASSETS}`,
         description: 'Upload media or art asset to complete',
         Icon: Asset,
       },
@@ -99,7 +103,7 @@ const Onboarding = () => {
         onClick={() => setOpen(!open)}
       />
 
-      {stepsProgress.stepsCompleted === 4 ? (
+      {stepsProgress.stepsCompleted === onboardingSteps.length ? (
         <Button
           onClick={() => console.log('Money!!!')}
           variant='solid'

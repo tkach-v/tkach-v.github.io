@@ -14,6 +14,7 @@ export enum TabPathes {
 export type OnboardingStep = {
   id: number;
   title: string;
+  url: string;
   completed: boolean;
   description?: string;
   Icon: (props: any) => React.JSX.Element;
