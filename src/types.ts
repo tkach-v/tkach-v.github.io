@@ -14,6 +14,7 @@ export enum TabPathes {
 export type OnboardingStep = {
   id: number;
   title: string;
+  url: string;
   completed: boolean;
   description?: string;
   Icon: (props: any) => React.JSX.Element;
@@ -110,6 +111,7 @@ export type UserData = {
   telegramLanguageCode: string | null;
   createdAt: string;
   updatedAt: string;
+  firstLogin: boolean;
 };
 
 export type Option = {

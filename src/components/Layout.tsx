@@ -33,7 +33,7 @@ const Layout: React.FC = () => {
     <div className='min-h-screen bg-gradient-to-br from-green to-neon-green'>
       <div className='mx-auto flex h-full max-w-2xl flex-col'>
         {userData && (
-          <header className='flex flex-1 flex-col px-4 py-2'>
+          <header className='flex flex-shrink-0 flex-col px-4 py-2'>
             <div className='flex flex-row items-center justify-between gap-2'>
               <h1 className='flex flex-col text-2xl font-semibold text-black'>
                 {`Hello, ${userData.telegramFirstName}`}
@@ -57,9 +57,10 @@ const Layout: React.FC = () => {
         )}
 
         <div
-          className={
-            'flex flex-1 rounded-t-[32px] bg-linear-dark px-[1px] pt-[1px]'
-          }
+          className={`
+            flex flex-1 rounded-t-[32px] bg-linear-dark px-[1px] pt-[1px] transition-all
+            duration-500 ease-in-out
+          `}
         >
           <div
             className={`

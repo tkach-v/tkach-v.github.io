@@ -5,6 +5,7 @@ import XData from '../../assets/icons/XData';
 import Chart from '../../assets/icons/Chart';
 import DataBase from '../../assets/icons/DataBase';
 import WalletGraph from '../WalletGraph';
+import WalletOverlay from '../WalletOverlay';
 
 const data = {
   'Fri 28 Jun, 2024': [
@@ -34,18 +35,17 @@ const data = {
   ],
 };
 
-
 const WalletTab = () => {
   const [activeTab, setActiveTab] = useState(1);
   return (
-    <div className='mt-[20px] flex flex-col gap-2'>
+    <div className='relative mt-[20px] flex flex-col gap-2'>
+      <WalletOverlay />
+
       <WalletBar active={activeTab} onChange={(value) => setActiveTab(value)} />
 
       <WalletGraph />
 
-      <span className='text-sm font-medium text-white'>
-        History:
-      </span>
+      <span className='text-sm font-medium text-white'>History:</span>
 
       <div className='flex flex-col gap-2'>
         {Object.entries(data).map(([date, items]) => (
@@ -53,10 +53,7 @@ const WalletTab = () => {
             <span className='text-sm text-green-blue-3'>{date}</span>
 
             {items.map((item, index) => (
-              <HistoryItem
-                key={index}
-                {...item}
-              />
+              <HistoryItem key={index} {...item} />
             ))}
           </React.Fragment>
         ))}

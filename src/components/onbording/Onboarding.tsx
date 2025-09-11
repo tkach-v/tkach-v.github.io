@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SOURCES_DATA } from '../../api/client/config';
 import Asset from '../../assets/icons/Asset';
 import Connect from '../../assets/icons/Connect';
 import Plus from '../../assets/icons/Plus';
 import Window from '../../assets/icons/Window';
 import { useUser } from '../../contexts/UserContext';
-import { OnboardingStep, UserData } from '../../types';
+import { OnboardingStep, TabPathes, UserData } from '../../types';
 import Step from './Step';
 import Progress from './Progress';
 import Button from '../ui/Button';
@@ -48,6 +48,7 @@ const Onboarding = () => {
         id: 1,
         title: 'Connect first data source',
         completed: stepsProgress.hasSourceConnected,
+        url: `/${TabPathes.DATA}`,
         description: 'Connect your data resource to complete',
         Icon: Plus,
       },
@@ -55,6 +56,7 @@ const Onboarding = () => {
         id: 2,
         title: 'Connect your wallet',
         completed: stepsProgress.hasWalletConnected,
+        url: `/${TabPathes.WALLET}`,
         description: 'Connect your crypto wallet to complete',
         Icon: Connect,
       },
@@ -62,6 +64,7 @@ const Onboarding = () => {
         id: 3,
         title: 'Create your first asset',
         completed: stepsProgress.hasAsset,
+        url: `/${TabPathes.ASSETS}`,
         description: 'Upload your first asset to complete',
         Icon: Window,
       },
@@ -69,6 +72,7 @@ const Onboarding = () => {
         id: 4,
         title: 'Create 2 media asset',
         completed: stepsProgress.hasTwoAssets,
+        url: `/${TabPathes.ASSETS}`,
         description: 'Upload media or art asset to complete',
         Icon: Asset,
       },
@@ -76,15 +80,30 @@ const Onboarding = () => {
     [stepsProgress],
   );
 
+  const [open, setOpen] = useState(false);
+  const [height, setHeight] = useState('0px');
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      if (open) {
+        setHeight(`${ref.current.scrollHeight}px`);
+      } else {
+        setHeight('0px');
+      }
+    }
+  }, [open]);
+
   return (
-    <div className='flex flex-col gap-4'>
+    <div className={'flex flex-col gap-4'}>
       <Progress
         total={TOTAL_STEPS}
         ready={stepsProgress.stepsCompleted}
         text={`${stepsProgress.stepsCompleted}/${TOTAL_STEPS}`}
+        onClick={() => setOpen(!open)}
       />
 
-      {stepsProgress.stepsCompleted === 4 ? (
+      {stepsProgress.stepsCompleted === onboardingSteps.length ? (
         <Button
           onClick={() => console.log('Money!!!')}
           variant='solid'
@@ -93,7 +112,13 @@ const Onboarding = () => {
           Connect your data
         </Button>
       ) : (
-        <div className='flex flex-col gap-3'>
+        <div
+          className={`
+            flex flex-col gap-3 overflow-hidden transition-[max-height] duration-500 ease-in-out
+            max-h-[${height}]
+          `}
+          ref={ref}
+        >
           {onboardingSteps.map((step) => (
             <Step step={step} key={step.id} />
           ))}

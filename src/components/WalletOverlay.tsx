@@ -1,14 +1,27 @@
+import { useUser } from '../contexts/UserContext';
+import { useWalletConnect } from '../hooks/useWalletConnetc';
+import Button from './ui/Button';
+
 const WalletOverlay = () => {
-  return (
-    <div className={`
-      absolute inset-0 z-50 flex flex-1 items-center justify-center bg-black/40 backdrop-blur-sm
-    `}>
-      <div className='rounded-lg bg-black/60 px-6 py-3 text-white shadow-lg'>
+  const { userData } = useUser();
+  const { handleWalletConnect } = useWalletConnect();
+
+  return !userData?.walletConnected ? null : (
+    <div
+      className={`
+        absolute inset-0 z-50 flex flex-1 items-center justify-center bg-black/40 backdrop-blur-sm
+      `}
+    >
+      <Button
+        variant='outlined'
+        type='button'
+        className='w-5/6'
+        onClick={handleWalletConnect}
+      >
         Connect a wallet
-      </div>
+      </Button>
     </div>
   );
 };
 
 export default WalletOverlay;
-

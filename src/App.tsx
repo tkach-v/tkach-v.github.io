@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import ErrorScreen from './components/ErrorScreen';
 import Layout from './components/Layout';
@@ -12,12 +12,11 @@ import ConfigPage from './pages/ConfigPage';
 import NewAssetsPage from './pages/NewAssetsPage';
 import { RootPathes, TabPathes } from './types';
 import WalletTab from './components/tabs/WalletTab';
+import SplashPage from './pages/SplashPage';
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
-
   const { tgApp, tgUser } = useTelegram();
-  const { fetchUserData } = useUser();
+  const { fetchUserData, userData } = useUser();
 
   useEffect(() => {
     if (tgApp) {
@@ -40,28 +39,30 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {/* {isReady ? ( */}
-      <Routes>
-        <Route path={RootPathes.ROOT} element={<Layout />}>
-          <Route index element={<Navigate to={TabPathes.DASHBOARD} replace />} />
+      {userData?.firstLogin ? (
+        <SplashPage />
+      ) : (
+        <Routes>
+          <Route path={RootPathes.ROOT} element={<Layout />}>
+            <Route
+              index
+              element={<Navigate to={TabPathes.DASHBOARD} replace />}
+            />
 
-          <Route path={TabPathes.DASHBOARD} element={<UserTab />} />
+            <Route path={TabPathes.DASHBOARD} element={<UserTab />} />
 
-          <Route path={TabPathes.DATA} element={<SourcesTab />} />
+            <Route path={TabPathes.DATA} element={<SourcesTab />} />
 
-          <Route path={TabPathes.ASSETS} element={<AssetsTab />} />
+            <Route path={TabPathes.ASSETS} element={<AssetsTab />} />
 
-          <Route path={TabPathes.WALLET} element={<WalletTab/>} />
-        </Route>
+            <Route path={TabPathes.WALLET} element={<WalletTab />} />
+          </Route>
 
-        <Route path={RootPathes.CONFIG} element={<ConfigPage />} />
+          <Route path={RootPathes.CONFIG} element={<ConfigPage />} />
 
-        <Route path={RootPathes.NEW_ASSET} element={<NewAssetsPage />} />
-      </Routes>
-
-      {/* ) : (
-        <SplashScreen setIsReady={setIsReady} />
-      )} */}
+          <Route path={RootPathes.NEW_ASSET} element={<NewAssetsPage />} />
+        </Routes>
+      )}
     </BrowserRouter>
   );
 };

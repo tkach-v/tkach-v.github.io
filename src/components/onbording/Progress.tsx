@@ -5,11 +5,12 @@ type Props = {
   total: number;
   ready: number;
   text?: string;
+  onClick?: () => void;
 };
 
-const Progress: React.FC<Props> = ({ total, ready }) => {
+const Progress: React.FC<Props> = ({ total, ready, onClick }) => {
   return (
-    <div className={'flex w-full flex-col justify-between'}>
+    <div className={'flex w-full flex-col justify-between'} onClick={onClick}>
       <span className='text-sm font-bold text-black'>Onboarding Progress:</span>
 
       <div className='flex flex-col gap-1'>

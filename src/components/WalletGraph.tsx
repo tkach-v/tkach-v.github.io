@@ -89,7 +89,6 @@ const WalletGraph = () => {
               color: '#91F800',
               area: { fill: '#91F80080' },
             }),
-            padding: 0,
             tooltip: false,
             primaryCursor: false,
             secondaryCursor: false,
