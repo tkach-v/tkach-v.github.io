@@ -12,3 +12,7 @@ export const deleteUser = async (id: number) => {
   const response = await axiosInstance.delete(path, { data: { id } });
   return response.data;
 };
+
+export const setFirstLogin = async (id: number) => {
+  await axiosInstance.post(`${path}/set_first_login`, { id });
+};

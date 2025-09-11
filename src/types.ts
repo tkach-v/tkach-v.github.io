@@ -110,6 +110,7 @@ export type UserData = {
   telegramLanguageCode: string | null;
   createdAt: string;
   updatedAt: string;
+  firstLogin: boolean;
 };
 
 export type Option = {
