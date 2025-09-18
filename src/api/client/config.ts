@@ -1,7 +1,7 @@
 import { Source } from '@/src/types';
 
 export const API_CONFIG = {
-  BASE_URL: 'https://robocorp-telegram-be.datafabdevelopment.com',
+  BASE_URL: 'https://quickly-pretty-pangolin.ngrok-free.app',
   SKIP_BROWSER_WARNING: '69420',
 };
 
